@@ -3,27 +3,103 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11A3E8BC9BBA3134726103C4 /* Pods_MIOTAGS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72BE82FC42FC286616EEDD9F /* Pods_MIOTAGS.framework */; };
+		3F0E4BBE2408F767001D4624 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0E4BBD2408F767001D4624 /* Constant.swift */; };
+		3F13B7FF23E94E8A000E0516 /* statusbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F13B7FE23E94E8A000E0516 /* statusbar.swift */; };
+		3F13B80123E95D48000E0516 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F13B80023E95D48000E0516 /* Main.storyboard */; };
 		3F18864123E846320038061A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F18864023E846320038061A /* AppDelegate.swift */; };
 		3F18864323E846320038061A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F18864223E846320038061A /* ViewController.swift */; };
-		3F18864623E846320038061A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F18864423E846320038061A /* Main.storyboard */; };
 		3F18864923E846320038061A /* MIOTAGS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3F18864723E846320038061A /* MIOTAGS.xcdatamodeld */; };
 		3F18864B23E846320038061A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F18864A23E846320038061A /* Assets.xcassets */; };
 		3F18864E23E846320038061A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F18864C23E846320038061A /* LaunchScreen.storyboard */; };
+		3F18865D23E849F50038061A /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F18865C23E849F50038061A /* LoginVC.swift */; };
+		3F18866023E84A350038061A /* CustomTF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F18865F23E84A350038061A /* CustomTF.swift */; };
+		3F18866323E84CC10038061A /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F18866223E84CC10038061A /* Constraints.swift */; };
+		3F18866523E84D420038061A /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F18866423E84D420038061A /* ColorExtension.swift */; };
+		3F28BA8323ED2A090067457F /* Sidemenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F28BA8223ED2A090067457F /* Sidemenu.swift */; };
+		3F28BA8523ED713C0067457F /* HistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F28BA8423ED713C0067457F /* HistoryVC.swift */; };
+		3F6C8E4A2405376700799CC2 /* TermsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6C8E492405376700799CC2 /* TermsVC.swift */; };
+		3F85F6D424065FFE00B82122 /* MenuBTN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85F6D324065FFE00B82122 /* MenuBTN.swift */; };
+		3F85F6D624067ACB00B82122 /* CheckboxBTN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85F6D524067ACB00B82122 /* CheckboxBTN.swift */; };
+		3F85F6D824067C4F00B82122 /* CustomSideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85F6D724067C4F00B82122 /* CustomSideMenu.swift */; };
+		3F85F6DA240688F000B82122 /* ESupportDoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85F6D9240688F000B82122 /* ESupportDoneVC.swift */; };
+		3F8C786D23FEC32D000BDB41 /* Notescell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8C786C23FEC32D000BDB41 /* Notescell.swift */; };
+		3F93750523FD8044008A762C /* AddnoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F93750423FD8044008A762C /* AddnoteVC.swift */; };
+		3F945BD623EA9D64002B996F /* TFextension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F945BD523EA9D64002B996F /* TFextension.swift */; };
+		3F945BDA23EA9EEA002B996F /* Viewextension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F945BD923EA9EEA002B996F /* Viewextension.swift */; };
+		3F945BDC23EADC56002B996F /* SwitchBTN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F945BDB23EADC56002B996F /* SwitchBTN.swift */; };
+		3F94613723F12870009D1723 /* OptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F94613623F12870009D1723 /* OptionVC.swift */; };
+		3F94613923F145C6009D1723 /* Lblextension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F94613823F145C6009D1723 /* Lblextension.swift */; };
+		3F94613B23F166F0009D1723 /* InfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F94613A23F166F0009D1723 /* InfoVC.swift */; };
+		3F94613D23F17F95009D1723 /* MApVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F94613C23F17F95009D1723 /* MApVC.swift */; };
+		3F94613F23F19ACC009D1723 /* NotesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F94613E23F19ACC009D1723 /* NotesVC.swift */; };
+		3F94614123F19CBF009D1723 /* PicVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F94614023F19CBF009D1723 /* PicVC.swift */; };
+		3F965B8F23F2755F0000CB03 /* TapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F965B8E23F2755F0000CB03 /* TapVC.swift */; };
+		3F965B9123F288100000CB03 /* TagsuccessVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F965B9023F288100000CB03 /* TagsuccessVC.swift */; };
+		3F965B9323F28D9A0000CB03 /* Tagfailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F965B9223F28D9A0000CB03 /* Tagfailure.swift */; };
+		3F965B9823F2C93F0000CB03 /* NavigationModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F965B9723F2C93F0000CB03 /* NavigationModels.swift */; };
+		3FA7B30D23EBE4B300CA6FD8 /* MyprofileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA7B30C23EBE4B300CA6FD8 /* MyprofileVC.swift */; };
+		3FA7B30F23EBFA6E00CA6FD8 /* SupportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA7B30E23EBFA6E00CA6FD8 /* SupportVC.swift */; };
+		3FA7B31123EC247700CA6FD8 /* SupportdoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA7B31023EC247700CA6FD8 /* SupportdoneVC.swift */; };
+		3FA7B31523EC366100CA6FD8 /* TapScanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA7B31423EC366100CA6FD8 /* TapScanVC.swift */; };
+		3FA81016240E22B1009E8257 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA81015240E22B1009E8257 /* CustomView.swift */; };
+		3FA81018240E579E009E8257 /* CustomLBL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA81017240E579E009E8257 /* CustomLBL.swift */; };
+		3FA8101A240E8F84009E8257 /* CustomHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA81019240E8F84009E8257 /* CustomHeader.swift */; };
+		3FEE5CFF2403AA280066D855 /* ErrorSupportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEE5CFE2403AA280066D855 /* ErrorSupportVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		18D8AF7C9F6BACC174AD0430 /* Pods-MIOTAGS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIOTAGS.release.xcconfig"; path = "Target Support Files/Pods-MIOTAGS/Pods-MIOTAGS.release.xcconfig"; sourceTree = "<group>"; };
+		3F0E4BBD2408F767001D4624 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		3F13B7FE23E94E8A000E0516 /* statusbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = statusbar.swift; sourceTree = "<group>"; };
+		3F13B80023E95D48000E0516 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../../../../.Trash/Main.storyboard; sourceTree = "<group>"; };
 		3F18863D23E846320038061A /* MIOTAGS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MIOTAGS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F18864023E846320038061A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F18864223E846320038061A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		3F18864523E846320038061A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3F18864823E846320038061A /* MIOTAGS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MIOTAGS.xcdatamodel; sourceTree = "<group>"; };
 		3F18864A23E846320038061A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3F18864D23E846320038061A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3F18864F23E846320038061A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3F18865C23E849F50038061A /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		3F18865F23E84A350038061A /* CustomTF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTF.swift; sourceTree = "<group>"; };
+		3F18866223E84CC10038061A /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
+		3F18866423E84D420038061A /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		3F28BA8223ED2A090067457F /* Sidemenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidemenu.swift; sourceTree = "<group>"; };
+		3F28BA8423ED713C0067457F /* HistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryVC.swift; sourceTree = "<group>"; };
+		3F6C8E492405376700799CC2 /* TermsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsVC.swift; sourceTree = "<group>"; };
+		3F85F6D324065FFE00B82122 /* MenuBTN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBTN.swift; sourceTree = "<group>"; };
+		3F85F6D524067ACB00B82122 /* CheckboxBTN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxBTN.swift; sourceTree = "<group>"; };
+		3F85F6D724067C4F00B82122 /* CustomSideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSideMenu.swift; sourceTree = "<group>"; };
+		3F85F6D9240688F000B82122 /* ESupportDoneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ESupportDoneVC.swift; sourceTree = "<group>"; };
+		3F8C786C23FEC32D000BDB41 /* Notescell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notescell.swift; sourceTree = "<group>"; };
+		3F93750423FD8044008A762C /* AddnoteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddnoteVC.swift; sourceTree = "<group>"; };
+		3F945BD523EA9D64002B996F /* TFextension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TFextension.swift; sourceTree = "<group>"; };
+		3F945BD923EA9EEA002B996F /* Viewextension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Viewextension.swift; sourceTree = "<group>"; };
+		3F945BDB23EADC56002B996F /* SwitchBTN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchBTN.swift; sourceTree = "<group>"; };
+		3F94613623F12870009D1723 /* OptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionVC.swift; sourceTree = "<group>"; };
+		3F94613823F145C6009D1723 /* Lblextension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lblextension.swift; sourceTree = "<group>"; };
+		3F94613A23F166F0009D1723 /* InfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoVC.swift; sourceTree = "<group>"; };
+		3F94613C23F17F95009D1723 /* MApVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MApVC.swift; sourceTree = "<group>"; };
+		3F94613E23F19ACC009D1723 /* NotesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesVC.swift; sourceTree = "<group>"; };
+		3F94614023F19CBF009D1723 /* PicVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicVC.swift; sourceTree = "<group>"; };
+		3F965B8E23F2755F0000CB03 /* TapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapVC.swift; sourceTree = "<group>"; };
+		3F965B9023F288100000CB03 /* TagsuccessVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsuccessVC.swift; sourceTree = "<group>"; };
+		3F965B9223F28D9A0000CB03 /* Tagfailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tagfailure.swift; sourceTree = "<group>"; };
+		3F965B9723F2C93F0000CB03 /* NavigationModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationModels.swift; sourceTree = "<group>"; };
+		3FA7B30C23EBE4B300CA6FD8 /* MyprofileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyprofileVC.swift; sourceTree = "<group>"; };
+		3FA7B30E23EBFA6E00CA6FD8 /* SupportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportVC.swift; sourceTree = "<group>"; };
+		3FA7B31023EC247700CA6FD8 /* SupportdoneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportdoneVC.swift; sourceTree = "<group>"; };
+		3FA7B31423EC366100CA6FD8 /* TapScanVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapScanVC.swift; sourceTree = "<group>"; };
+		3FA81015240E22B1009E8257 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
+		3FA81017240E579E009E8257 /* CustomLBL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLBL.swift; sourceTree = "<group>"; };
+		3FA81019240E8F84009E8257 /* CustomHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeader.swift; sourceTree = "<group>"; };
+		3FEE5CFE2403AA280066D855 /* ErrorSupportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorSupportVC.swift; sourceTree = "<group>"; };
+		72BE82FC42FC286616EEDD9F /* Pods_MIOTAGS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MIOTAGS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0C23F6161E46E19A033E3A5 /* Pods-MIOTAGS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIOTAGS.debug.xcconfig"; path = "Target Support Files/Pods-MIOTAGS/Pods-MIOTAGS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +107,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11A3E8BC9BBA3134726103C4 /* Pods_MIOTAGS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		159E969D397C8A111785E385 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B0C23F6161E46E19A033E3A5 /* Pods-MIOTAGS.debug.xcconfig */,
+				18D8AF7C9F6BACC174AD0430 /* Pods-MIOTAGS.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		3F18863423E846320038061A = {
 			isa = PBXGroup;
 			children = (
 				3F18863F23E846320038061A /* MIOTAGS */,
 				3F18863E23E846320038061A /* Products */,
+				159E969D397C8A111785E385 /* Pods */,
+				5243E2AD3B5088B11FDFFCE2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +144,107 @@
 		3F18863F23E846320038061A /* MIOTAGS */ = {
 			isa = PBXGroup;
 			children = (
+				3F85F6D2240652BC00B82122 /* Models */,
+				3F28BA8123ED29E50067457F /* Menu */,
+				3F18866123E84CA70038061A /* Extensions */,
+				3F18865E23E84A200038061A /* Components */,
+				3F18865B23E849820038061A /* Main Controllers */,
 				3F18864023E846320038061A /* AppDelegate.swift */,
 				3F18864223E846320038061A /* ViewController.swift */,
-				3F18864423E846320038061A /* Main.storyboard */,
+				3F13B80023E95D48000E0516 /* Main.storyboard */,
 				3F18864A23E846320038061A /* Assets.xcassets */,
 				3F18864C23E846320038061A /* LaunchScreen.storyboard */,
 				3F18864F23E846320038061A /* Info.plist */,
 				3F18864723E846320038061A /* MIOTAGS.xcdatamodeld */,
 			);
 			path = MIOTAGS;
+			sourceTree = "<group>";
+		};
+		3F18865B23E849820038061A /* Main Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3F965B9423F28DAE0000CB03 /* options */,
+				3F18865C23E849F50038061A /* LoginVC.swift */,
+				3F6C8E492405376700799CC2 /* TermsVC.swift */,
+				3FA7B30C23EBE4B300CA6FD8 /* MyprofileVC.swift */,
+				3FA7B30E23EBFA6E00CA6FD8 /* SupportVC.swift */,
+				3FEE5CFE2403AA280066D855 /* ErrorSupportVC.swift */,
+				3FA7B31023EC247700CA6FD8 /* SupportdoneVC.swift */,
+				3FA7B31423EC366100CA6FD8 /* TapScanVC.swift */,
+				3F965B8E23F2755F0000CB03 /* TapVC.swift */,
+				3F965B9023F288100000CB03 /* TagsuccessVC.swift */,
+				3F965B9223F28D9A0000CB03 /* Tagfailure.swift */,
+				3F28BA8423ED713C0067457F /* HistoryVC.swift */,
+				3F85F6D9240688F000B82122 /* ESupportDoneVC.swift */,
+			);
+			path = "Main Controllers";
+			sourceTree = "<group>";
+		};
+		3F18865E23E84A200038061A /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				3F18865F23E84A350038061A /* CustomTF.swift */,
+				3FA81017240E579E009E8257 /* CustomLBL.swift */,
+				3FA81015240E22B1009E8257 /* CustomView.swift */,
+				3F85F6D324065FFE00B82122 /* MenuBTN.swift */,
+				3F945BDB23EADC56002B996F /* SwitchBTN.swift */,
+				3F85F6D524067ACB00B82122 /* CheckboxBTN.swift */,
+				3F85F6D724067C4F00B82122 /* CustomSideMenu.swift */,
+				3FA81019240E8F84009E8257 /* CustomHeader.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		3F18866123E84CA70038061A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3F18866223E84CC10038061A /* Constraints.swift */,
+				3F18866423E84D420038061A /* ColorExtension.swift */,
+				3F13B7FE23E94E8A000E0516 /* statusbar.swift */,
+				3F945BD523EA9D64002B996F /* TFextension.swift */,
+				3F945BD923EA9EEA002B996F /* Viewextension.swift */,
+				3F94613823F145C6009D1723 /* Lblextension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		3F28BA8123ED29E50067457F /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				3F28BA8223ED2A090067457F /* Sidemenu.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		3F85F6D2240652BC00B82122 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3F965B9723F2C93F0000CB03 /* NavigationModels.swift */,
+				3F0E4BBD2408F767001D4624 /* Constant.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		3F965B9423F28DAE0000CB03 /* options */ = {
+			isa = PBXGroup;
+			children = (
+				3F94614023F19CBF009D1723 /* PicVC.swift */,
+				3F94613C23F17F95009D1723 /* MApVC.swift */,
+				3F94613E23F19ACC009D1723 /* NotesVC.swift */,
+				3F93750423FD8044008A762C /* AddnoteVC.swift */,
+				3F94613A23F166F0009D1723 /* InfoVC.swift */,
+				3F94613623F12870009D1723 /* OptionVC.swift */,
+				3F8C786C23FEC32D000BDB41 /* Notescell.swift */,
+			);
+			path = options;
+			sourceTree = "<group>";
+		};
+		5243E2AD3B5088B11FDFFCE2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				72BE82FC42FC286616EEDD9F /* Pods_MIOTAGS.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +254,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3F18865223E846320038061A /* Build configuration list for PBXNativeTarget "MIOTAGS" */;
 			buildPhases = (
+				6A50EBD83DC9020778A1C11F /* [CP] Check Pods Manifest.lock */,
 				3F18863923E846320038061A /* Sources */,
 				3F18863A23E846320038061A /* Frameworks */,
 				3F18863B23E846320038061A /* Resources */,
+				BD2B97CB46BC4DD69C3C8466 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -125,36 +307,106 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F13B80123E95D48000E0516 /* Main.storyboard in Resources */,
 				3F18864E23E846320038061A /* LaunchScreen.storyboard in Resources */,
 				3F18864B23E846320038061A /* Assets.xcassets in Resources */,
-				3F18864623E846320038061A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6A50EBD83DC9020778A1C11F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MIOTAGS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BD2B97CB46BC4DD69C3C8466 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MIOTAGS/Pods-MIOTAGS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MIOTAGS/Pods-MIOTAGS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MIOTAGS/Pods-MIOTAGS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3F18863923E846320038061A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F94613923F145C6009D1723 /* Lblextension.swift in Sources */,
+				3F93750523FD8044008A762C /* AddnoteVC.swift in Sources */,
+				3FA7B30F23EBFA6E00CA6FD8 /* SupportVC.swift in Sources */,
+				3F85F6D624067ACB00B82122 /* CheckboxBTN.swift in Sources */,
+				3F94613723F12870009D1723 /* OptionVC.swift in Sources */,
+				3F0E4BBE2408F767001D4624 /* Constant.swift in Sources */,
+				3F28BA8523ED713C0067457F /* HistoryVC.swift in Sources */,
+				3FA81016240E22B1009E8257 /* CustomView.swift in Sources */,
+				3F18866023E84A350038061A /* CustomTF.swift in Sources */,
+				3F965B9323F28D9A0000CB03 /* Tagfailure.swift in Sources */,
+				3F965B9823F2C93F0000CB03 /* NavigationModels.swift in Sources */,
+				3F18866323E84CC10038061A /* Constraints.swift in Sources */,
+				3F94613F23F19ACC009D1723 /* NotesVC.swift in Sources */,
+				3F965B8F23F2755F0000CB03 /* TapVC.swift in Sources */,
+				3F94614123F19CBF009D1723 /* PicVC.swift in Sources */,
+				3FA7B30D23EBE4B300CA6FD8 /* MyprofileVC.swift in Sources */,
+				3F85F6D424065FFE00B82122 /* MenuBTN.swift in Sources */,
+				3F94613B23F166F0009D1723 /* InfoVC.swift in Sources */,
+				3FEE5CFF2403AA280066D855 /* ErrorSupportVC.swift in Sources */,
+				3F28BA8323ED2A090067457F /* Sidemenu.swift in Sources */,
+				3F85F6D824067C4F00B82122 /* CustomSideMenu.swift in Sources */,
+				3F18866523E84D420038061A /* ColorExtension.swift in Sources */,
+				3F85F6DA240688F000B82122 /* ESupportDoneVC.swift in Sources */,
 				3F18864923E846320038061A /* MIOTAGS.xcdatamodeld in Sources */,
+				3F13B7FF23E94E8A000E0516 /* statusbar.swift in Sources */,
+				3FA81018240E579E009E8257 /* CustomLBL.swift in Sources */,
 				3F18864323E846320038061A /* ViewController.swift in Sources */,
+				3F18865D23E849F50038061A /* LoginVC.swift in Sources */,
 				3F18864123E846320038061A /* AppDelegate.swift in Sources */,
+				3F965B9123F288100000CB03 /* TagsuccessVC.swift in Sources */,
+				3F945BDA23EA9EEA002B996F /* Viewextension.swift in Sources */,
+				3F8C786D23FEC32D000BDB41 /* Notescell.swift in Sources */,
+				3F945BD623EA9D64002B996F /* TFextension.swift in Sources */,
+				3F945BDC23EADC56002B996F /* SwitchBTN.swift in Sources */,
+				3F94613D23F17F95009D1723 /* MApVC.swift in Sources */,
+				3FA7B31123EC247700CA6FD8 /* SupportdoneVC.swift in Sources */,
+				3F6C8E4A2405376700799CC2 /* TermsVC.swift in Sources */,
+				3FA7B31523EC366100CA6FD8 /* TapScanVC.swift in Sources */,
+				3FA8101A240E8F84009E8257 /* CustomHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		3F18864423E846320038061A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3F18864523E846320038061A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		3F18864C23E846320038061A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -284,6 +536,7 @@
 		};
 		3F18865323E846320038061A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B0C23F6161E46E19A033E3A5 /* Pods-MIOTAGS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -301,6 +554,7 @@
 		};
 		3F18865423E846320038061A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 18D8AF7C9F6BACC174AD0430 /* Pods-MIOTAGS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
