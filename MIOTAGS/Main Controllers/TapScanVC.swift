@@ -13,6 +13,7 @@ class TapScanVC: UIViewController {
     
     var picker = UIImagePickerController();
     
+     let gradientLayer:CAGradientLayer = CAGradientLayer()
     
     lazy var Header:CustomMenuHeader={
         let view = CustomMenuHeader(title: "")
@@ -78,12 +79,21 @@ class TapScanVC: UIViewController {
         return btn
     }()
     
+    lazy var search:UIButton={
+        let btn = UIButton(type: .custom)
+        btn.translatesAutoresizingMaskIntoConstraints=false
+        btn.setTitle("SEARCH", for: .normal)
+        btn.backgroundColor = UIColor().hexToColor(hex: "004c8c")
+        btn.alpha = 1
+        return btn
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        view.addSubview(search)
         Setsubview()
-       
+      
          layout()
         attributetext()
        
@@ -182,6 +192,12 @@ class TapScanVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
  
+   
+    
+    
+        
+   
+   
     
     
     func layout(){
@@ -227,7 +243,8 @@ class TapScanVC: UIViewController {
        
         assetid.anchorWith_XY_TopLeftBottomRight_Padd(x: view.centerXAnchor, y: nil, top: orlbl.bottomAnchor, left: view.leadingAnchor, bottom: nil, right: view.trailingAnchor, padd: .init(top: 25, left: 30, bottom: 0, right: -40))
         
-        
+        search.anchorWith_XY_TopLeftBottomRight_Padd(x: view.centerXAnchor, y: nil, top: nil, left: nil, bottom: view.bottomAnchor, right: nil, padd: .init(top: 0, left: 0, bottom: -20, right: 0))
+        search.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 0.4, constHeight: 0.06)
         
        
     }

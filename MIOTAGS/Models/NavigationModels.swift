@@ -30,3 +30,4 @@ class NavigationModel:NSObject{
         NavOTP = str
 }
 }
+//Using Navigation

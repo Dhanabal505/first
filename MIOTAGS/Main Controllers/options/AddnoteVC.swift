@@ -63,6 +63,7 @@ class AddnoteVC: UIViewController {
     @objc func cancelact(){
         self.view.removeFromSuperview()
     }
+
     func translate(){
         myview.translatesAutoresizingMaskIntoConstraints=false
         addnote.translatesAutoresizingMaskIntoConstraints=false

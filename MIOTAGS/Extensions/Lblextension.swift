@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+// Label Extension
+
 extension UILabel{
     func lbl(name : String){
         self.text = name

@@ -143,7 +143,7 @@ class SideMenuLauncher: NSObject{
     let statusConst:CGFloat=0
     
     func showSideMenu(){
-        
+    
         if let window = UIApplication.shared.keyWindow{
            
             blackview.backgroundColor = UIColor.clear

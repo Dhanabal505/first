@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+// Custom Label
+
 class CustomLBL: UILabel {
     
     required init(title: String) {
