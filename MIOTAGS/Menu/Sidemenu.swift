@@ -26,11 +26,7 @@ class SideMenuLauncher: NSObject{
         return img
     }()
     
-    lazy var dashicon:UIImageView={
-        let img=UIImageView()
-        img.translatesAutoresizingMaskIntoConstraints=false
-        return img
-    }()
+   
     
     lazy var cmpny:UILabel={
         let lbl=UILabel()
@@ -65,7 +61,7 @@ class SideMenuLauncher: NSObject{
         let btn = Menubtn()
         btn.setTitle("My Profile", for: .normal)
         btn.setTitleColor(UIColor.white, for: .normal)
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 22, weight: .regular)
         btn.translatesAutoresizingMaskIntoConstraints=false
         return btn
     }()
@@ -75,7 +71,7 @@ class SideMenuLauncher: NSObject{
         let btn = Menubtn()
         btn.setTitle("Support", for: .normal)
         btn.setTitleColor(UIColor.white, for: .normal)
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 22, weight: .regular)
         btn.translatesAutoresizingMaskIntoConstraints=false
         return btn
     }()
@@ -85,7 +81,7 @@ class SideMenuLauncher: NSObject{
         let btn = Menubtn()
         btn.setTitle("Tap or Scan", for: .normal)
         btn.setTitleColor(UIColor.white, for: .normal)
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 22, weight: .regular)
         btn.translatesAutoresizingMaskIntoConstraints=false
         return btn
     }()
@@ -95,7 +91,7 @@ class SideMenuLauncher: NSObject{
         let btn = Menubtn()
         btn.setTitle("History", for: .normal)
         btn.setTitleColor(UIColor.white, for: .normal)
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 22, weight: .regular)
         btn.translatesAutoresizingMaskIntoConstraints=false
         return btn
     }()
@@ -105,7 +101,7 @@ class SideMenuLauncher: NSObject{
         let btn = UIButton()
         btn.setTitle("Logout", for: .normal)
         btn.setTitleColor(UIColor.white, for: .normal)
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 22, weight: .regular)
         btn.translatesAutoresizingMaskIntoConstraints=false
         return btn
     }()
@@ -224,7 +220,6 @@ class SideMenuLauncher: NSObject{
         sideView.addSubview(tapscanicon)
         sideView.addSubview(historyicon)
         sideView.addSubview(logouticon)
-        sideView.addSubview(dashicon)
         setupLayout()
     }
     
@@ -242,51 +237,51 @@ class SideMenuLauncher: NSObject{
         
 
         
-         prficon.contentMode = .scaleToFill
+         prficon.contentMode = .scaleAspectFit
          prficon.image = UIImage(named: "profilemenu")
          prficon.anchorWith_TopLeftBottomRight_Padd(top: myprofile.topAnchor, left: nil, bottom: myprofile.bottomAnchor, right: myprofile.trailingAnchor,padd: .init(top: 0, left: 0, bottom: 0, right: -20))
-         prficon.anchorWith_WidthHeight(width: sideView.widthAnchor, height: sideView.heightAnchor, constWidth: 0.15, constHeight: 0.05)
+         prficon.anchorWith_WidthHeight(width: sideView.widthAnchor, height: nil, constWidth: 0.15, constHeight: SIZE.MENUICON_HEIGHT)
         
          myprofile.anchorWith_TopLeftBottomRight_Padd(top: name.bottomAnchor, left: sideView.leadingAnchor, bottom: nil, right: sideView.trailingAnchor,padd: .init(top: 70, left: 10, bottom: 0, right: 0))
-        myprofile.anchorWith_WidthHeight(width: sideView.widthAnchor, height: nil, constWidth: 1, constHeight: 0)
+        myprofile.anchorWith_WidthHeight(width: sideView.widthAnchor, height: nil, constWidth: 1, constHeight: SIZE.MENUBTN_HEIGHT)
         myprofile.contentHorizontalAlignment = .left
         
         Support.anchorWith_TopLeftBottomRight_Padd(top: myprofile.bottomAnchor, left: myprofile.leadingAnchor, bottom: nil, right: nil,padd: .init(top: 15, left: 0, bottom: 0, right: 0))
-        Support.anchorWith_WidthHeight(width: sideView.widthAnchor, height: nil, constWidth: 1, constHeight: 0)
+        Support.anchorWith_WidthHeight(width: sideView.widthAnchor, height: nil, constWidth: 1, constHeight: SIZE.MENUBTN_HEIGHT)
         Support.contentHorizontalAlignment = .left
         
         Tapscan.anchorWith_TopLeftBottomRight_Padd(top: Support.bottomAnchor, left: myprofile.leadingAnchor, bottom: nil, right: nil,padd: .init(top: 15, left: 0, bottom: 0, right: 0))
-        Tapscan.anchorWith_WidthHeight(width: sideView.widthAnchor, height: nil, constWidth: 1, constHeight: 0)
+        Tapscan.anchorWith_WidthHeight(width: sideView.widthAnchor, height: nil, constWidth: 1, constHeight: SIZE.MENUBTN_HEIGHT)
         Tapscan.contentHorizontalAlignment = .left
         
         History.anchorWith_TopLeftBottomRight_Padd(top: Tapscan.bottomAnchor, left: myprofile.leadingAnchor, bottom: nil, right: nil,padd: .init(top: 15, left: 0, bottom: 0, right: 0))
-        History.anchorWith_WidthHeight(width: sideView.widthAnchor, height: nil, constWidth: 1, constHeight: 0)
+        History.anchorWith_WidthHeight(width: sideView.widthAnchor, height: nil, constWidth: 1, constHeight: SIZE.MENUBTN_HEIGHT)
         History.contentHorizontalAlignment = .left
         
         Logout.anchorWith_TopLeftBottomRight_Padd(top: History.bottomAnchor, left: myprofile.leadingAnchor, bottom: nil, right: nil,padd: .init(top: 15, left: 0, bottom: 0, right: 0))
-        Logout.anchorWith_WidthHeight(width: sideView.widthAnchor, height: nil, constWidth: 1, constHeight: 0)
+        Logout.anchorWith_WidthHeight(width: sideView.widthAnchor, height: nil, constWidth: 1, constHeight: SIZE.MENUBTN_HEIGHT)
         Logout.contentHorizontalAlignment = .left
 
-        sprticon.contentMode = .scaleToFill
+        sprticon.contentMode = .scaleAspectFit
         sprticon.image = UIImage(named: "msgmenu")
         sprticon.anchorWith_TopLeftBottomRight_Padd(top: Support.topAnchor, left: nil, bottom: Support.bottomAnchor, right: myprofile.trailingAnchor,padd: .init(top: 0, left: 0, bottom: 0, right: -20))
-        sprticon.anchorWith_WidthHeight(width: sideView.widthAnchor, height: sideView.heightAnchor, constWidth: 0.15, constHeight: 0.05)
+        sprticon.anchorWith_WidthHeight(width: sideView.widthAnchor, height: nil, constWidth: 0.15, constHeight: SIZE.MENUICON_HEIGHT)
         
-        tapscanicon.contentMode = .scaleToFill
+        tapscanicon.contentMode = .scaleAspectFit
         tapscanicon.image = UIImage(named: "bar")
         tapscanicon.anchorWith_TopLeftBottomRight_Padd(top: Tapscan.topAnchor, left: nil, bottom: Tapscan.bottomAnchor, right: myprofile.trailingAnchor,padd: .init(top: 0, left: 0, bottom: 0, right: -20))
-        tapscanicon.anchorWith_WidthHeight(width: sideView.widthAnchor, height: sideView.heightAnchor, constWidth: 0.15, constHeight: 0.05)
+        tapscanicon.anchorWith_WidthHeight(width: sideView.widthAnchor, height: nil, constWidth: 0.15, constHeight: SIZE.MENUICON_HEIGHT)
 
-        historyicon.contentMode = .scaleToFill
+        historyicon.contentMode = .scaleAspectFit
         historyicon.image = UIImage(named: "historymenu")
         historyicon.anchorWith_TopLeftBottomRight_Padd(top: History.topAnchor, left: nil, bottom: History.bottomAnchor, right: myprofile.trailingAnchor,padd: .init(top: 0, left: 0, bottom: 0, right: -20))
-        historyicon.anchorWith_WidthHeight(width: sideView.widthAnchor, height: sideView.heightAnchor, constWidth: 0.15, constHeight: 0.05)
+        historyicon.anchorWith_WidthHeight(width: sideView.widthAnchor, height: nil, constWidth: 0.15, constHeight: SIZE.MENUICON_HEIGHT)
        
         
-        logouticon.contentMode = .scaleToFill
+        logouticon.contentMode = .scaleAspectFit
         logouticon.image = UIImage(named: "logouts")
         logouticon.anchorWith_TopLeftBottomRight_Padd(top: Logout.topAnchor, left: nil, bottom: Logout.bottomAnchor, right: myprofile.trailingAnchor,padd: .init(top: 0, left: 0, bottom: 0, right: -20))
-        logouticon.anchorWith_WidthHeight(width: sideView.widthAnchor, height: sideView.heightAnchor, constWidth: 0.15, constHeight: 0.05)
+        logouticon.anchorWith_WidthHeight(width: sideView.widthAnchor, height: nil, constWidth: 0.15, constHeight: SIZE.MENUICON_HEIGHT)
         
 
         

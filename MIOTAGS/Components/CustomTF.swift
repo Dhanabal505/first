@@ -119,7 +119,7 @@ class showhide:JVFloatLabeledTextField {
         
      
         rightButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15).isActive=true
-        rightButton.anchorWith_WidthHeight(width: self.widthAnchor, height: self.heightAnchor, constWidth: 0.1, constHeight: 0.7)
+        rightButton.anchorWith_WidthHeight(width: nil, height: nil, constWidth: 25, constHeight: 25)
         
     }
     

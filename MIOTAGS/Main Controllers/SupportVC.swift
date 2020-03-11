@@ -202,7 +202,7 @@ class SupportVC: UIViewController {
         
         
         send.anchorWith_XY_TopLeftBottomRight_Padd(x: view.centerXAnchor, y: nil, top: supportview.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 40, left: 0, bottom: 0, right: 0))
-        send.anchorWith_WidthHeight(width: view.widthAnchor, height: nil, constWidth: 0.4, constHeight: SIZE.Login_Height)
+        send.anchorWith_WidthHeight(width: view.widthAnchor, height: nil, constWidth: 0.4, constHeight: SIZE.Send_Height)
         
     }
   

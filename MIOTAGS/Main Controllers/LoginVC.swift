@@ -118,6 +118,8 @@ class LoginVC: UIViewController  {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(LoginVC.tapFunction))
         errorlable.addGestureRecognizer(tap)
+        
+        
     }
 
     func setTapGesture(){
@@ -186,6 +188,7 @@ class LoginVC: UIViewController  {
             let vc = storyboard?.instantiateViewController(withIdentifier: "TermsVC") as! TermsVC
             navigationController?.pushViewController(vc, animated: true)
             print("good")
+            terms.isChecked = true
         }
     }
     

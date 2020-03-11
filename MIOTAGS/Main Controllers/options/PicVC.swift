@@ -10,7 +10,7 @@ import UIKit
 
 class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationControllerDelegate {
 
-    @IBOutlet weak var piclogo: UIImageView!
+  //  @IBOutlet weak var piclogo: UIImageView!
     
     var imagePicker = UIImagePickerController()
     
@@ -23,8 +23,14 @@ class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationCont
         let screensize: CGRect = UIScreen.main.bounds
         let screenWidth = screensize.width
         scr.translatesAutoresizingMaskIntoConstraints=false
-        scr.contentSize = CGSize(width: screenWidth, height: 600)
+        scr.contentSize = CGSize(width: screenWidth, height: 1000)
         return scr
+    }()
+    
+    lazy var piclogo:UIImageView={
+        let img = UIImageView()
+        img.translatesAutoresizingMaskIntoConstraints=false
+        return img
     }()
     
     
@@ -100,6 +106,8 @@ class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationCont
         return btn
     }()
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -112,14 +120,27 @@ class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationCont
         camerabtn2.addTarget(self, action: #selector(camera2act), for: .touchUpInside)
         camerabtn3.addTarget(self, action: #selector(camera3act), for: .touchUpInside)
         back.addTarget(self, action: #selector(backact), for: .touchUpInside)
+        
+        
         self.navigationController?.navigationItem.backBarButtonItem?.isEnabled = false
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         self.navigationController?.isNavigationBarHidden = true
+        
+        let pictureTap = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+       
+        viewimg1.addGestureRecognizer(pictureTap)
+        viewimg1.isUserInteractionEnabled = true
+        viewimg2.addGestureRecognizer(pictureTap)
+        viewimg2.isUserInteractionEnabled = true
+        viewimg3.addGestureRecognizer(pictureTap)
+        viewimg3.isUserInteractionEnabled = true
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         setNavigation()
-        
+       
+       
     }
     
     
@@ -218,6 +239,7 @@ class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationCont
                 print("Btn 1 is clicked")
             viewimg1.contentMode = .scaleToFill
             viewimg1.image = pickedImage
+               
         }
 
           else if x == 2 {
@@ -238,23 +260,56 @@ class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationCont
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func imageTapped(_ sender: UITapGestureRecognizer) {
+        let imageView = sender.view as! UIImageView
+        let newImageView = UIImageView(image: imageView.image)
+        newImageView.frame = UIScreen.main.bounds
+        newImageView.backgroundColor = .black
+        newImageView.contentMode = .scaleAspectFit
+        newImageView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
+        newImageView.addGestureRecognizer(tap)
+        self.view.addSubview(newImageView)
+        self.navigationController?.isNavigationBarHidden = true
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
+        self.navigationController?.isNavigationBarHidden = false
+        self.tabBarController?.tabBar.isHidden = false
+        sender.view?.removeFromSuperview()
+    }
+    
+    func Fullimageview(){
+        
+        let pictureTap = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+        viewimg1.addGestureRecognizer(pictureTap)
+        viewimg1.isUserInteractionEnabled = true
+        viewimg2.addGestureRecognizer(pictureTap)
+        viewimg2.isUserInteractionEnabled = true
+        viewimg3.addGestureRecognizer(pictureTap)
+        viewimg3.isUserInteractionEnabled = true
+    }
+    
     
     
     
     func addview(){
-        view.addSubview(picview1)
+       
         view.addSubview(Header)
-        view.addSubview(viewimg1)
-        view.addSubview(camerabtn)
-        view.addSubview(mytitle)
-        view.addSubview(back)
         view.addSubview(myscroll)
-        view.addSubview(picview2)
-        view.addSubview(picview3)
-        view.addSubview(viewimg2)
-        view.addSubview(viewimg3)
-        view.addSubview(camerabtn2)
-        view.addSubview(camerabtn3)
+        myscroll.addSubview(mytitle)
+        myscroll.addSubview(back)
+        myscroll.addSubview(piclogo)
+        myscroll.addSubview(picview1)
+        myscroll.addSubview(viewimg1)
+        myscroll.addSubview(camerabtn)
+        myscroll.addSubview(picview2)
+        myscroll.addSubview(viewimg2)
+        myscroll.addSubview(camerabtn2)
+        myscroll.addSubview(picview3)
+        myscroll.addSubview(viewimg3)
+        myscroll.addSubview(camerabtn3)
         
     }
     
@@ -279,8 +334,11 @@ class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationCont
         Header.anchorWith_TopLeftBottomRight_Padd(top: view.safeAreaLayoutGuide.topAnchor, left: view.leadingAnchor, bottom: nil, right: view.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: 0))
         Header.anchorWith_Height(height: nil, const: SIZE.Header_Height)
         
-        mytitle.anchorWith_XY_Padd(x: piclogo.centerXAnchor, y: nil)
-        mytitle.anchorWith_TopLeftBottomRight_Padd(top: nil, left: nil, bottom: piclogo.topAnchor, right: nil, padd: .init(top: 0, left: 0, bottom: -20, right: 0))
+        
+        myscroll.anchorWith_TopLeftBottomRight_Padd(top: Header.bottomAnchor, left: view.leadingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, padd: .init(top: 10, left: 0, bottom: 0, right: 0))
+        
+        mytitle.anchorWith_XY_Padd(x: myscroll.centerXAnchor, y: nil)
+        mytitle.anchorWith_TopLeftBottomRight_Padd(top: myscroll.topAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 50, left: 0, bottom: 0, right: 0))
         
         back.anchorWith_XY_Padd(x: nil, y: mytitle.centerYAnchor)
         back.anchorWith_TopLeftBottomRight_Padd(top: nil, left: nil, bottom: nil, right: mytitle.leadingAnchor , padd: .init(top: 0, left: 0, bottom: 0, right: -5))
@@ -288,26 +346,15 @@ class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationCont
         back.imageView?.contentMode = .scaleAspectFit
         
         
-        piclogo.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive=true
-        piclogo.anchorWith_TopLeftBottomRight_Padd(top: view.safeAreaLayoutGuide.topAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 120, left: 0, bottom: 0, right: 0))
+        piclogo.centerXAnchor.constraint(equalTo: myscroll.centerXAnchor).isActive=true
+        piclogo.anchorWith_TopLeftBottomRight_Padd(top: mytitle.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 50, left: 0, bottom: 0, right: 0))
         piclogo.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 0.2, constHeight: 0.1)
         piclogo.image = UIImage(named: "picslogo")
         
-        
-        myscroll.anchorWith_TopLeftBottomRight_Padd(top: piclogo.bottomAnchor, left: view.leadingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, padd: .init(top: 100, left: 0, bottom: 0, right: 0))
-        
-        myscroll.addSubview(picview1)
-        myscroll.addSubview(viewimg1)
-        myscroll.addSubview(camerabtn)
-        myscroll.addSubview(picview2)
-        myscroll.addSubview(viewimg2)
-        myscroll.addSubview(camerabtn2)
-        myscroll.addSubview(picview3)
-        myscroll.addSubview(viewimg3)
-        myscroll.addSubview(camerabtn3)
+       
         
         picview1.anchorWith_XY_Padd(x: myscroll.centerXAnchor, y: nil)
-        picview1.anchorWith_TopLeftBottomRight_Padd(top: myscroll.topAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 20, left: 0, bottom: 0, right: 0))
+        picview1.anchorWith_TopLeftBottomRight_Padd(top: piclogo.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 80, left: 0, bottom: 0, right: 0))
         picview1.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 0.6, constHeight: 0.2)
         picview1.addSubview(viewimg1)
         picview1.addSubview(camerabtn)  

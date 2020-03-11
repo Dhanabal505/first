@@ -44,7 +44,7 @@ class TermsVC: UIViewController {
             sender.setOn(true, animated: true)
             let vc = storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
             navigationController?.pushViewController(vc, animated: true)
-         
+            vc.terms.isChecked = true
         }
         else{
             

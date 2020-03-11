@@ -63,6 +63,7 @@ class CustomMenuHeader:UIView{
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setImage(UIImage(named: "sidebar"), for: .normal)
+        btn.imageView?.contentMode = .scaleAspectFit
         return btn
     }()
     
@@ -71,6 +72,7 @@ class CustomMenuHeader:UIView{
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setImage(UIImage(named: "bar"), for: .normal)
+        btn.imageView?.contentMode = .scaleAspectFit
         return btn
     }()
     
@@ -98,12 +100,12 @@ class CustomMenuHeader:UIView{
         IMGLogo.anchorWith_WidthHeight(width: self.widthAnchor, height: nil, constWidth: 0.5, constHeight: SIZE.LOGO_Height)
         
         
-        LeftMenu.anchorWith_TopLeftBottomRight_Padd(top: topAnchor, left: leadingAnchor, bottom: nil, right: nil, padd: .init(top: 10, left: 10, bottom: 0, right: 0))
+        LeftMenu.anchorWith_TopLeftBottomRight_Padd(top: topAnchor, left: leadingAnchor, bottom: nil, right: nil, padd: .init(top: 8, left: 10, bottom: 0, right: 0))
         LeftMenu.anchorWith_WidthHeight(width: widthAnchor, height: nil, constWidth: 0.1, constHeight: SIZE.LeftMenu_Height)
         
         
-        RightMenu.anchorWith_TopLeftBottomRight_Padd(top: topAnchor, left: nil, bottom: nil, right: trailingAnchor, padd: .init(top: 10, left: 0, bottom: 0, right: -10))
-        RightMenu.anchorWith_WidthHeight(width: self.widthAnchor, height: nil, constWidth: 0.1, constHeight: SIZE.LeftMenu_Height)
+        RightMenu.anchorWith_TopLeftBottomRight_Padd(top: topAnchor, left: nil, bottom: nil, right: trailingAnchor, padd: .init(top: 5, left: 0, bottom: 0, right: -10))
+        RightMenu.anchorWith_WidthHeight(width: self.widthAnchor, height: nil, constWidth: 0.1, constHeight: SIZE.RightMenu_Height)
     }
     
     

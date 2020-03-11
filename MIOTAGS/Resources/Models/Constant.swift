@@ -17,11 +17,15 @@ struct SIZE{
     static let LOGO_Height:CGFloat = 30
     static let Header_Height:CGFloat = 50
     static let LeftMenu_Height:CGFloat = 20
+    static let RightMenu_Height:CGFloat = 25
     static let Login_Height:CGFloat = 80
+    static let Send_Height:CGFloat = 65
     static let PVIEW_HEIGHT:CGFloat = 300
     static let SVIEW_HEIGHT:CGFloat = 250
     static let HISTXT_HEIGHT:CGFloat = 60
     static let SEARCH_HEIGHT:CGFloat = 60
+    static let MENUBTN_HEIGHT:CGFloat = 80
+    static let MENUICON_HEIGHT:CGFloat = 30
     
 }
 
