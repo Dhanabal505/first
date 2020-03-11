@@ -35,31 +35,37 @@ class InfoVC: UIViewController {
     lazy var prpid:UnderlineTf={
         let txtfld = UnderlineTf()
         txtfld.placeholder = "PropertyId"
+        txtfld.isEnabled = false
         return txtfld
     }()
     lazy var owner:UnderlineTf={
         let txtfld = UnderlineTf()
         txtfld.placeholder = "Owner"
+         txtfld.isEnabled = false
         return txtfld
     }()
     lazy var refcast:UnderlineTf={
         let txtfld = UnderlineTf()
         txtfld.placeholder = "RefCatastral"
+         txtfld.isEnabled = false
         return txtfld
     }()
     lazy var occup:UnderlineTf={
         let txtfld = UnderlineTf()
         txtfld.placeholder = "Occupado"
+         txtfld.isEnabled = false
         return txtfld
     }()
     lazy var tipolo:UnderlineTf={
         let txtfld = UnderlineTf()
         txtfld.placeholder = "Tipologia"
+         txtfld.isEnabled = false
         return txtfld
     }()
     lazy var situ:UnderlineTf={
         let txtfld = UnderlineTf()
         txtfld.placeholder = "Situaction"
+         txtfld.isEnabled = false
         return txtfld
     }()
     lazy var tipo:UnderlineTf={
@@ -70,12 +76,14 @@ class InfoVC: UIViewController {
     lazy var ano:UnderlineTf={
         let txtfld = UnderlineTf()
         txtfld.placeholder = "Ano"
+         txtfld.isEnabled = false
         return txtfld
     }()
     
     lazy var Estado:UnderlineTf={
         let txtfld = UnderlineTf()
         txtfld.placeholder = "Estado"
+         txtfld.isEnabled = false
         return txtfld
     }()
     
@@ -83,6 +91,7 @@ class InfoVC: UIViewController {
     lazy var cons:UnderlineTf={
         let txtfld = UnderlineTf()
         txtfld.placeholder = "M2cons"
+         txtfld.isEnabled = false
         return txtfld
     }()
     
@@ -90,6 +99,7 @@ class InfoVC: UIViewController {
     lazy var utilis:UnderlineTf={
         let txtfld = UnderlineTf()
         txtfld.placeholder = "M2Utilis"
+         txtfld.isEnabled = false
         return txtfld
     }()
     
@@ -97,6 +107,7 @@ class InfoVC: UIViewController {
     lazy var Aseos:UnderlineTf={
         let txtfld = UnderlineTf()
         txtfld.placeholder =  "Aseos"
+         txtfld.isEnabled = false
         return txtfld
     }()
     
@@ -104,6 +115,7 @@ class InfoVC: UIViewController {
     lazy var Banyos:UnderlineTf={
         let txtfld = UnderlineTf()
         txtfld.placeholder =  "Banyos"
+         txtfld.isEnabled = false
         return txtfld
     }()
     
@@ -111,6 +123,7 @@ class InfoVC: UIViewController {
     lazy var habitac:UnderlineTf={
         let txtfld = UnderlineTf()
         txtfld.placeholder = "Habitac"
+         txtfld.isEnabled = false
         return txtfld
     }()
     
@@ -118,6 +131,7 @@ class InfoVC: UIViewController {
     lazy var carplnt:UnderlineTf={
         let txtfld = UnderlineTf()
         txtfld.placeholder = "Carplnt"
+         txtfld.isEnabled = false
         return txtfld
     }()
     
@@ -125,6 +139,7 @@ class InfoVC: UIViewController {
     lazy var carpext:UnderlineTf={
         let txtfld = UnderlineTf()
         txtfld.placeholder = "CarpExtr"
+         txtfld.isEnabled = false
         return txtfld
     }()
     
@@ -132,6 +147,7 @@ class InfoVC: UIViewController {
     lazy var comlnc:UnderlineTf={
         let txtfld = UnderlineTf()
         txtfld.placeholder = "Comlnc"
+         txtfld.isEnabled = false
         return txtfld
     }()
     
@@ -139,6 +155,7 @@ class InfoVC: UIViewController {
     lazy var Adrs:UnderlineTf={
         let txtfld = UnderlineTf()
         txtfld.placeholder = "Address"
+         txtfld.isEnabled = false
         return txtfld
     }()
     
@@ -146,6 +163,7 @@ class InfoVC: UIViewController {
     lazy var City:UnderlineTf={
         let txtfld = UnderlineTf()
         txtfld.placeholder = "City"
+         txtfld.isEnabled = false
         return txtfld
     }()
     
@@ -160,6 +178,7 @@ class InfoVC: UIViewController {
     lazy var zipcode:UnderlineTf={
         let txtfld = UnderlineTf()
         txtfld.placeholder = "ZipCode"
+         txtfld.isEnabled = false
         return txtfld
     }()
     
@@ -167,6 +186,7 @@ class InfoVC: UIViewController {
     lazy var Country:UnderlineTf={
         let txtfld = UnderlineTf()
         txtfld.placeholder = "Country"
+         txtfld.isEnabled = false
         return txtfld
     }()
     
@@ -174,6 +194,7 @@ class InfoVC: UIViewController {
     lazy var prtyweb:UnderlineTf={
         let txtfld = UnderlineTf()
         txtfld.placeholder = "PropertyWebsite"
+         txtfld.isEnabled = false
         return txtfld
     }()
     

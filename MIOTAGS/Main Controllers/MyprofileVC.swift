@@ -18,10 +18,17 @@ class MyprofileVC: UIViewController {
     }()
     
     
+    lazy var Myscroll:UIScrollView={
+        let scrl = UIScrollView()
+        scrl.translatesAutoresizingMaskIntoConstraints=false
+        return scrl
+    }()
+    
     lazy var username:UnderlineTf={
         let tf = UnderlineTf()
         tf.translatesAutoresizingMaskIntoConstraints=false
         tf.placeholder = "Username"
+        tf.isEnabled = false
         return tf
     }()
     
@@ -29,6 +36,7 @@ class MyprofileVC: UIViewController {
         let tf = UnderlineTf()
         tf.translatesAutoresizingMaskIntoConstraints=false
         tf.placeholder = "Name"
+        tf.isEnabled = false
         return tf
     }()
     
@@ -36,6 +44,7 @@ class MyprofileVC: UIViewController {
         let tf = UnderlineTf()
         tf.translatesAutoresizingMaskIntoConstraints=false
         tf.placeholder = "Company"
+        tf.isEnabled = false
         return tf
     }()
     
@@ -43,6 +52,7 @@ class MyprofileVC: UIViewController {
         let tf = UnderlineTf()
         tf.translatesAutoresizingMaskIntoConstraints=false
         tf.placeholder = "Phone"
+        tf.isEnabled = false
         return tf
     }()
     
@@ -50,6 +60,7 @@ class MyprofileVC: UIViewController {
         let tf = UnderlineTf()
         tf.translatesAutoresizingMaskIntoConstraints=false
         tf.placeholder = "Email"
+        tf.isEnabled = false
         return tf
     }()
     
@@ -89,30 +100,48 @@ class MyprofileVC: UIViewController {
         super.viewDidLoad()
         
         Setsubviews()
+        setTapGesture()
         layout()
+        
         
    }
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setNavigation()
-        
-    }
-    
-    func Setsubviews(){
-        
-        view.addSubview(profileview)
-        view.addSubview(Header)
-        view.addSubview(mytitle)
-        view.addSubview(back)
-        view.addSubview(username)
-        view.addSubview(name)
-        view.addSubview(company)
-        view.addSubview(phone)
-        view.addSubview(Email)
-        view.addSubview(pfimg)
        
     }
     
+   
+    
+    func Setsubviews(){
+        
+        
+        view.addSubview(Header)
+        view.addSubview(Myscroll)
+        Myscroll.addSubview(profileview)
+        Myscroll.addSubview(mytitle)
+        Myscroll.addSubview(back)
+        Myscroll.addSubview(username)
+        Myscroll.addSubview(name)
+        Myscroll.addSubview(company)
+        Myscroll.addSubview(phone)
+        Myscroll.addSubview(Email)
+        Myscroll.addSubview(pfimg)
+       
+    }
+    
+    
+    func setTapGesture(){
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleDismissed))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+    }
+    @objc func handleDismissed(){
+        self.view.endEditing(true)
+    }
+    
+  
     
     @objc func backact(){
     
@@ -120,7 +149,7 @@ class MyprofileVC: UIViewController {
     
     }
     
- 
+
     
     func layout(){
         
@@ -129,8 +158,12 @@ class MyprofileVC: UIViewController {
         Header.anchorWith_Height(height: nil, const: SIZE.Header_Height)
         
         
-        mytitle.anchorWith_TopLeftBottomRight_Padd(top: view.safeAreaLayoutGuide.topAnchor, left: nil, bottom: nil, right: nil,padd: .init(top: 50, left: 0, bottom: -10, right: 0))
-        mytitle.anchorWith_XY_Padd(x: pfimg.centerXAnchor, y: nil)
+        Myscroll.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: nil, top: Header.bottomAnchor, left: view.leadingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: 0))
+        Myscroll.contentSize.height = 600
+        
+        
+        mytitle.anchorWith_TopLeftBottomRight_Padd(top: Myscroll.topAnchor, left: nil, bottom: nil, right: nil,padd: .init(top: 20, left: 0, bottom: 0, right: 0))
+        mytitle.anchorWith_XY_Padd(x: Myscroll.centerXAnchor, y: nil)
         
         
         
@@ -139,14 +172,12 @@ class MyprofileVC: UIViewController {
         back.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 0.08, constHeight: 0.03)
         
        
-        
-        pfimg.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive=true
-        pfimg.anchorWith_TopLeftBottomRight_Padd(top: nil, left: nil, bottom: profileview.topAnchor, right: nil, padd: .init(top: 0, left: 0, bottom: -30, right: 0))
+        pfimg.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: mytitle.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 30, left: 0, bottom: 0, right: 0))
         pfimg.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 0.2, constHeight: 0.1)
        
         
         
-        profileview.anchorWith_XY_Padd(x: view.centerXAnchor, y: view.centerYAnchor,padd: .init(top: 50, left: 0, bottom: 0, right: 0))
+        profileview.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: pfimg.bottomAnchor, left: nil, bottom: nil, right: nil , padd: .init(top: 30, left: 0, bottom: 0, right: 0))
         profileview.anchorWith_WidthHeight(width: view.widthAnchor, height: nil, constWidth: 0.8, constHeight: SIZE.PVIEW_HEIGHT)
         profileview.addSubview(username)
         profileview.addSubview(name)

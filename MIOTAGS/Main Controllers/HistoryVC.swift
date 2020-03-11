@@ -69,14 +69,28 @@ class HistoryVC: UIViewController {
         return btn
     }()
     
+    
+    lazy var search:UIButton={
+        let btn = UIButton(type: .custom)
+        btn.translatesAutoresizingMaskIntoConstraints=false
+        btn.setTitle("SEARCH", for: .normal)
+        btn.backgroundColor = UIColor().hexToColor(hex: "004c8c")
+        btn.alpha = 1
+        return btn
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
         view.addSubview(Myscroll)
-      
+        view.addSubview(Header)
         translate()
         layout()
+        setTapGesture()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
        
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -97,6 +111,7 @@ class HistoryVC: UIViewController {
         EndDate.translatesAutoresizingMaskIntoConstraints=false
         Asset.translatesAutoresizingMaskIntoConstraints=false
         back.translatesAutoresizingMaskIntoConstraints=false
+        
     }
     
     
@@ -116,6 +131,28 @@ class HistoryVC: UIViewController {
        
     }
     
+    @objc func keyboardWillAppear(){
+       
+        Myscroll.contentSize.height = view.frame.height + 180
+        
+        let bottomOffSet = CGPoint(x: 0, y: Myscroll.contentSize.height - Myscroll.bounds.size.height + Myscroll.contentInset.bottom)
+        Myscroll.setContentOffset(bottomOffSet, animated: true)
+        
+    }
+    @objc func keyboardWillHide(){
+        Myscroll.scrollsToTop = true
+        Myscroll.contentSize.height = 600
+    }
+    
+    func setTapGesture(){
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleDismissed))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+    }
+    @objc func handleDismissed(){
+        self.view.endEditing(true)
+    }
+    
     @objc func doneButtonpress(){
         if let  datePicker = self.EndDate.inputView as? UIDatePicker {
             let dateFormatter = DateFormatter()
@@ -133,7 +170,7 @@ class HistoryVC: UIViewController {
        
         
         Myscroll.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: nil, top: Header.bottomAnchor, left: view.leadingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: 0))
-        Myscroll.contentSize.height = 1000
+        Myscroll.contentSize.height = 600
         
         Myscroll.addSubview(mytitle)
         Myscroll.addSubview(Historyimg)
@@ -142,16 +179,15 @@ class HistoryVC: UIViewController {
         Myscroll.addSubview(FrmDate)
         Myscroll.addSubview(EndDate)
         Myscroll.addSubview(Asset)
+        Myscroll.addSubview(search)
         
+        mytitle.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: Myscroll.topAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 20, left: 0, bottom: 0, right: 0))
         
-        mytitle.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: Myscroll.topAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 50, left: 0, bottom: 0, right: 0))
-        
-        Historyimg.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: mytitle.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 40, left: 0, bottom: 0, right: 0))
+        Historyimg.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: mytitle.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 30, left: 0, bottom: 0, right: 0))
         Historyimg.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 0.2, constHeight: 0.1)
         
         usertf.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: Historyimg.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 80, left: 0, bottom: 0, right: 0))
-        usertf.anchorWith_Width(width: Myscroll.widthAnchor, const: 0.7)
-        usertf.anchorWith_Height(height: view.heightAnchor, const: 0.06)
+        usertf.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 0.7, constHeight: SIZE.HISTXT_HEIGHT)
         
         FrmDate.anchorWith_TopLeftBottomRight_Padd(top: usertf.bottomAnchor, left: usertf.leadingAnchor, bottom: nil, right: usertf.trailingAnchor, padd: .init(top: 20, left: 0, bottom: 0, right: 0))
         FrmDate.anchorWith_Height(height: usertf.heightAnchor, const: 1)
@@ -165,6 +201,9 @@ class HistoryVC: UIViewController {
         back.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: mytitle.centerYAnchor, top: nil, left: nil, bottom: nil, right: mytitle.leadingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: -5))
         back.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 0.08, constHeight: 0.03)
         
+        
+        search.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: Asset.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 30, left: 0, bottom: -20, right: 0))
+        search.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: view.heightAnchor, constWidth: 0.4, constHeight: 0.06)
 
     }
 

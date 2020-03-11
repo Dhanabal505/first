@@ -17,12 +17,6 @@ class NotesVC: UIViewController {
         return side!
     }()
     
-    lazy var addnote:UIButton={
-        let btn = UIButton()
-        btn.setImage(UIImage(named: "notes"), for: .normal)
-        return btn
-    }()
-    
     lazy var tableview:UITableView={
         let tv = UITableView()
         tv.separatorStyle = .none
@@ -47,12 +41,23 @@ class NotesVC: UIViewController {
         return btn
     }()
     
+    lazy var addnote:UIButton={
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints=false
+        btn.setImage(UIImage(named: "notes"), for: .normal)
+        btn.addTarget(self, action: #selector(addnotesact), for: .touchUpInside)
+        return btn
+    }()
+    
     lazy var noteplus:UILabel={
         let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints=false
         lbl.text = "Add Note"
         lbl.font = UIFont.systemFont(ofSize: 15, weight: .bold)
         return lbl
     }()
+    
+     var ArrLinks = NSMutableArray()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +69,8 @@ class NotesVC: UIViewController {
         view.addSubview(mytitle)
         view.addSubview(back)
         view.addSubview(tableview)
+        view.addSubview(addnote)
+        view.addSubview(noteplus)
         translate()
         layout()
         
@@ -91,13 +98,26 @@ class NotesVC: UIViewController {
         self.view.addSubview(vc.view)
         vc.didMove(toParent: self)
     }
+    
+    @objc func handleAddLink(){
+        let temp = [String:Any]()
+        popAddLink(data: temp,index: "")
+    }
+    
+    func popAddLink(data:[String:Any],index:String){
+        let add = AddnoteVC()
+        add.myprotocol = self
+        add.EditData = data
+        add.Index = index
+        present(add, animated: true, completion: nil)
+    }
+
 
     func translate(){
         Header.translatesAutoresizingMaskIntoConstraints=false
         noteslogo.translatesAutoresizingMaskIntoConstraints=false
         mytitle.translatesAutoresizingMaskIntoConstraints=false
         back.translatesAutoresizingMaskIntoConstraints=false
-       
         tableview.translatesAutoresizingMaskIntoConstraints=false
         
     }
@@ -120,7 +140,11 @@ class NotesVC: UIViewController {
         noteslogo.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 0.2, constHeight: 0.1)
         noteslogo.image = UIImage(named: "noteslogo")
         
+        addnote.anchorWith_XY_TopLeftBottomRight_Padd(x: noteslogo.centerXAnchor, y: nil, top: noteslogo.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 50, left: 0, bottom: 0, right: 0))
+         addnote.anchorWith_WidthHeight(width: view.widthAnchor, height: nil, constWidth: 0.3, constHeight: 100)
         
+        noteplus.anchorWith_XY_Padd(x: addnote.centerXAnchor, y: nil)
+        noteplus.anchorWith_TopLeftBottomRight_Padd(top: addnote.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 10, left: 0, bottom: 0, right: 0))
         
         tableview.anchorWith_TopLeftBottomRight_Padd(top: noteslogo.bottomAnchor, left: view.leadingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, padd: .init(top: 100, left: 0, bottom: 0, right: 0))
         tableview.backgroundColor = UIColor.white.withAlphaComponent(0.4)
@@ -141,43 +165,69 @@ extension NotesVC: UITableViewDelegate,UITableViewDataSource {
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
        
       print("Section - \(section)")
-        
-        if section == 0{
-            
-            return 2
-        }
-        else {
-            
-            return 1
-        }
+
+//        if section == 0{
+//
+//            return 0
+//        }
+//        else {
+//
+//            return 1
+//        }
+       return ArrLinks.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if indexPath.section == 0{
+       // if indexPath.section == 0{
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! Notescell
+            
+            let Notes = ArrLinks[indexPath.row] as! [String : Any]
+        
+            if let note = Notes["note"] as? String{
+                cell.mytxtvw.text = note
+           }
             return cell
         }
             
-        else{
-
-             let cell = tableView.dequeueReusableCell(withIdentifier: "cell2", for: indexPath) as! buttoncell
-            cell.addnote.addTarget(self, action: #selector(addnotesact), for: .touchUpInside)
-            print("Section2")
-            return cell
-        }
+//        else{
+//
+//             let cell = tableView.dequeueReusableCell(withIdentifier: "cell2", for: indexPath) as! buttoncell
+//            cell.addnote.addTarget(self, action: #selector(addnotesact), for: .touchUpInside)
+//            print("Section2")
+//            return cell
+//        }
         
         
-    }
+   // }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     }
+    
+
+
+}
+extension NotesVC:Addnoteprotocol{
+    func setnote(strnote: String, index: String) {
+        print("received data - \(strnote)")
+        
+        let data = ["Add Note" : strnote] as [String : Any]
+        if index != ""{
+            let temp = Int(index)
+            ArrLinks.removeObject(at: temp!)
+            ArrLinks.insert(data, at: temp!)
+        }else{
+            ArrLinks.add(data)
+        }
+        tableview.reloadData()
+    }
+    
     
 }

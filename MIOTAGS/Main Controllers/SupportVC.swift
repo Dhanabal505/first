@@ -17,6 +17,13 @@ class SupportVC: UIViewController {
         return img
     }()
     
+    
+    lazy var Myscroll:UIScrollView={
+        let scrl = UIScrollView()
+        scrl.translatesAutoresizingMaskIntoConstraints=false
+        return scrl
+    }()
+    
     lazy var name:UnderlineTf={
         let tf = UnderlineTf()
         tf.placeholder = "Name"
@@ -31,6 +38,7 @@ class SupportVC: UIViewController {
    
     lazy var message:UITextView={
         let msg = UITextView()
+        msg.font = UIFont.systemFont(ofSize: 17)
         return msg
     }()
     
@@ -72,28 +80,36 @@ class SupportVC: UIViewController {
         super.viewDidLoad()
 
         Setsubviews()
-       
+        setTapGesture()
         translate()
         layout()
-        
+      
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setNavigation()
-        
+
     }
+   
+    
+ 
 
     func Setsubviews(){
         
         view.addSubview(Header)
-        view.addSubview(msgimg)
-        view.addSubview(supportview)
-        view.addSubview(name)
-        view.addSubview(email)
-        view.addSubview(message)
-        view.addSubview(send)
-        view.addSubview(mytitle)
-        view.addSubview(back)
+        view.addSubview(Myscroll)
+        Myscroll.addSubview(msgimg)
+        Myscroll.addSubview(supportview)
+        Myscroll.addSubview(name)
+        Myscroll.addSubview(email)
+        Myscroll.addSubview(message)
+        Myscroll.addSubview(send)
+        Myscroll.addSubview(mytitle)
+        Myscroll.addSubview(back)
 
     }
 
@@ -124,29 +140,49 @@ class SupportVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    func setTapGesture(){
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleDismissed))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+    }
+    @objc func handleDismissed(){
+        self.view.endEditing(true)
+    }
     
-    
-    
+    @objc func keyboardWillAppear(){
+        Myscroll.contentSize.height = view.frame.height + 80
+        
+        let bottomOffSet = CGPoint(x: 0, y: Myscroll.contentSize.height - Myscroll.bounds.size.height + Myscroll.contentInset.bottom)
+        Myscroll.setContentOffset(bottomOffSet, animated: true)
+        
+    }
+    @objc func keyboardWillHide(){
+        Myscroll.scrollsToTop = true
+        Myscroll.contentSize.height = 600
+    }
     
     func layout(){
         
         Header.anchorWith_TopLeftBottomRight_Padd(top: view.safeAreaLayoutGuide.topAnchor, left: view.leadingAnchor, bottom: nil, right: view.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: 0))
         Header.anchorWith_Height(height: nil, const: SIZE.Header_Height)
         
+        Myscroll.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: nil, top: Header.bottomAnchor, left: view.leadingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: 0))
+        Myscroll.contentSize.height = 600
         
-        mytitle.anchorWith_XY_TopLeftBottomRight_Padd(x: msgimg.centerXAnchor, y: nil, top: view.safeAreaLayoutGuide.topAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 50, left: 0, bottom: -10, right: 0))
+        
+        mytitle.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: Myscroll.topAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 20, left: 0, bottom: 0, right: 0))
         
         
         back.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: mytitle.centerYAnchor, top: nil, left: nil, bottom: nil, right: mytitle.leadingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: -5))
         back.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 0.08, constHeight: 0.03)
         
         
-        msgimg.anchorWith_XY_TopLeftBottomRight_Padd(x: view.centerXAnchor, y: nil, top: nil, left: nil, bottom: supportview.topAnchor, right: nil, padd: .init(top: 0, left: 0, bottom: -25, right: 0))
+        msgimg.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: mytitle.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 30, left: 0, bottom: 0, right: 0))
         msgimg.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 0.2, constHeight: 0.1)
         
         
-        supportview.anchorWith_XY_Padd(x: view.centerXAnchor, y: view.centerYAnchor,padd: .init(top: 50, left: 0, bottom: 0, right: 0))
-        supportview.anchorWith_WidthHeight(width: view.widthAnchor, height: nil, constWidth: 0.8, constHeight: SIZE.SVIEW_HEIGHT)
+        supportview.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: msgimg.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 30, left: 0, bottom: 0, right: 0))
+        supportview.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 0.8, constHeight: SIZE.SVIEW_HEIGHT)
         supportview.addSubview(name)
         supportview.addSubview(email)
         supportview.addSubview(message)
@@ -166,7 +202,7 @@ class SupportVC: UIViewController {
         
         
         send.anchorWith_XY_TopLeftBottomRight_Padd(x: view.centerXAnchor, y: nil, top: supportview.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 40, left: 0, bottom: 0, right: 0))
-        send.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 0.4, constHeight: 0.1)
+        send.anchorWith_WidthHeight(width: view.widthAnchor, height: nil, constWidth: 0.4, constHeight: SIZE.Login_Height)
         
     }
   

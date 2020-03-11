@@ -19,6 +19,7 @@ class LoginVC: UIViewController  {
     }()
     
     
+    
     lazy var loginview:CustomView = {
         let view = CustomView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -104,7 +105,8 @@ class LoginVC: UIViewController  {
          SetSubViews()
          layout()
          Remember()
-        
+         setTapGesture()
+       
     }
     
     
@@ -118,6 +120,15 @@ class LoginVC: UIViewController  {
         errorlable.addGestureRecognizer(tap)
     }
 
+    func setTapGesture(){
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleDismissed))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+    }
+    @objc func handleDismissed(){
+        self.view.endEditing(true)
+    }
+  
     
     func labeltext(){
 
@@ -187,9 +198,77 @@ class LoginVC: UIViewController  {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    
+//    func validateLogin(){
+//        let strUserName = usne.text
+//        let strEmail = mail.text
+//        let strPassword = pass.text
+//
+//        let data = ["UserName":strUserName,"Email":strEmail,"password":strPassword,"grant_type":"password"] as! [String:String]
+//        loginAPI(data: data)
+//    }
+//
+//    func loginAPI(data:[String:String]){
+//
+//
+//        let loader = LoaderView()
+//        loader.showLoader()
+//
+//        APIs.login(data: data) { (userData, error) in
+//            loader.hideLoader()
+//
+//            let support = self.storyboard?.instantiateViewController(withIdentifier: "TapScanVC")as! TapScanVC
+//            self.navigationController?.pushViewController(support, animated: true)
+//
+//
+//            if error != nil{
+//                switch error {
+//                case .connectionError?:
+//                    print("Connection Error")
+//                   // self.makeToast(strMessage: STRING.INTERNET_CONNECTION)
+//                    break
+//                case .noDataAvailable?:
+//                    print("No Data Available")
+//                   // self.makeToast(strMessage: STRING.NO_DATA)
+//                    break
+//                case .serverError?:
+//                    print("Server Error")
+//                   // self.makeToast(strMessage: "Server Error")
+//                    break
+//                case .invalidData?:
+//                    //self.makeToast(strMessage: STRING.INVALID_USER)
+//                    break
+//                default:
+//                    print("No Data")
+//                }
+//                return
+//            }
+//
+//
+//            //print("User Data - \(String(describing: userData))")
+//
+////            if self.remember.isChecked{
+////                DataModel.setUserDefault(strKey: USERDEFAULT.USERNAME, data: self.usne.text!)
+////                DataModel.setUserDefault(strKey: USERDEFAULT.PASSWORD, data: self.pass.text!)
+////            }
+////            else{
+////                DataModel.removeUserDefault()
+////            }
+//            if User.Role == "Primary"{
+//            print("True")
+//                let support = self.storyboard?.instantiateViewController(withIdentifier: "TapScanVC")as! TapScanVC
+//                self.navigationController?.pushViewController(support, animated: true)
+//            } else{
+//                print(false)
+//                let support = self.storyboard?.instantiateViewController(withIdentifier: "TapScanVC")as! TapScanVC
+//                self.navigationController?.pushViewController(support, animated: true)
+//            }
+//        }
+//        }
+//
     
     @objc func loginact(){
+        
+        //validateLogin()
         print("Test")
         let defaults: UserDefaults? = UserDefaults.standard
         if remember.isChecked == true {
@@ -197,20 +276,20 @@ class LoginVC: UIViewController  {
             defaults?.set(usne.text, forKey: "SavedUserName")
             defaults?.set(mail.text, forKey: "SavedMail")
             defaults?.set(pass.text, forKey: "SavedPassword")
-           
+
         } else {
             defaults?.set(false, forKey: "Remember")
-            
+
         }
-       
+
         if usne.text!.count == 4  {
             let support = storyboard?.instantiateViewController(withIdentifier: "TapScanVC")as! TapScanVC
             navigationController?.pushViewController(support, animated: true)
-        
-            
+
+
         }
         else {
-            
+
             errorlable.isHidden = false
             labeltext()
             vLoginVwHeight?.constant = 300

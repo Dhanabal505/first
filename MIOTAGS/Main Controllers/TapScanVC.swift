@@ -11,6 +11,7 @@ import UIKit
 class TapScanVC: UIViewController {
     
     
+    
     var picker = UIImagePickerController();
     
      let gradientLayer:CAGradientLayer = CAGradientLayer()
@@ -21,6 +22,11 @@ class TapScanVC: UIViewController {
         return view!
     }()
 
+    lazy var Myscroll:UIScrollView={
+        let scrl = UIScrollView()
+        scrl.translatesAutoresizingMaskIntoConstraints=false
+        return scrl
+    }()
     
     lazy var assetid:UnderlineTf={
         let tf = UnderlineTf()
@@ -84,7 +90,6 @@ class TapScanVC: UIViewController {
         btn.translatesAutoresizingMaskIntoConstraints=false
         btn.setTitle("SEARCH", for: .normal)
         btn.backgroundColor = UIColor().hexToColor(hex: "004c8c")
-        btn.alpha = 1
         return btn
     }()
     
@@ -93,29 +98,40 @@ class TapScanVC: UIViewController {
         
         view.addSubview(search)
         Setsubview()
-      
+        setTapGesture()
          layout()
         attributetext()
+        
+        
+       
        
     }
-    
-    
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setNavigation()
-       
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+
     
     func Setsubview(){
-        view.addSubview(togglebtn)
-        view.addSubview(mybtn)
+        
         view.addSubview(Header)
-        view.addSubview(switchbtn)
-        view.addSubview(back)
-        view.addSubview(mytitle)
-        view.addSubview(assetid)
-        view.addSubview(orlbl)
+        view.addSubview(Myscroll)
+        Myscroll.addSubview(togglebtn)
+        Myscroll.addSubview(mybtn)
+        Myscroll.addSubview(switchbtn)
+        Myscroll.addSubview(back)
+        Myscroll.addSubview(mytitle)
+        Myscroll.addSubview(assetid)
+        Myscroll.addSubview(orlbl)
         view.addGestureRecognizer(swipe)
     }
     
@@ -149,21 +165,70 @@ class TapScanVC: UIViewController {
         }
     }
     
-  
     
+    func setTapGesture(){
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleDismissed))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+    }
+    @objc func handleDismissed(){
+        self.view.endEditing(true)
+    }
+    
+    
+    
+    var scrollOffset : CGFloat = 0
+    var distance : CGFloat = 0
+    
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            
+            var safeArea = self.view.frame
+            safeArea.size.height += Myscroll.contentOffset.y
+            safeArea.size.height -= keyboardSize.height + (UIScreen.main.bounds.height*0.12)
+            
+            let activeField: UIView? = [assetid].first { $0.isFirstResponder }
+            if let activeField = activeField {
+                if safeArea.contains(CGPoint(x: 0, y: activeField.frame.maxY)) {
+                    print("No need to Scroll")
+                    return
+                } else {
+                    distance = activeField.frame.maxY - safeArea.size.height
+                    scrollOffset = Myscroll.contentOffset.y
+                    self.Myscroll.setContentOffset(CGPoint(x: 0, y: scrollOffset + distance), animated: true)
+                }
+            }
+           
+            
+            Myscroll.isScrollEnabled = false
+        }
+    }
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if distance == 0 {
+            return
+        }
+        self.Myscroll.setContentOffset(CGPoint(x: 0, y: scrollOffset ), animated: true)
+        scrollOffset = 0
+        distance = 0
+        Myscroll.isScrollEnabled = true
+        Myscroll.contentSize.height = 900
+    }
+  
+
     @objc func switchValueDidChange(_ sender: UISwitch!) {
-        
-        
+
+
         if (sender.isOn == true ) {
-            
-            
+
+
             switchbtn.backgroundColor = UIColor(patternImage: UIImage(named: "tap")!)
             mybtn.setImage(UIImage(named: "scan"), for: .normal)
             mybtn.tag = 1
             mybtn.addTarget(self, action: #selector(btnsacts), for: .touchUpInside)
             togglebtn.setImage(UIImage(named: "scanon"), for: .normal)
         }
-        
+
         else {
 
             mybtn.setImage(UIImage(named: "tap"), for: .normal)
@@ -206,11 +271,12 @@ class TapScanVC: UIViewController {
         Header.anchorWith_Height(height: nil, const: SIZE.Header_Height)
         
         
-        mytitle.anchorWith_TopLeftBottomRight_Padd(top: view.safeAreaLayoutGuide.topAnchor, left: nil, bottom: nil, right: nil,padd: .init(top: 50, left: 0, bottom: 0, right: 0))
-        mytitle.anchorWith_XY_Padd(x: switchbtn.centerXAnchor, y: nil)
-        mytitle.textAlignment = .center
+        Myscroll.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: nil, top: Header.bottomAnchor, left: view.leadingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: 0))
+        Myscroll.contentSize.height = 600
         
-        mybtn.anchorWith_XY_Padd(x: view.centerXAnchor, y: view.centerYAnchor)
+        mytitle.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: Myscroll.topAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 20, left: 0, bottom: 0, right: 0))
+        
+        mybtn.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: togglebtn.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 40, left: 0, bottom: 0, right: 0))
         mybtn.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 0.7, constHeight: 0.3)
        
         
@@ -229,24 +295,24 @@ class TapScanVC: UIViewController {
       
         
         
-        togglebtn.anchorWith_XY_Padd(x: view.centerXAnchor, y: nil)
-        togglebtn.anchorWith_TopLeftBottomRight_Padd(top: nil, left: nil, bottom: mybtn.topAnchor, right: nil, padd: .init(top: 0, left: 0, bottom: -50, right: 0))
-        togglebtn.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 0.3, constHeight: 0.06)
-
+        togglebtn.anchorWith_XY_Padd(x: Myscroll.centerXAnchor, y: nil)
+        togglebtn.anchorWith_TopLeftBottomRight_Padd(top: mytitle.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 20, left: 0, bottom: 0, right: 0))
+        togglebtn.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: view.heightAnchor, constWidth: 0.3, constHeight: 0.06)
         
         
         
-        orlbl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive=true
+        
+        orlbl.centerXAnchor.constraint(equalTo: Myscroll.centerXAnchor).isActive=true
         orlbl.anchorWith_TopLeftBottomRight_Padd(top: mybtn.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 35, left: 0, bottom: 0, right: 0))
         
         
        
-        assetid.anchorWith_XY_TopLeftBottomRight_Padd(x: view.centerXAnchor, y: nil, top: orlbl.bottomAnchor, left: view.leadingAnchor, bottom: nil, right: view.trailingAnchor, padd: .init(top: 25, left: 30, bottom: 0, right: -40))
+        assetid.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: orlbl.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 25, left: 0, bottom: 0, right: 0))
+        assetid.anchorWith_Width(width: Myscroll.widthAnchor, const: 0.7)
         
-        search.anchorWith_XY_TopLeftBottomRight_Padd(x: view.centerXAnchor, y: nil, top: nil, left: nil, bottom: view.bottomAnchor, right: nil, padd: .init(top: 0, left: 0, bottom: -20, right: 0))
-        search.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 0.4, constHeight: 0.06)
+        search.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: assetid.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 50, left: 0, bottom: 0, right: 0))
+        search.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 0.4, constHeight: SIZE.SEARCH_HEIGHT)
         
-       
     }
     
     func attributetext(){

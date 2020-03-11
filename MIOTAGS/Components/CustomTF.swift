@@ -103,7 +103,7 @@ class showhide:JVFloatLabeledTextField {
         self.addSubview(rightButton)
         
         
-        view.anchorWith_TopLeftBottomRight_Padd(top: nil, left: leadingAnchor, bottom: bottomAnchor, right: trailingAnchor,padd: .init(top: 0, left: 0, bottom: -1, right: 0))
+        view.anchorWith_TopLeftBottomRight_Padd(top: nil, left: leadingAnchor, bottom: self.bottomAnchor, right: trailingAnchor,padd: .init(top: 0, left: 0, bottom: -2, right: 0))
         view.anchorWith_Height(height: nil, const: 1)
         
         rightButton.setImage(UIImage(named: "hide") , for: .normal)
@@ -155,7 +155,7 @@ class HistoryTF : JVFloatLabeledTextField {
     func mytext(){
         
         
-        self.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        self.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         self.placeholderColor = UIColor.black
         self.floatingLabelActiveTextColor = UIColor.red
         self.floatingLabelTextColor = UIColor.black

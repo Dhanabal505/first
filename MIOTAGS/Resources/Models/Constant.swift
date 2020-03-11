@@ -20,6 +20,17 @@ struct SIZE{
     static let Login_Height:CGFloat = 80
     static let PVIEW_HEIGHT:CGFloat = 300
     static let SVIEW_HEIGHT:CGFloat = 250
-    //static let HISTXT_HEIGHT:CGFloat = 50
+    static let HISTXT_HEIGHT:CGFloat = 60
+    static let SEARCH_HEIGHT:CGFloat = 60
     
+}
+
+struct STRING {
+    static let ACCESS_TOKEN = "access_token"
+}
+
+
+struct USERDEFAULT {
+    static let USERNAME = "username"
+    static let PASSWORD = "password"
 }
