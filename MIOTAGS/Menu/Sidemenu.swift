@@ -13,7 +13,7 @@ class SideMenuLauncher: NSObject{
     
     lazy var sideView:UIView={
         let view=UIView()
-        view.backgroundColor = UIColor().hexToColor(hex: "004c8c")
+        view.backgroundColor = UIColor().hexToColor(hex: "#004c8c")
         view.alpha = 1
         return view
     }()

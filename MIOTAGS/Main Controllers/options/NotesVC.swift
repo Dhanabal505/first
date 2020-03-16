@@ -141,13 +141,13 @@ class NotesVC: UIViewController {
         noteslogo.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 0.2, constHeight: 0.1)
         noteslogo.image = UIImage(named: "noteslogo")
         
-        addnote.anchorWith_XY_TopLeftBottomRight_Padd(x: noteslogo.centerXAnchor, y: nil, top: noteslogo.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 50, left: 0, bottom: 0, right: 0))
+        addnote.anchorWith_XY_TopLeftBottomRight_Padd(x: noteslogo.centerXAnchor, y: view.centerYAnchor, top: nil, left: nil, bottom: nil, right: nil, padd: .init(top: 0, left: 0, bottom: 0, right: 0))
          addnote.anchorWith_WidthHeight(width: view.widthAnchor, height: nil, constWidth: 0.3, constHeight: 80)
         
         noteplus.anchorWith_XY_Padd(x: addnote.centerXAnchor, y: nil)
         noteplus.anchorWith_TopLeftBottomRight_Padd(top: addnote.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 10, left: 0, bottom: 0, right: 0))
         
-        tableview.anchorWith_TopLeftBottomRight_Padd(top: noteslogo.bottomAnchor, left: view.leadingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, padd: .init(top: 100, left: 0, bottom: 0, right: 0))
+        tableview.anchorWith_TopLeftBottomRight_Padd(top: addnote.bottomAnchor, left: view.leadingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, padd: .init(top: 100, left: 0, bottom: 0, right: 0))
         tableview.backgroundColor = UIColor.white.withAlphaComponent(0.4)
         tableview.delegate = self
         tableview.dataSource = self

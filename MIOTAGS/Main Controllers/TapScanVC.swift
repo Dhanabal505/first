@@ -83,13 +83,9 @@ class TapScanVC: UIViewController {
         return btn
     }()
     
-    lazy var search:UIButton={
-        let btn = UIButton()
+    lazy var search:CustomBTN={
+        let btn = CustomBTN(title: "SEARCH")
         btn.translatesAutoresizingMaskIntoConstraints=false
-        btn.setTitle("SEARCH", for: .normal)
-       // btn.backgroundColor = UIColor().hexToColor(hex: "#4fc3f7")
-        btn.alpha = 1
-        btn.setGradientBackground(colorTop: UIColor().hexToColor(hex: "#004c8c"), colorBottom: UIColor().hexToColor(hex: "#4fc3f7"))
         return btn
     }()
     
@@ -103,16 +99,7 @@ class TapScanVC: UIViewController {
         attributetext()
         
         
-//        search.layer.shadowColor = UIColor.darkGray.cgColor
-//
-//        let gradientLayer:CAGradientLayer = CAGradientLayer()
-//
-//        gradientLayer.frame.size = search.frame.size
-//        gradientLayer.colors = [UIColor().hexToColor(hex: "#004c8c"),UIColor().hexToColor(hex: "#4fc3f7").cgColor]
-//        gradientLayer.startPoint = CGPoint(x: 0, y: 1.0)
-//        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-//        search.layer.addSublayer(gradientLayer)
-       
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

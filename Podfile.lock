@@ -1,20 +1,24 @@
 PODS:
   - Alamofire (4.9.1)
   - JVFloatLabeledTextField (1.2.2)
+  - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
   - Alamofire
   - JVFloatLabeledTextField
+  - Toast-Swift
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - JVFloatLabeledTextField
+    - Toast-Swift
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   JVFloatLabeledTextField: df48598472ee015701d509f43e59492a0d4ca208
+  Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 3195f9149d828519bdd03ec5ac268f5f3dd01630
+PODFILE CHECKSUM: 5c05ac46c3e33ce711d4a8746269195e4d46c980
 
 COCOAPODS: 1.8.4

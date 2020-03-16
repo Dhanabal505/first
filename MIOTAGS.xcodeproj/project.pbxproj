@@ -25,6 +25,7 @@
 		3F313B0E2416638600F4A60F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F313B0D2416638600F4A60F /* User.swift */; };
 		3F313B1024166A5D00F4A60F /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F313B0F24166A5D00F4A60F /* DataModel.swift */; };
 		3F313B1224168BCC00F4A60F /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F313B1124168BCC00F4A60F /* Loader.swift */; };
+		3F58B8DB241F603E00357A2A /* ForgotpassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F58B8DA241F603E00357A2A /* ForgotpassVC.swift */; };
 		3F6C8E4A2405376700799CC2 /* TermsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6C8E492405376700799CC2 /* TermsVC.swift */; };
 		3F6DCAB72418C52500580B29 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F6DCAB52418C52500580B29 /* Main.storyboard */; };
 		3F85F6D424065FFE00B82122 /* MenuBTN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85F6D324065FFE00B82122 /* MenuBTN.swift */; };
@@ -77,6 +78,7 @@
 		3F313B0D2416638600F4A60F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3F313B0F24166A5D00F4A60F /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		3F313B1124168BCC00F4A60F /* Loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
+		3F58B8DA241F603E00357A2A /* ForgotpassVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotpassVC.swift; sourceTree = "<group>"; };
 		3F6C8E492405376700799CC2 /* TermsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsVC.swift; sourceTree = "<group>"; };
 		3F6DCAB62418C52500580B29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3F85F6D324065FFE00B82122 /* MenuBTN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBTN.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 			children = (
 				3F965B9423F28DAE0000CB03 /* options */,
 				3F18865C23E849F50038061A /* LoginVC.swift */,
+				3F58B8DA241F603E00357A2A /* ForgotpassVC.swift */,
 				3F6C8E492405376700799CC2 /* TermsVC.swift */,
 				3FA7B30C23EBE4B300CA6FD8 /* MyprofileVC.swift */,
 				3FA7B30E23EBFA6E00CA6FD8 /* SupportVC.swift */,
@@ -384,6 +387,7 @@
 			files = (
 				3F94613923F145C6009D1723 /* Lblextension.swift in Sources */,
 				3F93750523FD8044008A762C /* AddnoteVC.swift in Sources */,
+				3F58B8DB241F603E00357A2A /* ForgotpassVC.swift in Sources */,
 				3FA7B30F23EBFA6E00CA6FD8 /* SupportVC.swift in Sources */,
 				3F85F6D624067ACB00B82122 /* CheckboxBTN.swift in Sources */,
 				3F94613723F12870009D1723 /* OptionVC.swift in Sources */,

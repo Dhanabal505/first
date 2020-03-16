@@ -40,10 +40,8 @@ class AddnoteVC: UIViewController {
         return txt
     }()
     
-    lazy var addbtn:UIButton={
-        let btn = UIButton()
-        btn.ownbtn(text: "Add Note")
-        btn.backgroundColor = UIColor().hexToColor(hex: "004c8c")
+    lazy var addbtn:CustomBTN={
+        let btn = CustomBTN(title: "Add Note")
         return btn
     }()
     
@@ -100,7 +98,7 @@ class AddnoteVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         setNavigation()
-        cancel.addTarget(self, action: #selector(cancelact), for: .touchUpInside)
+        
     }
     
     @objc func cancelact(){
@@ -126,7 +124,7 @@ class AddnoteVC: UIViewController {
    
     func layout(){
         myview.anchorWith_XY_Padd(x: view.centerXAnchor, y: view.centerYAnchor)
-        myview.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 1, constHeight: 0.4)
+        myview.anchorWith_WidthHeight(width: view.widthAnchor, height: nil, constWidth: 1, constHeight: 300)
         myview.backgroundColor = UIColor.lightGray
         myview.layer.borderColor = UIColor.black.cgColor
         myview.layer.borderWidth = 2
@@ -142,19 +140,19 @@ class AddnoteVC: UIViewController {
         
         cancel.anchorWith_XY_Padd(x: nil, y: addnote.centerYAnchor)
         cancel.anchorWith_TopLeftBottomRight_Padd(top: nil, left: nil, bottom: nil, right: myview.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: -5))
-        cancel.anchorWith_Height(height: myview.heightAnchor, const: 0.1)
+        cancel.anchorWith_Height(height: nil, const: 30)
         cancel.imageView?.contentMode = .scaleAspectFit
         
         
         notetext.anchorWith_TopLeftBottomRight_Padd(top: addnote.bottomAnchor, left: addnote.leadingAnchor, bottom: nil, right: nil, padd: .init(top: 20, left: 0, bottom: 0, right: 0))
-        notetext.anchorWith_WidthHeight(width: myview.widthAnchor, height: myview.heightAnchor, constWidth: 0.9, constHeight: 0.5)
+        notetext.anchorWith_WidthHeight(width: myview.widthAnchor, height: nil, constWidth: 0.9, constHeight: SIZE.TEXTVW_HEIGHT)
         notetext.layer.borderColor = UIColor().hexToColor(hex: "#4fc3f7").cgColor
         notetext.layer.borderWidth = 2
         notetext.layer.cornerRadius = 10
         
         addbtn.anchorWith_TopLeftBottomRight_Padd(top: notetext.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 15, left: 0, bottom: 0, right: 0))
         addbtn.anchorWith_XY_Padd(x: notetext.centerXAnchor, y: nil)
-        addbtn.anchorWith_WidthHeight(width: myview.widthAnchor, height: nil, constWidth: 0.4, constHeight: 30)
+        addbtn.anchorWith_WidthHeight(width: myview.widthAnchor, height: nil, constWidth: 0.4, constHeight: SIZE.SEARCH_HEIGHT)
         
     }
 

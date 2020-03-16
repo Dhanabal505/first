@@ -37,4 +37,29 @@ class Menubtn:UIButton{
     }
 }
 
+class CustomBTN : UIButton{
+    
+    required init(title: String) {
+        super.init(frame: .zero)
+        
+        self.setTitle(title, for: .normal)
+        self.setBackgroundImage(UIImage(named: "btnbgrnd"), for: .normal)
+        self.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        self.layer.cornerRadius = 20
+        self.clipsToBounds = true
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        fatalError("init(coder:) has not been implemented")
+        
+    }
+    
+   
+    
+        
+        
+    
+}
 

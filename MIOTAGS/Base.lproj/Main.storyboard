@@ -407,6 +407,21 @@
             </objects>
             <point key="canvasLocation" x="16854" y="20"/>
         </scene>
+        <!--ForgotpassVC-->
+        <scene sceneID="WbT-5D-vnK">
+            <objects>
+                <viewController storyboardIdentifier="ForgotpassVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VxH-zP-FxU" customClass="ForgotpassVC" customModule="MIOTAGS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YEa-dA-sgi">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="5TE-bU-V3B"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BFL-sN-MA6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="17594" y="21"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="S8B-Os-Lhb">
             <objects>

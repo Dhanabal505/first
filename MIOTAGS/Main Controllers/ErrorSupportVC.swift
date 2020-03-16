@@ -125,6 +125,17 @@ class ErrorSupportVC: UIViewController  {
     
     @objc func sendact(){
         
+        
+        guard email.text?.count != 0 else {
+            self.makeToast(strMessage: "Mail Id is empty")
+            return
+        }
+        
+        guard name.text?.count != 0 else {
+            self.makeToast(strMessage: "Name is empty")
+            return
+        }
+        
         let sendbtn = storyboard?.instantiateViewController(withIdentifier: "SupportdoneVC") as! SupportdoneVC
         navigationController?.pushViewController(sendbtn, animated: true)
         

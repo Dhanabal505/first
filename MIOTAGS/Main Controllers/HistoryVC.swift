@@ -70,12 +70,9 @@ class HistoryVC: UIViewController {
     }()
     
     
-    lazy var search:UIButton={
-        let btn = UIButton()
+    lazy var search:CustomBTN={
+        let btn = CustomBTN(title: "SEARCH")
         btn.translatesAutoresizingMaskIntoConstraints=false
-        btn.setTitle("SEARCH", for: .normal)
-        btn.backgroundColor = UIColor().hexToColor(hex: "004c8c")
-        btn.alpha = 1
         return btn
     }()
     
@@ -133,7 +130,7 @@ class HistoryVC: UIViewController {
     
     @objc func keyboardWillAppear(){
        
-        Myscroll.contentSize.height = view.frame.height + 180
+        Myscroll.contentSize.height = view.frame.height + 220
         
         let bottomOffSet = CGPoint(x: 0, y: Myscroll.contentSize.height - Myscroll.bounds.size.height + Myscroll.contentInset.bottom)
         Myscroll.setContentOffset(bottomOffSet, animated: true)
@@ -141,7 +138,7 @@ class HistoryVC: UIViewController {
     }
     @objc func keyboardWillHide(){
         Myscroll.scrollsToTop = true
-        Myscroll.contentSize.height = 600
+        Myscroll.contentSize.height = 720
     }
     
     func setTapGesture(){
@@ -170,7 +167,7 @@ class HistoryVC: UIViewController {
        
         
         Myscroll.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: nil, top: Header.bottomAnchor, left: view.leadingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: 0))
-        Myscroll.contentSize.height = 600
+        Myscroll.contentSize.height = 720
         
         Myscroll.addSubview(mytitle)
         Myscroll.addSubview(Historyimg)

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Toast_Swift
 
 extension UIViewController{
    
@@ -118,7 +119,14 @@ extension UIViewController{
     }
 }
     
-
+extension UIViewController{
+    
+    func makeToast(strMessage:String){
+        var style=ToastStyle()
+        style.messageAlignment = .center
+        self.view.makeToast(strMessage, duration: 3.0, position: .bottom,style:style)
+    }
+}
 
 
 

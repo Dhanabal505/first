@@ -49,7 +49,7 @@ class UnderlineTf:JVFloatLabeledTextField{
     func mytext(){
         
         
-        self.font = UIFont.systemFont(ofSize: 17 , weight: .regular)
+        self.font = UIFont.systemFont(ofSize: 17 , weight: .semibold)
         self.placeholderColor = UIColor.black
         self.floatingLabelActiveTextColor = UIColor.blue
         self.floatingLabelTextColor = UIColor.blue
@@ -143,9 +143,26 @@ class showhide:JVFloatLabeledTextField {
 
 class HistoryTF : JVFloatLabeledTextField {
     
+    let padding = UIEdgeInsets(top: 0, left: 10, bottom: -15, right: 0)
+    
+    override open func textRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.inset(by: padding)
+    }
+    
+    override open func placeholderRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.inset(by: padding)
+    }
+    
+    override open func editingRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.inset(by: padding)
+    }
+    
+   
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         mytext()
+        
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -159,14 +176,14 @@ class HistoryTF : JVFloatLabeledTextField {
         self.placeholderColor = UIColor.black
         self.floatingLabelActiveTextColor = UIColor.red
         self.floatingLabelTextColor = UIColor.black
-       // self.anchorWith_Height(height: nil, const: SIZE.HISTXT_HEIGHT)
-        self.layer.borderWidth = 2
+        self.layer.borderWidth = 5
         self.layer.borderColor = UIColor().hexToColor(hex: "#4fc3f7").cgColor
-        self.borderStyle = .roundedRect
+        self.layer.cornerRadius = 15
+        self.clipsToBounds = true
         self.backgroundColor = .clear
+        self.floatingLabelYPadding = 10
        
-    
-      
+        
         
         
        

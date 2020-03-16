@@ -91,18 +91,21 @@ class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationCont
     lazy var camerabtn:UIButton={
         let btn = UIButton(type: .custom)
         btn.setImage(UIImage(named: "picslogo"), for: .normal)
+        btn.imageView?.contentMode = .scaleAspectFit
         return btn
     }()
     
     lazy var camerabtn2:UIButton={
         let btn = UIButton(type: .custom)
         btn.setImage(UIImage(named: "picslogo"), for: .normal)
+        btn.imageView?.contentMode = .scaleAspectFit
         return btn
     }()
     
     lazy var camerabtn3:UIButton={
         let btn = UIButton(type: .custom)
         btn.setImage(UIImage(named: "picslogo"), for: .normal)
+        btn.imageView?.contentMode = .scaleAspectFit
         return btn
     }()
     
@@ -276,11 +279,11 @@ class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationCont
         newImageView.backgroundColor = .black
         newImageView.contentMode = .scaleAspectFit
         newImageView.isUserInteractionEnabled = true
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
-        newImageView.addGestureRecognizer(tap)
         self.view.addSubview(newImageView)
-        self.navigationController?.isNavigationBarHidden = true
-        self.tabBarController?.tabBar.isHidden = true
+        //let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
+        //        newImageView.addGestureRecognizer(tap)
+        self.navigationController?.isNavigationBarHidden = false
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {

@@ -54,6 +54,7 @@ class LoginVC: UIViewController  {
         btn.setTitle("forgot your password?", for: .normal)
         btn.setTitleColor(UIColor.black, for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        btn.addTarget(self, action: #selector(Forgotpassact), for: .touchUpInside)
         return btn
     }()
     
@@ -192,7 +193,10 @@ class LoginVC: UIViewController  {
         }
     }
     
-    
+    @objc func Forgotpassact(){
+        let vc = storyboard?.instantiateViewController(withIdentifier: "ForgotpassVC") as! ForgotpassVC
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
     @objc func tapFunction(sender:UITapGestureRecognizer) {
         
@@ -284,6 +288,22 @@ class LoginVC: UIViewController  {
             defaults?.set(false, forKey: "Remember")
 
         }
+        
+        guard usne.text?.count != 0 else {
+            self.makeToast(strMessage: "Username is empty")
+            return
+        }
+        
+        guard mail.text?.count != 0 else {
+            self.makeToast(strMessage: "Mail Id is empty")
+            return
+        }
+        
+        guard pass.text?.count != 0 else {
+            self.makeToast(strMessage: "Password is empty")
+            return
+        }
+
 
         if usne.text!.count == 4  {
             let support = storyboard?.instantiateViewController(withIdentifier: "TapScanVC")as! TapScanVC
@@ -366,5 +386,10 @@ class LoginVC: UIViewController  {
     }
 
 }
+
+
+
+
+
 
 

@@ -6,5 +6,6 @@ target 'MIOTAGS' do
 
 pod 'JVFloatLabeledTextField'
 pod 'Alamofire'
+pod 'Toast-Swift'
 
 end

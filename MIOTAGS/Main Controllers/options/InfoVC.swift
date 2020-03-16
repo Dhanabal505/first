@@ -186,7 +186,7 @@ class InfoVC: UIViewController {
     lazy var Country:UnderlineTf={
         let txtfld = UnderlineTf()
         txtfld.placeholder = "Country"
-         txtfld.isEnabled = false
+        txtfld.isEnabled = false
         return txtfld
     }()
     

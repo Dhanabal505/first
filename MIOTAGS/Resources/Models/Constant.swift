@@ -22,10 +22,11 @@ struct SIZE{
     static let Send_Height:CGFloat = 65
     static let PVIEW_HEIGHT:CGFloat = 300
     static let SVIEW_HEIGHT:CGFloat = 250
-    static let HISTXT_HEIGHT:CGFloat = 60
-    static let SEARCH_HEIGHT:CGFloat = 40
+    static let HISTXT_HEIGHT:CGFloat = 70
+    static let SEARCH_HEIGHT:CGFloat = 50
     static let MENUBTN_HEIGHT:CGFloat = 80
     static let MENUICON_HEIGHT:CGFloat = 30
+    static let TEXTVW_HEIGHT:CGFloat = 170
     
 }
 
