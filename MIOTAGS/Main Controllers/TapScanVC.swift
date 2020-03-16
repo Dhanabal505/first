@@ -70,7 +70,7 @@ class TapScanVC: UIViewController {
     
     
     lazy var mytitle:CustomLBL={
-        let lbl = CustomLBL(title: "Tap or Scan")
+        let lbl = CustomLBL(title: "TAP OR SCAN")
         return lbl
     }()
     

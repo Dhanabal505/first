@@ -30,7 +30,7 @@ class NotesVC: UIViewController {
     }()
     
     lazy var mytitle:CustomLBL={
-        let lbl = CustomLBL(title: "Notes")
+        let lbl = CustomLBL(title: "NOTES")
         return lbl
     }()
     
@@ -88,7 +88,8 @@ class NotesVC: UIViewController {
     }
     
     @objc func backact(){
-        self.navigationController?.popViewController(animated: true)
+       let vc = storyboard?.instantiateViewController(withIdentifier: "OptionVC") as! OptionVC
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func addnotesact(){

@@ -60,6 +60,7 @@ class AddnoteVC: UIViewController {
         view.addSubview(cancel)
         view.addSubview(addbtn)
         setTapGesture()
+        setNavigation()
         translate()
         layout()
         
@@ -67,6 +68,10 @@ class AddnoteVC: UIViewController {
         cancel.addTarget(self, action: #selector(cancelact), for: .touchUpInside)
         
          print("Edit - \(EditData) - \(EditData.count)")
+        
+        self.navigationController?.navigationItem.backBarButtonItem?.isEnabled = false
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     func initialLoad(){

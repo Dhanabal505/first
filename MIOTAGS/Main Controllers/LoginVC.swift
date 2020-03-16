@@ -48,15 +48,15 @@ class LoginVC: UIViewController  {
         return tf
     }()
     
-    lazy var forgotpass:UIButton={
-        let btn = UIButton()
-        btn.translatesAutoresizingMaskIntoConstraints=false
-        btn.setTitle("forgot your password?", for: .normal)
-        btn.setTitleColor(UIColor.black, for: .normal)
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        btn.addTarget(self, action: #selector(Forgotpassact), for: .touchUpInside)
-        return btn
-    }()
+//    lazy var forgotpass:UIButton={
+//        let btn = UIButton()
+//        btn.translatesAutoresizingMaskIntoConstraints=false
+//        btn.setTitle("forgot your password?", for: .normal)
+//        btn.setTitleColor(UIColor.black, for: .normal)
+//        btn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+//        btn.addTarget(self, action: #selector(Forgotpassact), for: .touchUpInside)
+//        return btn
+//    }()
     
     lazy var remember: checkbox = {
         let btn = checkbox()
@@ -114,7 +114,7 @@ class LoginVC: UIViewController  {
     override func viewWillAppear(_ animated: Bool) {
         setNavigation()
         
-       vLoginVwHeight?.constant = 260
+       vLoginVwHeight?.constant = 240
        errorlable.isHidden = true
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(LoginVC.tapFunction))
@@ -315,7 +315,7 @@ class LoginVC: UIViewController  {
 
             errorlable.isHidden = false
             labeltext()
-            vLoginVwHeight?.constant = 300
+            vLoginVwHeight?.constant = 290
         }
     }
     
@@ -342,7 +342,7 @@ class LoginVC: UIViewController  {
         loginview.addSubview(usne)
         loginview.addSubview(mail)
         loginview.addSubview(pass)
-        loginview.addSubview(forgotpass)
+      //  loginview.addSubview(forgotpass)
         loginview.addSubview(remember)
         loginview.addSubview(errorlable)
     
@@ -358,7 +358,7 @@ class LoginVC: UIViewController  {
        
         
 
-        forgotpass.anchorWith_TopLeftBottomRight_Padd(top: remember.bottomAnchor, left: nil, bottom: nil, right: usne.trailingAnchor, padd: .init(top: 15, left: 0, bottom: 0, right: 0))
+//        forgotpass.anchorWith_TopLeftBottomRight_Padd(top: remember.bottomAnchor, left: nil, bottom: nil, right: usne.trailingAnchor, padd: .init(top: 15, left: 0, bottom: 0, right: 0))
       
         
         errorlable.anchorWith_TopLeftBottomRight_Padd(top: nil, left: loginview.leadingAnchor, bottom: loginview.bottomAnchor, right: loginview.trailingAnchor , padd: .init(top: 0, left: 10, bottom: -10, right: -10))

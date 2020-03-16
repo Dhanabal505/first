@@ -13,7 +13,7 @@ import UIKit
 struct SIZE{
     
 
-    static let TXT_Height:CGFloat = 35
+    static let TXT_Height:CGFloat = 45
     static let LOGO_Height:CGFloat = 30
     static let Header_Height:CGFloat = 50
     static let LeftMenu_Height:CGFloat = 20
@@ -27,6 +27,7 @@ struct SIZE{
     static let MENUBTN_HEIGHT:CGFloat = 80
     static let MENUICON_HEIGHT:CGFloat = 30
     static let TEXTVW_HEIGHT:CGFloat = 170
+    static let DATAVIEW_HEIGHT:CGFloat = 80
     
 }
 

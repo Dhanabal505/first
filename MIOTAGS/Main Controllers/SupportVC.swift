@@ -56,7 +56,7 @@ class SupportVC: UIViewController {
     }()
     
     lazy var mytitle:CustomLBL={
-        let lbl = CustomLBL(title: "Support")
+        let lbl = CustomLBL(title: "SUPPORT")
         return lbl
     }()
     

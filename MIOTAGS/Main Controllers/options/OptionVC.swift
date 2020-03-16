@@ -29,7 +29,7 @@ class OptionVC: UIViewController {
     }()
     
     lazy var mytitle:CustomLBL={
-        let lbl = CustomLBL(title: "OPTION")
+        let lbl = CustomLBL(title: "OPTIONS")
         return lbl
     }()
     

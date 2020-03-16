@@ -88,7 +88,7 @@ class showhide:JVFloatLabeledTextField {
         
         
         
-        self.font = UIFont.systemFont(ofSize: 17 , weight: .regular)
+        self.font = UIFont.systemFont(ofSize: 17 , weight: .semibold)
         self.placeholderColor = UIColor.black
         self.floatingLabelActiveTextColor = UIColor.blue
         self.floatingLabelTextColor = UIColor.blue

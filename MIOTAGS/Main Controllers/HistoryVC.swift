@@ -19,7 +19,7 @@ class HistoryVC: UIViewController {
     
     
     lazy var mytitle:CustomLBL={
-        let lbl = CustomLBL(title: "History")
+        let lbl = CustomLBL(title: "HISTORY")
         return lbl
     }()
     
@@ -74,6 +74,36 @@ class HistoryVC: UIViewController {
         let btn = CustomBTN(title: "SEARCH")
         btn.translatesAutoresizingMaskIntoConstraints=false
         return btn
+    }()
+    
+    lazy var dataview:CustomView={
+        let view = CustomView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var idimg:UIImageView={
+        let img = UIImageView()
+        img.translatesAutoresizingMaskIntoConstraints=false
+        img.image = UIImage(named: "iddata")
+        img.contentMode = .scaleAspectFit
+        return img
+    }()
+    
+    lazy var userimg:UIImageView={
+        let img = UIImageView()
+        img.translatesAutoresizingMaskIntoConstraints=false
+        img.image = UIImage(named: "userdata")
+        img.contentMode = .scaleAspectFit
+        return img
+    }()
+    
+    lazy var dateimg:UIImageView={
+        let img = UIImageView()
+        img.translatesAutoresizingMaskIntoConstraints=false
+        img.image = UIImage(named: "datedata")
+        img.contentMode = .scaleAspectFit
+        return img
     }()
     
     override func viewDidLoad() {
@@ -138,7 +168,7 @@ class HistoryVC: UIViewController {
     }
     @objc func keyboardWillHide(){
         Myscroll.scrollsToTop = true
-        Myscroll.contentSize.height = 720
+        Myscroll.contentSize.height = 740
     }
     
     func setTapGesture(){
@@ -167,7 +197,7 @@ class HistoryVC: UIViewController {
        
         
         Myscroll.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: nil, top: Header.bottomAnchor, left: view.leadingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: 0))
-        Myscroll.contentSize.height = 720
+        Myscroll.contentSize.height = 740
         
         Myscroll.addSubview(mytitle)
         Myscroll.addSubview(Historyimg)
@@ -177,6 +207,7 @@ class HistoryVC: UIViewController {
         Myscroll.addSubview(EndDate)
         Myscroll.addSubview(Asset)
         Myscroll.addSubview(search)
+        Myscroll.addSubview(dataview)
         
         mytitle.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: Myscroll.topAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 20, left: 0, bottom: 0, right: 0))
         
@@ -184,7 +215,7 @@ class HistoryVC: UIViewController {
         Historyimg.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 0.2, constHeight: 0.1)
         
         usertf.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: Historyimg.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 80, left: 0, bottom: 0, right: 0))
-        usertf.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 0.7, constHeight: SIZE.HISTXT_HEIGHT)
+        usertf.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 0.8, constHeight: SIZE.HISTXT_HEIGHT)
         
         FrmDate.anchorWith_TopLeftBottomRight_Padd(top: usertf.bottomAnchor, left: usertf.leadingAnchor, bottom: nil, right: usertf.trailingAnchor, padd: .init(top: 20, left: 0, bottom: 0, right: 0))
         FrmDate.anchorWith_Height(height: usertf.heightAnchor, const: 1)
@@ -201,6 +232,23 @@ class HistoryVC: UIViewController {
         
         search.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: Asset.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 30, left: 0, bottom: 0, right: 0))
         search.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 0.4, constHeight: SIZE.SEARCH_HEIGHT)
+        
+        dataview.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: search.bottomAnchor, left: nil
+            , bottom: nil, right: nil, padd: .init(top: 30, left: 0, bottom: 0, right: 0))
+        dataview.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 0.9, constHeight: SIZE.DATAVIEW_HEIGHT)
+        dataview.addSubview(idimg)
+        dataview.addSubview(userimg)
+        dataview.addSubview(dateimg)
+        
+        idimg.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: dataview.centerYAnchor, top: nil, left: dataview.leadingAnchor, bottom: nil, right: nil, padd: .init(top: 0, left: 20, bottom: 0, right: 0))
+        idimg.anchorWith_WidthHeight(width: dataview.widthAnchor, height: nil, constWidth: 0.2, constHeight: 40)
+        
+        
+        userimg.anchorWith_XY_TopLeftBottomRight_Padd(x: dataview.centerXAnchor, y: dataview.centerYAnchor, top: nil, left: nil, bottom: nil, right: nil, padd: .init(top: 0, left: 0, bottom: 0, right: 0))
+        userimg.anchorWith_WidthHeight(width: dataview.widthAnchor, height: nil, constWidth: 0.2, constHeight: 40)
+        
+        dateimg.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: dataview.centerYAnchor, top: nil, left: userimg.trailingAnchor, bottom: nil, right: dataview.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: -20))
+        dateimg.anchorWith_WidthHeight(width: dataview.widthAnchor, height: nil, constWidth: 0.2, constHeight: 40)
 
     }
 

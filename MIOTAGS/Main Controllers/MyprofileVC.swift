@@ -81,7 +81,7 @@ class MyprofileVC: UIViewController {
     
     
     lazy var mytitle:CustomLBL={
-        let lbl = CustomLBL(title: "My Profile")
+        let lbl = CustomLBL(title: "MY PROFILE")
         return lbl
     }()
     
