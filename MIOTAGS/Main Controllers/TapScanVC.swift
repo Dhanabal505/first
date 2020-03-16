@@ -14,8 +14,6 @@ class TapScanVC: UIViewController {
     
     var picker = UIImagePickerController();
     
-     let gradientLayer:CAGradientLayer = CAGradientLayer()
-    
     lazy var Header:CustomMenuHeader={
         let view = CustomMenuHeader(title: "")
         view?.translatesAutoresizingMaskIntoConstraints=false
@@ -86,24 +84,34 @@ class TapScanVC: UIViewController {
     }()
     
     lazy var search:UIButton={
-        let btn = UIButton(type: .custom)
+        let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints=false
         btn.setTitle("SEARCH", for: .normal)
-        btn.backgroundColor = UIColor().hexToColor(hex: "004c8c")
+       // btn.backgroundColor = UIColor().hexToColor(hex: "#4fc3f7")
+        btn.alpha = 1
+        btn.setGradientBackground(colorTop: UIColor().hexToColor(hex: "#004c8c"), colorBottom: UIColor().hexToColor(hex: "#4fc3f7"))
         return btn
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(search)
+        
         Setsubview()
         setTapGesture()
          layout()
         attributetext()
         
         
-       
+//        search.layer.shadowColor = UIColor.darkGray.cgColor
+//
+//        let gradientLayer:CAGradientLayer = CAGradientLayer()
+//
+//        gradientLayer.frame.size = search.frame.size
+//        gradientLayer.colors = [UIColor().hexToColor(hex: "#004c8c"),UIColor().hexToColor(hex: "#4fc3f7").cgColor]
+//        gradientLayer.startPoint = CGPoint(x: 0, y: 1.0)
+//        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+//        search.layer.addSublayer(gradientLayer)
        
     }
     
@@ -132,8 +140,12 @@ class TapScanVC: UIViewController {
         Myscroll.addSubview(mytitle)
         Myscroll.addSubview(assetid)
         Myscroll.addSubview(orlbl)
+        Myscroll.addSubview(search)
         view.addGestureRecognizer(swipe)
     }
+    
+    
+    
     
     
     let swipe = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture(gesture:)))

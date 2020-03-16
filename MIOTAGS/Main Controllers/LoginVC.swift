@@ -352,9 +352,9 @@ class LoginVC: UIViewController  {
         
         
         remember.anchorWith_TopLeftBottomRight_Padd(top: pass.bottomAnchor, left: loginview.leadingAnchor, bottom: nil, right: nil, padd: .init(top: 20, left: 10, bottom: 0, right: 0))
-        remember.anchorWith_WidthHeight(width: nil, height: nil, constWidth: 150, constHeight: 20)
+        remember.anchorWith_WidthHeight(width: nil, height: nil, constWidth: 160, constHeight: 20)
         remember.imageEdgeInsets = UIEdgeInsets(top: 0, left: -120, bottom: 0, right: 0)
-        remember.titleEdgeInsets = UIEdgeInsets(top: 0, left: -480, bottom: 0, right: 0)
+        remember.titleEdgeInsets = UIEdgeInsets(top: 0, left: -470, bottom: 0, right: 0)
        
         
         login.anchorWith_XY_TopLeftBottomRight_Padd(x: view.centerXAnchor, y: nil, top: nil, left: nil, bottom: view.bottomAnchor, right: nil, padd: .init(top: 0, left: 0, bottom: -20, right: 0))

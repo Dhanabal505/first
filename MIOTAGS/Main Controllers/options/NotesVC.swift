@@ -45,6 +45,7 @@ class NotesVC: UIViewController {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints=false
         btn.setImage(UIImage(named: "notes"), for: .normal)
+        btn.imageView?.contentMode = .scaleAspectFit
         btn.addTarget(self, action: #selector(addnotesact), for: .touchUpInside)
         return btn
     }()
@@ -141,7 +142,7 @@ class NotesVC: UIViewController {
         noteslogo.image = UIImage(named: "noteslogo")
         
         addnote.anchorWith_XY_TopLeftBottomRight_Padd(x: noteslogo.centerXAnchor, y: nil, top: noteslogo.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 50, left: 0, bottom: 0, right: 0))
-         addnote.anchorWith_WidthHeight(width: view.widthAnchor, height: nil, constWidth: 0.3, constHeight: 100)
+         addnote.anchorWith_WidthHeight(width: view.widthAnchor, height: nil, constWidth: 0.3, constHeight: 80)
         
         noteplus.anchorWith_XY_Padd(x: addnote.centerXAnchor, y: nil)
         noteplus.anchorWith_TopLeftBottomRight_Padd(top: addnote.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 10, left: 0, bottom: 0, right: 0))

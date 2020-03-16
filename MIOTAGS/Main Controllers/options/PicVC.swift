@@ -10,7 +10,7 @@ import UIKit
 
 class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationControllerDelegate {
 
-  //  @IBOutlet weak var piclogo: UIImageView!
+  
     
     var imagePicker = UIImagePickerController()
     
@@ -139,7 +139,16 @@ class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationCont
     
     override func viewWillAppear(_ animated: Bool) {
         setNavigation()
-       
+        
+        let pictureTap = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+        let pictureTap2 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+        let pictureTap3 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+        viewimg1.addGestureRecognizer(pictureTap)
+        viewimg1.isUserInteractionEnabled = true
+        viewimg2.addGestureRecognizer(pictureTap2)
+        viewimg2.isUserInteractionEnabled = true
+        viewimg3.addGestureRecognizer(pictureTap3)
+        viewimg3.isUserInteractionEnabled = true
        
     }
     
@@ -275,8 +284,8 @@ class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationCont
     }
     
     @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
-        self.navigationController?.isNavigationBarHidden = false
-        self.tabBarController?.tabBar.isHidden = false
+        self.navigationController?.isNavigationBarHidden = true
+        self.tabBarController?.tabBar.isHidden = true
         sender.view?.removeFromSuperview()
     }
     

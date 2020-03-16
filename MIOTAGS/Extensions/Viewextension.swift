@@ -31,3 +31,18 @@ extension UIImageView {
 
 }
 }
+
+extension UIButton{
+    
+    func setGradientBackground(colorTop: UIColor, colorBottom: UIColor) {
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [colorTop.cgColor, colorBottom.cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 0.2, y: 1.0)
+        //        gradientLayer.locations = [0, 1]
+        gradientLayer.frame = bounds
+        
+        layer.insertSublayer(gradientLayer, at: 0)
+    }
+}

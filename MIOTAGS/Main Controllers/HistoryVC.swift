@@ -71,7 +71,7 @@ class HistoryVC: UIViewController {
     
     
     lazy var search:UIButton={
-        let btn = UIButton(type: .custom)
+        let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints=false
         btn.setTitle("SEARCH", for: .normal)
         btn.backgroundColor = UIColor().hexToColor(hex: "004c8c")
@@ -202,8 +202,8 @@ class HistoryVC: UIViewController {
         back.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 0.08, constHeight: 0.03)
         
         
-        search.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: Asset.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 30, left: 0, bottom: -20, right: 0))
-        search.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: view.heightAnchor, constWidth: 0.4, constHeight: 0.06)
+        search.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: Asset.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 30, left: 0, bottom: 0, right: 0))
+        search.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 0.4, constHeight: SIZE.SEARCH_HEIGHT)
 
     }
 

@@ -143,7 +143,7 @@ class AddnoteVC: UIViewController {
         cancel.anchorWith_XY_Padd(x: nil, y: addnote.centerYAnchor)
         cancel.anchorWith_TopLeftBottomRight_Padd(top: nil, left: nil, bottom: nil, right: myview.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: -5))
         cancel.anchorWith_Height(height: myview.heightAnchor, const: 0.1)
-        cancel.imageView?.contentMode = .scaleToFill
+        cancel.imageView?.contentMode = .scaleAspectFit
         
         
         notetext.anchorWith_TopLeftBottomRight_Padd(top: addnote.bottomAnchor, left: addnote.leadingAnchor, bottom: nil, right: nil, padd: .init(top: 20, left: 0, bottom: 0, right: 0))
