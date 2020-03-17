@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		11A3E8BC9BBA3134726103C4 /* Pods_MIOTAGS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72BE82FC42FC286616EEDD9F /* Pods_MIOTAGS.framework */; };
+		3F0A60B9242110920006345C /* Assetdata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0A60B8242110920006345C /* Assetdata.swift */; };
 		3F0E4BBE2408F767001D4624 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0E4BBD2408F767001D4624 /* Constant.swift */; };
 		3F13B7FF23E94E8A000E0516 /* statusbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F13B7FE23E94E8A000E0516 /* statusbar.swift */; };
 		3F18864123E846320038061A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F18864023E846320038061A /* AppDelegate.swift */; };
@@ -59,6 +60,7 @@
 
 /* Begin PBXFileReference section */
 		18D8AF7C9F6BACC174AD0430 /* Pods-MIOTAGS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIOTAGS.release.xcconfig"; path = "Target Support Files/Pods-MIOTAGS/Pods-MIOTAGS.release.xcconfig"; sourceTree = "<group>"; };
+		3F0A60B8242110920006345C /* Assetdata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assetdata.swift; sourceTree = "<group>"; };
 		3F0E4BBD2408F767001D4624 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		3F13B7FE23E94E8A000E0516 /* statusbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = statusbar.swift; sourceTree = "<group>"; };
 		3F18863D23E846320038061A /* MIOTAGS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MIOTAGS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -234,6 +236,7 @@
 				3F0E4BBD2408F767001D4624 /* Constant.swift */,
 				3F965B9723F2C93F0000CB03 /* NavigationModels.swift */,
 				3F313B0D2416638600F4A60F /* User.swift */,
+				3F0A60B8242110920006345C /* Assetdata.swift */,
 				3F313B0F24166A5D00F4A60F /* DataModel.swift */,
 			);
 			path = Models;
@@ -389,6 +392,7 @@
 				3F93750523FD8044008A762C /* AddnoteVC.swift in Sources */,
 				3F58B8DB241F603E00357A2A /* ForgotpassVC.swift in Sources */,
 				3FA7B30F23EBFA6E00CA6FD8 /* SupportVC.swift in Sources */,
+				3F0A60B9242110920006345C /* Assetdata.swift in Sources */,
 				3F85F6D624067ACB00B82122 /* CheckboxBTN.swift in Sources */,
 				3F94613723F12870009D1723 /* OptionVC.swift in Sources */,
 				3F0E4BBE2408F767001D4624 /* Constant.swift in Sources */,

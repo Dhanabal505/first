@@ -86,6 +86,7 @@ class TapScanVC: UIViewController {
     lazy var search:CustomBTN={
         let btn = CustomBTN(title: "SEARCH")
         btn.translatesAutoresizingMaskIntoConstraints=false
+        btn.addTarget(self, action: #selector(asset), for: .touchUpInside)
         return btn
     }()
     
@@ -255,13 +256,59 @@ class TapScanVC: UIViewController {
     @objc func backact(){
         self.navigationController?.popViewController(animated: true)
     }
+    
+    @objc func asset(){
+        
+        guard  assetid.text?.count != 0 else {
+            self.makeToast(strMessage: "Give asset id")
+            return
+        }
+        AssetAPI()
+    }
+    
+    
  
    
-    
-    
+    func AssetAPI(){
         
+        
+        let loader = LoaderView()
+        loader.showLoader()
+        
+        let getdata = ["assetId":assetid.text] as! [String:String]
+        
+        APIs.asset(data: getdata) { (record,error) in
+            loader.hideLoader()
+            
+            
+            if error != nil{
+                switch error {
+                case .connectionError?:
+                    print("Connection Error")
+                    self.makeToast(strMessage: "No Internet Connection")
+                    break
+                case .noDataAvailable?:
+                    print("No Data Available")
+                    self.makeToast(strMessage: "No Data Available")
+                    break
+                case .serverError?:
+                    print("Server Error")
+                    self.makeToast(strMessage: "Server Error")
+                    break
+                case .invalidData?:
+                    print("Invalid Data")
+                    self.makeToast(strMessage: "Inavlid Asset ID")
+                    break
+                default:
+                    print("No Data")
+                }
+                return
+    }
+    
+
+        }
    
-   
+    }
     
     
     func layout(){

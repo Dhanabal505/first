@@ -33,7 +33,7 @@ struct SIZE{
 }
 
 struct STRING {
-    static let ACCESS_TOKEN = "access_token"
+    static let ACCESS_TOKEN = "accesstoken"
 }
 
 

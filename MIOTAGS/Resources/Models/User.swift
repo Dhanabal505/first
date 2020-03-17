@@ -17,7 +17,7 @@ class User{
     static var CustomerName : String!
     static var MobileNo : String?
     
-    init(_ username:String,Role:String,companyname:String,customername:String,MobileNo:String?) {
+    init(username:String,Role:String,companyname:String,customername:String,MobileNo:String?) {
         User.self.userName = username
         User.self.CompanyName = companyname
         User.self.Role = Role

@@ -15,6 +15,7 @@ struct SERVER {
 }
 struct PATH {
     static let LOGIN = "userlogin"
+    static let ASSET = "api/qrcode/searchasset"
 }
 
 enum ErrorHandler:Error{
@@ -41,14 +42,14 @@ class APIs{
     }
 
 public static func login(data:[String:String],completion:@escaping(User?,ErrorHandler?)->Void){
-    //        let data = [String:String]()
+   
     Alamofire.request(BASE_PATH+PATH.LOGIN, method: .post, parameters: data).responseJSON { (response) in
         print("response  - ",response)
         
         if let result = response.value{
             if let dicData = result as? NSDictionary{
-                if dicData["status"] != nil{
-                    if (dicData["status"] as! String) == "1"{
+                if dicData["token_type"] != nil{
+                    if (dicData["token_type"] as! String) == "bearer"{
                         
                         var accessToken = ""
                         var tokenType = ""
@@ -67,7 +68,7 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
                         if let str = dicData["userName"] as? String{
                             userName = str
                         }
-                        if let str = dicData["Role"] as? String{
+                        if let str = dicData["IsPrimaryUser"] as? String{
                             Role = str
                         }
                         if let str = dicData["CompanyName"] as? String{
@@ -83,10 +84,11 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
                         let access = "\(tokenType) \(accessToken)"
                         //                            print("accesstike - \(access)")
                         
+                       
                         Model.setUserdefault(strTitle: STRING.ACCESS_TOKEN, value: access)
                         
                         
-                        let user = User(userName, Role: Role, companyname: companyname, customername: customername, MobileNo: mobile)
+                        let user = User(username: userName, Role: Role, companyname: companyname, customername: customername, MobileNo: mobile)
                         
                         setAccessToken()
                         completion(user,nil)
@@ -106,5 +108,27 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
             completion(nil,.connectionError)
         }
     }
+}
+
+    public static func asset(data:[String:String],completion:@escaping(Any?,ErrorHandler?)->Void){
+        
+        Alamofire.request(BASE_PATH+PATH.ASSET, method: .get, parameters: data).responseJSON { (response) in
+            print("response -" ,response)
+            
+            if let result = response.value{
+                if let dicData = result as? NSDictionary{
+                    if dicData["status"] != nil{
+                        if (dicData["status"] as! String) == "1"{
+                            if dicData["data"] != nil{
+                                completion(dicData["data"] as! Any,nil)
+                            }
+                            else{
+                                completion(nil,.noDataAvailable)
+                            }
+        }
+    }
+}
+}
+}
 }
 }
