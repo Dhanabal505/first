@@ -28,6 +28,7 @@ struct SIZE{
     static let MENUICON_HEIGHT:CGFloat = 30
     static let TEXTVW_HEIGHT:CGFloat = 170
     static let DATAVIEW_HEIGHT:CGFloat = 80
+    static let DATAIMG_HEIGHT:CGFloat = 40
     
 }
 

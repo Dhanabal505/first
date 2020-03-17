@@ -241,14 +241,14 @@ class HistoryVC: UIViewController {
         dataview.addSubview(dateimg)
         
         idimg.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: dataview.centerYAnchor, top: nil, left: dataview.leadingAnchor, bottom: nil, right: nil, padd: .init(top: 0, left: 20, bottom: 0, right: 0))
-        idimg.anchorWith_WidthHeight(width: dataview.widthAnchor, height: nil, constWidth: 0.2, constHeight: 40)
+        idimg.anchorWith_WidthHeight(width: dataview.widthAnchor, height: nil, constWidth: 0.2, constHeight: SIZE.DATAIMG_HEIGHT)
         
         
         userimg.anchorWith_XY_TopLeftBottomRight_Padd(x: dataview.centerXAnchor, y: dataview.centerYAnchor, top: nil, left: nil, bottom: nil, right: nil, padd: .init(top: 0, left: 0, bottom: 0, right: 0))
-        userimg.anchorWith_WidthHeight(width: dataview.widthAnchor, height: nil, constWidth: 0.2, constHeight: 40)
+        userimg.anchorWith_WidthHeight(width: dataview.widthAnchor, height: nil, constWidth: 0.2, constHeight: SIZE.DATAIMG_HEIGHT)
         
         dateimg.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: dataview.centerYAnchor, top: nil, left: userimg.trailingAnchor, bottom: nil, right: dataview.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: -20))
-        dateimg.anchorWith_WidthHeight(width: dataview.widthAnchor, height: nil, constWidth: 0.2, constHeight: 40)
+        dateimg.anchorWith_WidthHeight(width: dataview.widthAnchor, height: nil, constWidth: 0.2, constHeight: SIZE.DATAIMG_HEIGHT)
 
     }
 
