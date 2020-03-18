@@ -263,21 +263,28 @@ class TapScanVC: UIViewController {
             self.makeToast(strMessage: "Give asset id")
             return
         }
-        AssetAPI()
+       validasset()
+    }
+    
+    func validasset(){
+        let StrAsset = assetid.text!
+        let StrUserid = User.userId!
+        let getdata = ["assetId":StrAsset,"userId":StrUserid] as! [String:Any]
+        AssetAPI(data: getdata)
     }
     
     
  
    
-    func AssetAPI(){
+    func AssetAPI(data:[String:Any]){
         
         
         let loader = LoaderView()
         loader.showLoader()
         
-        let getdata = ["assetId":assetid.text] as! [String:String]
+       
         
-        APIs.asset(data: getdata) { (record,error) in
+        APIs.asset(data: data) { (User,error) in
             loader.hideLoader()
             
             
@@ -303,7 +310,12 @@ class TapScanVC: UIViewController {
                     print("No Data")
                 }
                 return
-    }
+            }
+           
+            if Asset.statuscode == "1" {
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "TagsuccessVC") as! TagsuccessVC
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
     
 
         }

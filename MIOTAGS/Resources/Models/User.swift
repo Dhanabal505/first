@@ -16,12 +16,14 @@ class User{
     static var Role : String!
     static var CustomerName : String!
     static var MobileNo : String?
+    static var userId : String!
     
-    init(username:String,Role:String,companyname:String,customername:String,MobileNo:String?) {
-        User.self.userName = username
-        User.self.CompanyName = companyname
-        User.self.Role = Role
+    init(username:String,Role:String,companyname:String,customername:String,userid:String,MobileNo:String?) {
+        User.userName = username
+        User.CompanyName = companyname
+        User.Role = Role
         User.CustomerName = customername
+        User.userId = userid
         if MobileNo != nil{
             User.self.MobileNo = MobileNo
         }

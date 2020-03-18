@@ -251,7 +251,7 @@ class LoginVC: UIViewController  {
                 }
                 return
             }
-            
+            print(User.userId)
             if User.Role == "True" {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "TapScanVC") as! TapScanVC
                 self.navigationController?.pushViewController(vc, animated: true)
