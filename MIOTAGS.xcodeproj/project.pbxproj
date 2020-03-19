@@ -55,6 +55,8 @@
 		3FA81016240E22B1009E8257 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA81015240E22B1009E8257 /* CustomView.swift */; };
 		3FA81018240E579E009E8257 /* CustomLBL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA81017240E579E009E8257 /* CustomLBL.swift */; };
 		3FA8101A240E8F84009E8257 /* CustomHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA81019240E8F84009E8257 /* CustomHeader.swift */; };
+		3FCCAF972423A372009EF4A2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCCAF962423A372009EF4A2 /* MapKit.framework */; };
+		3FCCAF992423A483009EF4A2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCCAF982423A483009EF4A2 /* CoreLocation.framework */; };
 		3FEE5CFF2403AA280066D855 /* ErrorSupportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEE5CFE2403AA280066D855 /* ErrorSupportVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -109,6 +111,8 @@
 		3FA81015240E22B1009E8257 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		3FA81017240E579E009E8257 /* CustomLBL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLBL.swift; sourceTree = "<group>"; };
 		3FA81019240E8F84009E8257 /* CustomHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeader.swift; sourceTree = "<group>"; };
+		3FCCAF962423A372009EF4A2 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		3FCCAF982423A483009EF4A2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3FEE5CFE2403AA280066D855 /* ErrorSupportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorSupportVC.swift; sourceTree = "<group>"; };
 		72BE82FC42FC286616EEDD9F /* Pods_MIOTAGS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MIOTAGS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0C23F6161E46E19A033E3A5 /* Pods-MIOTAGS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIOTAGS.debug.xcconfig"; path = "Target Support Files/Pods-MIOTAGS/Pods-MIOTAGS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -119,6 +123,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FCCAF992423A483009EF4A2 /* CoreLocation.framework in Frameworks */,
+				3FCCAF972423A372009EF4A2 /* MapKit.framework in Frameworks */,
 				11A3E8BC9BBA3134726103C4 /* Pods_MIOTAGS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -268,6 +274,8 @@
 		5243E2AD3B5088B11FDFFCE2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3FCCAF982423A483009EF4A2 /* CoreLocation.framework */,
+				3FCCAF962423A372009EF4A2 /* MapKit.framework */,
 				72BE82FC42FC286616EEDD9F /* Pods_MIOTAGS.framework */,
 			);
 			name = Frameworks;
@@ -307,6 +315,11 @@
 				TargetAttributes = {
 					3F18863C23E846320038061A = {
 						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};

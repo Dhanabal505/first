@@ -11,33 +11,34 @@ import UIKit
 
 class Asset {
    static var statuscode : String!
-   static var Address : String!
-   static var Ano : String!
-   static var Aseos : String!
-   static var Banyos : String!
-   static var CarpExtr : String!
-   static var CarpInt : String!
-   static var City : String!
-   static var ComInc : String!
-   static var Country : String!
-   static var Estado : String!
-   static var Habitac : String!
-   static var Latitude : String!
-   static var Longitude : String!
-   static var M2Utilis : String!
-   static var M2cons : String!
-   static var Occupado : String!
-   static var Owner : String!
-   static var PropertyId : String!
-   static var RefCatastral : String!
-   static var Situaction : String!
-   static var State : String!
-   static var Tipo : String!
-   static var Tipologia : String!
-   static var ZipCode : String!
-   static var companyid : String!
+   static var Address : String?
+   static var Ano : String?
+   static var Aseos : String?
+   static var Banyos : String?
+   static var CarpExtr : String?
+   static var CarpInt : String?
+   static var City : String?
+   static var ComInc : String?
+   static var Country : String?
+   static var Estado : String?
+   static var Habitac : String?
+   static var Latitude : String?
+   static var Longitude : String?
+   static var M2Utilis : String?
+   static var M2cons : String?
+   static var Occupado : String?
+   static var Owner : String?
+   static var PropertyId : String?
+   static var RefCatastral : String?
+   static var Situaction : String?
+   static var State : String?
+   static var Tipo : String?
+   static var Tipologia : String?
+   static var ZipCode : String?
+   static var companyid : String?
+    static var prtyweb : String?
     
-    init(statuscode: String,Address : String,Ano : String,Aseos : String,Banyos : String,CarpExtr : String,CarpInt : String,City : String,ComInc : String,Country : String,Estado : String,Habitac : String,Latitude : String,Longitude : String,M2Utilis : String,M2cons : String,Occupado : String,Owner : String,PropertyId : String,RefCatastral : String!,Situaction : String,State : String,Tipo : String,Tipologia : String,ZipCode : String,companyid : String) {
+    init(statuscode: String,Address : String,Ano : String,Aseos : String,Banyos : String,CarpExtr : String,CarpInt : String,City : String,ComInc : String,Country : String,Estado : String,Habitac : String,Latitude : String,Longitude : String,M2Utilis : String,M2cons : String,Occupado : String,Owner : String,PropertyId : String,RefCatastral : String!,Situaction : String,State : String,Tipo : String,Tipologia : String,ZipCode : String,companyid : String,prprtyweb: String) {
         
         Asset.statuscode = statuscode
         Asset.Address = Address
@@ -65,6 +66,7 @@ class Asset {
         Asset.Tipologia = Tipologia
         Asset.ZipCode = ZipCode
         Asset.companyid = companyid
+        Asset.prtyweb = prprtyweb
     }
 }
 

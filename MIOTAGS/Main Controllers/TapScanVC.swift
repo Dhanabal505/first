@@ -29,6 +29,7 @@ class TapScanVC: UIViewController {
     lazy var assetid:UnderlineTf={
         let tf = UnderlineTf()
         tf.translatesAutoresizingMaskIntoConstraints=false
+        tf.text = "1234"
         return tf
     }()
     
@@ -269,14 +270,14 @@ class TapScanVC: UIViewController {
     func validasset(){
         let StrAsset = assetid.text!
         let StrUserid = User.userId!
-        let getdata = ["assetId":StrAsset,"userId":StrUserid] as! [String:Any]
+        let getdata = ["assetId":StrAsset,"userId":StrUserid] as! [String:String]
         AssetAPI(data: getdata)
     }
     
     
  
    
-    func AssetAPI(data:[String:Any]){
+    func AssetAPI(data:[String:String]){
         
         
         let loader = LoaderView()
@@ -284,7 +285,7 @@ class TapScanVC: UIViewController {
         
        
         
-        APIs.asset(data: data) { (User,error) in
+        APIs.asset(data: data) { (record,error) in
             loader.hideLoader()
             
             
@@ -296,7 +297,9 @@ class TapScanVC: UIViewController {
                     break
                 case .noDataAvailable?:
                     print("No Data Available")
-                    self.makeToast(strMessage: "No Data Available")
+                    self.makeToast(strMessage: "Invalid Asset ID")
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "Tagfailure") as! Tagfailure
+                    self.navigationController?.pushViewController(vc, animated: true)
                     break
                 case .serverError?:
                     print("Server Error")
@@ -311,9 +314,12 @@ class TapScanVC: UIViewController {
                 }
                 return
             }
-           
+           print(Asset.statuscode)
             if Asset.statuscode == "1" {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "TagsuccessVC") as! TagsuccessVC
+                self.navigationController?.pushViewController(vc, animated: true)
+            }else{
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "Tagfailure") as! Tagfailure
                 self.navigationController?.pushViewController(vc, animated: true)
             }
     

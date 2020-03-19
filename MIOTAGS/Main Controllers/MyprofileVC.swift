@@ -102,11 +102,12 @@ class MyprofileVC: UIViewController {
         Setsubviews()
         setTapGesture()
         layout()
-        
+       
         username.text = User.userName
         name.text = User.CustomerName
         phone.text = User.MobileNo
         company.text = User.CompanyName
+        
    }
 
     override func viewWillAppear(_ animated: Bool) {

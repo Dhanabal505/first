@@ -55,6 +55,7 @@ class UnderlineTf:JVFloatLabeledTextField{
         self.floatingLabelTextColor = UIColor.blue
         self.anchorWith_Height(height: nil, const: SIZE.TXT_Height)
         
+        
         let view = UIView()
         view.backgroundColor = UIColor.black
         view.translatesAutoresizingMaskIntoConstraints=false
@@ -69,7 +70,54 @@ class UnderlineTf:JVFloatLabeledTextField{
     
 }
 
+class UnderlineTfINFO:JVFloatLabeledTextField{
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        mytext()
+    }
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        mytext()
+    }
+    
+    func mytext(){
+        
+        
+        self.font = UIFont.systemFont(ofSize: 20 , weight: .bold)
+        self.placeholderColor = UIColor.black
+        self.floatingLabelActiveTextColor = UIColor.black
+        self.floatingLabelTextColor = UIColor.black
+        self.textColor = UIColor().hexToColor(hex: "#4fc3f7")
+        self.anchorWith_Height(height: nil, const: SIZE.INFOTXT_HEIGHT)
+        
+        
+        let view = UIView()
+        view.backgroundColor = UIColor.black
+        view.translatesAutoresizingMaskIntoConstraints=false
+        
+        
+        self.addSubview(view)
+        view.anchorWith_TopLeftBottomRight_Padd(top: nil, left: leadingAnchor, bottom: bottomAnchor, right: trailingAnchor,padd: .init(top: 0, left: 0, bottom: -1, right: 0))
+        view.anchorWith_Height(height: nil, const: 1)
+        
+    }
+    
+    
+}
 
+class InfoTF:UnderlineTfINFO {
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+       
+    }
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+    }
+    
+
+}
 
 class showhide:JVFloatLabeledTextField {
     let rightButton  = UIButton(type: .custom)

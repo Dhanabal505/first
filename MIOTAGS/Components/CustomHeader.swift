@@ -121,7 +121,7 @@ class CustomMenuHeader:UIView{
     
     @objc func optact(){
         
-        let tapvc = vc.storyboard?.instantiateViewController(withIdentifier: "OptionVC") as! OptionVC
+        let tapvc = vc.storyboard?.instantiateViewController(withIdentifier: "TapScanVC") as! TapScanVC
         vc.navigationController?.pushViewController(tapvc, animated: true)
         
     }

@@ -11,7 +11,7 @@ import MapKit
 import CoreLocation
 class MApVC: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate {
     
-    let Locationmanager = CLLocationManager()
+    var locationManager:CLLocationManager!
     
     @IBOutlet weak var gmapicon: UIImageView!
     
@@ -57,13 +57,13 @@ class MApVC: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate {
         self.navigationController?.isNavigationBarHidden = true
         
         
+        determineCurrentLocation()
         
         
-        
-        let locStatus = CLLocationManager.authorizationStatus()
-        switch locStatus {
-        case .notDetermined:
-            Locationmanager.requestWhenInUseAuthorization()
+       let locStatus = CLLocationManager.authorizationStatus()
+       switch locStatus {
+       case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
             return
         case .denied,.restricted:
             let alert = UIAlertController(title: "Location Services are disabled", message: "Please enable Location Services in your Settings", preferredStyle: .alert)
@@ -103,7 +103,56 @@ class MApVC: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate {
         maplogo.translatesAutoresizingMaskIntoConstraints=false
     }
 
-
+    func determineCurrentLocation()
+    {
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        
+        
+        let latitude = Double (Asset.Latitude!)!
+        let longtitude = Double(Asset.Longitude!)!
+        
+        if CLLocationManager.locationServicesEnabled() {
+            //locationManager.startUpdatingHeading()
+            locationManager.startUpdatingLocation()
+            
+            let center = CLLocationCoordinate2D(latitude: latitude, longitude: longtitude)
+            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
+            
+            mapView.setRegion(region, animated: true)
+            
+            // Drop a pin at user's Current Location
+            let myAnnotation: MKPointAnnotation = MKPointAnnotation()
+            myAnnotation.coordinate = CLLocationCoordinate2DMake(38.5429444, -0.1233242)
+            mapView.addAnnotation(myAnnotation)
+        }
+    }
+    
+//    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        let userLocation:CLLocation = locations[0] as CLLocation
+//
+//        // Call stopUpdatingLocation() to stop listening for location updates,
+//        // other wise this function will be called every time when user location changes.
+//        //manager.stopUpdatingLocation()
+//
+//        let center = CLLocationCoordinate2D(latitude: 38.5429444, longitude: -0.1233242)
+//        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
+//
+//        mapView.setRegion(region, animated: true)
+//
+//        // Drop a pin at user's Current Location
+//        let myAnnotation: MKPointAnnotation = MKPointAnnotation()
+//        myAnnotation.coordinate = CLLocationCoordinate2DMake(userLocation.coordinate.latitude, userLocation.coordinate.longitude);
+//        myAnnotation.title = "Current location"
+//        mapView.addAnnotation(myAnnotation)
+//    }
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError)
+    {
+        print("Error \(error)")
+    }
     
     func layout(){
         

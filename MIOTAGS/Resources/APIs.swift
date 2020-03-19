@@ -114,7 +114,7 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
     }
 }
 
-    public static func asset(data:[String:Any],completion:@escaping(Any?,ErrorHandler?)->Void){
+    public static func asset(data:[String:String],completion:@escaping(Any?,ErrorHandler?)->Void){
         
         Alamofire.request(BASE_PATH+PATH.ASSET, method: .get, parameters: data, headers:HeaderWithToken).responseJSON { (response) in
             print("response -" ,response)
@@ -124,8 +124,8 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
                     if dicData["statuscode"] != nil{
                         if (dicData["statuscode"] as! String) == "1"{
                             if dicData["data"] != nil{
-                                completion(dicData["data"] as! Any,nil)
-                                print(dicData["data"])
+                             
+                               
                                 
                                 
                                 let mydata = dicData["data"] as? NSDictionary
@@ -156,8 +156,9 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
                                     var Tipologia = ""
                                     var ZipCode = ""
                                     var companyid = ""
-                                    
-                                    if let str = dicData["statuscode"] as? String{
+                                    var prprtyweb = ""
+                                
+                                if let str = dicData["statuscode"] as? String{
                                         statuscode = str
                                     }
                                 if let str = mydata!["Address"] as? String{
@@ -236,9 +237,16 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
                                         companyid = str
                                     }
                                 
+                                if let str = mydata!["prpertywebsite"] as? String{
+                                    prprtyweb = str
+                                }
                                 
-                               
-                                let Assets = Asset(statuscode: statuscode, Address: Address, Ano: Ano, Aseos: Aseos, Banyos: Banyos, CarpExtr: CarpExtr, CarpInt: CarpInt, City: City, ComInc: ComInc, Country: Country, Estado: Estado, Habitac: Habitac, Latitude: Latitude, Longitude: Longitude, M2Utilis: M2Utilis, M2cons: M2cons, Occupado: Occupado, Owner: Owner, PropertyId: PropertyId, RefCatastral: RefCatastral, Situaction: Situaction, State: State, Tipo: Tipo, Tipologia: Tipologia, ZipCode: ZipCode, companyid: companyid)
+//                                print(statuscode)
+                                print("StatusCode\(statuscode)")
+
+                                let Assets = Asset(statuscode: statuscode, Address: Address, Ano: Ano, Aseos: Aseos, Banyos: Banyos, CarpExtr: CarpExtr, CarpInt: CarpInt, City: City, ComInc: ComInc, Country: Country, Estado: Estado, Habitac: Habitac, Latitude: Latitude, Longitude: Longitude, M2Utilis: M2Utilis, M2cons: M2cons, Occupado: Occupado, Owner: Owner, PropertyId: PropertyId, RefCatastral: RefCatastral, Situaction: Situaction, State: State, Tipo: Tipo, Tipologia: Tipologia, ZipCode: ZipCode, companyid: companyid, prprtyweb: prprtyweb)
+                                
+                                completion(dicData["data"] as Any,nil)
                             }
                             }
                             else{

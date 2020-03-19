@@ -41,6 +41,11 @@ class TagsuccessVC: UIViewController {
         Setsubviews()
         translate()
         layout()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+           let vc = self.storyboard?.instantiateViewController(withIdentifier: "OptionVC") as! OptionVC
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

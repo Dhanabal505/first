@@ -29,6 +29,7 @@ struct SIZE{
     static let TEXTVW_HEIGHT:CGFloat = 170
     static let DATAVIEW_HEIGHT:CGFloat = 80
     static let DATAIMG_HEIGHT:CGFloat = 40
+    static let INFOTXT_HEIGHT:CGFloat = 60
     
 }
 
