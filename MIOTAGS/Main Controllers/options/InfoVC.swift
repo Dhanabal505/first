@@ -191,6 +191,7 @@ class InfoVC: UIViewController {
         let txtfld = InfoTF()
         txtfld.placeholder = "State"
         txtfld.text = Asset.State
+        txtfld.addTarget(self, action: #selector(prbtyact), for: .touchDown)
         txtfld.isEnabled = false
         return txtfld
     }()
@@ -218,6 +219,7 @@ class InfoVC: UIViewController {
         let txtfld = InfoTF()
         txtfld.placeholder = "PropertyWebsite"
         txtfld.text = Asset.prtyweb
+        txtfld.addTarget(self, action: #selector(prbtyact), for: .touchDown)
          txtfld.isEnabled = false
         return txtfld
     }()
@@ -293,6 +295,14 @@ class InfoVC: UIViewController {
         Country.translatesAutoresizingMaskIntoConstraints=false
         prtyweb.translatesAutoresizingMaskIntoConstraints=false
     }
+    
+    @objc func prbtyact(){
+        if let url = NSURL(string: Asset.prtyweb!){
+            UIApplication.shared.openURL(url as URL)
+        }
+    
+    }
+    
     func layout(){
         
         Header.anchorWith_TopLeftBottomRight_Padd(top: view.safeAreaLayoutGuide.topAnchor, left: view.leadingAnchor, bottom: nil, right: view.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: 0))

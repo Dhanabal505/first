@@ -129,6 +129,62 @@ class SupportVC: UIViewController {
     }
     
     
+    func validsupport(){
+        
+        let StrEmail = email.text!
+        let StrName = name.text!
+        let StrMsg = message.text!
+        
+        let getdata = ["userName":StrName,"email":StrEmail,"writeMail":StrMsg] as [String:String]
+        support(data: getdata)
+    }
+    
+    func support(data:[String:String]) {
+        let loader = LoaderView()
+        loader.showLoader()
+        
+        APIs.postAPI(path: STRING.SUPPORT, data: data){ (record,error) in
+            loader.hideLoader()
+            
+            
+            
+            if error != nil{
+                switch error {
+                case .connectionError?:
+                    print("Connection Error")
+                    self.makeToast(strMessage: "No Internet Connection")
+                    break
+                case .noDataAvailable?:
+                    print("No Data Available")
+                    self.makeToast(strMessage: "No Data Available")
+                    break
+                case .serverError?:
+                    print("Server Error")
+                    self.makeToast(strMessage: "Server Error")
+                    break
+                case .invalidData?:
+                    print("Invalid Data")
+                    self.makeToast(strMessage: "Server Error")
+                    break
+                default:
+                    print("No Data")
+                }
+                return
+            } else {
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "SupportdoneVC") as! SupportdoneVC
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        
+            
+        }
+        
+    }
+            
+    
+        
+
+    
+    
     @objc func sendact(){
         
         guard email.text?.count != 0 else {
@@ -141,8 +197,14 @@ class SupportVC: UIViewController {
             return
         }
         
-    let sendbtn = storyboard?.instantiateViewController(withIdentifier: "SupportdoneVC") as! SupportdoneVC
-    navigationController?.pushViewController(sendbtn, animated: true)
+        guard message.text?.count != 0 else {
+            self.makeToast(strMessage: "Write Your Problem")
+            return
+        }
+        
+        validsupport()
+        
+    
         
     }
     
@@ -171,6 +233,10 @@ class SupportVC: UIViewController {
         Myscroll.contentSize.height = view.frame.height - 80
         Myscroll.contentSize.height = 600
     }
+    
+    
+    
+    
     
     func layout(){
         

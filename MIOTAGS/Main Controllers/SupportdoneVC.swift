@@ -20,6 +20,7 @@ class SupportdoneVC: UIViewController {
     lazy var msgsendimg:UIImageView={
         let img = UIImageView()
         img.image = UIImage(named: "msgsuccess")
+        img.contentMode = .scaleAspectFit
         return img
     }()
     
@@ -65,7 +66,10 @@ class SupportdoneVC: UIViewController {
         SetSubviews()
         translate()
         layout()
-        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "SupportVC") as! SupportVC
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

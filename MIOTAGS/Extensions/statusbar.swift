@@ -126,6 +126,43 @@ extension UIViewController{
         style.messageAlignment = .center
         self.view.makeToast(strMessage, duration: 3.0, position: .bottom,style:style)
     }
+    
+    
+    func validateUniqueProfileID(strPath:String,completion:@escaping (Bool)->Void){
+        
+        APIs.postAPI(path: strPath, data: [:]) { (records, error) in
+            if error != nil{
+                switch error {
+                case .connectionError?:
+                    self.makeToast(strMessage: STRING.INTERNET_CONNECTION)
+                    break
+                case .noDataAvailable?:
+                    self.makeToast(strMessage: STRING.NO_DATA)
+                    break
+                case .serverError?:
+                    self.makeToast(strMessage: STRING.SERVER_ERROR)
+                    break
+                default:
+                    self.makeToast(strMessage: STRING.NO_DATA)
+                }
+                return
+            }
+            
+            if let message = records as? String{
+                self.makeToast(strMessage: message)
+                completion(false)
+                return
+            }
+            
+            if let record = records as? [String:String]{
+                if let message = record["message"]{
+                    self.makeToast(strMessage: message)
+                }
+            }
+            print("Records - \(records)")
+            completion(true)
+        }
+    }
 }
 
 

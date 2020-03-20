@@ -373,6 +373,7 @@ class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationCont
         
         viewimg1.anchorWith_XY_Padd(x: picview1.centerXAnchor, y: picview1.centerYAnchor)
         viewimg1.anchorWith_WidthHeight(width: picview1.widthAnchor, height: picview1.heightAnchor, constWidth: 0.9, constHeight: 0.9)
+       
         
         camerabtn.anchorWith_TopLeftBottomRight_Padd(top: nil, left: nil, bottom: viewimg1.bottomAnchor, right: viewimg1.trailingAnchor,padd: .init(top: 0, left: 0, bottom: -5, right: -5))
         camerabtn.anchorWith_WidthHeight(width: viewimg1.widthAnchor, height: viewimg1.heightAnchor, constWidth: 0.2, constHeight: 0.2)
@@ -388,6 +389,7 @@ class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationCont
         viewimg2.anchorWith_XY_Padd(x: picview2.centerXAnchor, y: picview2.centerYAnchor)
         viewimg2.anchorWith_WidthHeight(width: picview2.widthAnchor, height: picview2.heightAnchor, constWidth: 0.9, constHeight: 0.9)
         
+        
         camerabtn2.anchorWith_TopLeftBottomRight_Padd(top: nil, left: nil, bottom: viewimg2.bottomAnchor, right: viewimg2.trailingAnchor,padd: .init(top: 0, left: 0, bottom: -5, right: -5))
         camerabtn2.anchorWith_WidthHeight(width: viewimg2.widthAnchor, height: viewimg2.heightAnchor, constWidth: 0.2, constHeight: 0.2)
         camerabtn2.tag = 2
@@ -401,6 +403,7 @@ class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationCont
         
         viewimg3.anchorWith_XY_Padd(x: picview3.centerXAnchor, y: picview3.centerYAnchor)
         viewimg3.anchorWith_WidthHeight(width: picview3.widthAnchor, height: picview3.heightAnchor, constWidth: 0.9, constHeight: 0.9)
+        
         
         camerabtn3.anchorWith_TopLeftBottomRight_Padd(top: nil, left: nil, bottom: viewimg3.bottomAnchor, right: viewimg3.trailingAnchor,padd: .init(top: 0, left: 0, bottom: -5, right: -5))
         camerabtn3.anchorWith_WidthHeight(width: viewimg3.widthAnchor, height: viewimg3.heightAnchor, constWidth: 0.2, constHeight: 0.2)

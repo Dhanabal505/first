@@ -34,7 +34,12 @@ struct SIZE{
 }
 
 struct STRING {
-    static let ACCESS_TOKEN = "accesstoken"
+    static let ACCESS_TOKEN = "access_token"
+    static let SUPPORT = "api/user/mysupport"
+    static let SERVER_ERROR = "Unable to Fetch Data."
+    static let INTERNET_CONNECTION = "Internet Connection Error"
+    static let INVALID_USER = "Invalid User"
+    static let NO_DATA = "Data not found"
 }
 
 

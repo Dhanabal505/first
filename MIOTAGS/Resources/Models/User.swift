@@ -17,13 +17,14 @@ class User{
     static var CustomerName : String!
     static var MobileNo : String?
     static var userId : String!
-    
-    init(username:String,Role:String,companyname:String,customername:String,userid:String,MobileNo:String?) {
+    static var tokentype : String?
+    init(username:String,Role:String,companyname:String,customername:String,userid:String,MobileNo:String?,tokentype:String) {
         User.userName = username
         User.CompanyName = companyname
         User.Role = Role
         User.CustomerName = customername
         User.userId = userid
+        User.tokentype = tokentype
         if MobileNo != nil{
             User.self.MobileNo = MobileNo
         }

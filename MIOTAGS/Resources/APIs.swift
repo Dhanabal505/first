@@ -16,6 +16,8 @@ struct SERVER {
 struct PATH {
     static let LOGIN = "userlogin"
     static let ASSET = "api/qrcode/searchasset"
+    static let CRNTLOCATION = "api/qrcode/addlocation"
+    static let SUPPORT = "api/user/mysupport"
 }
 
 enum ErrorHandler:Error{
@@ -92,7 +94,7 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
                         Model.setUserdefault(strTitle: STRING.ACCESS_TOKEN, value: access)
                         
                         
-                        let user = User(username: userName, Role: Role, companyname: companyname, customername: customername,userid: userid, MobileNo: mobile)
+                        let user = User(username: userName, Role: Role, companyname: companyname, customername: customername,userid: userid, MobileNo: mobile, tokentype: tokenType)
                         
                         setAccessToken()
                         completion(user,nil)
@@ -113,6 +115,41 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
         }
     }
 }
+    
+    public static func postAPI(path:String,data:[String:Any],completion:@escaping(Any?,ErrorHandler?)->Void){
+         print("Path - \(path) - \(BASE_PATH)\(path)")
+        Alamofire.request(BASE_PATH+path, method: .post, parameters: data,encoding: URLEncoding.queryString,headers:HeaderWithToken).responseJSON { (response) in
+            print("response-", response)
+            
+            if let result = response.value{
+                if let data = result as? NSDictionary{
+                    if data["statuscode"] != nil{
+                        if (data["statuscode"] as! String) == "1"{
+                            if let message = data["message"]as? String{
+                                print("Success")
+                                
+                                let myValue = ["status":"success","message":message]
+                                completion(myValue,nil)
+                            }
+                        }
+                        else{
+                            if let message = data["message"]as? String{
+                                completion(message,nil)
+                            }
+                        }
+                    }
+                    else{
+                        completion(nil,.noDataAvailable)
+                    }
+                }
+            }
+            else{
+                completion(nil,.connectionError)
+            }
+        }
+    }
+    
+    
 
     public static func asset(data:[String:String],completion:@escaping(Any?,ErrorHandler?)->Void){
         
@@ -129,6 +166,8 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
                                 
                                 
                                 let mydata = dicData["data"] as? NSDictionary
+                                
+                              
                                 
                                     var statuscode = ""
                                     var Address = ""
@@ -157,6 +196,7 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
                                     var ZipCode = ""
                                     var companyid = ""
                                     var prprtyweb = ""
+                                
                                 
                                 if let str = dicData["statuscode"] as? String{
                                         statuscode = str
@@ -237,16 +277,19 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
                                         companyid = str
                                     }
                                 
-                                if let str = mydata!["prpertywebsite"] as? String{
+                                   if let str = mydata!["prpertyWebsite"] as? String{
                                     prprtyweb = str
-                                }
+                                    }
                                 
-//                                print(statuscode)
+
                                 print("StatusCode\(statuscode)")
 
-                                let Assets = Asset(statuscode: statuscode, Address: Address, Ano: Ano, Aseos: Aseos, Banyos: Banyos, CarpExtr: CarpExtr, CarpInt: CarpInt, City: City, ComInc: ComInc, Country: Country, Estado: Estado, Habitac: Habitac, Latitude: Latitude, Longitude: Longitude, M2Utilis: M2Utilis, M2cons: M2cons, Occupado: Occupado, Owner: Owner, PropertyId: PropertyId, RefCatastral: RefCatastral, Situaction: Situaction, State: State, Tipo: Tipo, Tipologia: Tipologia, ZipCode: ZipCode, companyid: companyid, prprtyweb: prprtyweb)
+                                    let Assets = Asset(statuscode: statuscode, Address: Address, Ano: Ano, Aseos: Aseos, Banyos: Banyos, CarpExtr: CarpExtr, CarpInt: CarpInt, City: City, ComInc: ComInc, Country: Country, Estado: Estado, Habitac: Habitac, Latitude: Latitude, Longitude: Longitude, M2Utilis: M2Utilis, M2cons: M2cons, Occupado: Occupado, Owner: Owner, PropertyId: PropertyId, RefCatastral: RefCatastral, Situaction: Situaction, State: State, Tipo: Tipo, Tipologia: Tipologia, ZipCode: ZipCode, companyid: companyid, prprtyweb: prprtyweb)
                                 
+                                   
                                 completion(dicData["data"] as Any,nil)
+                                   
+                            
                             }
                             }
                             else{
@@ -267,6 +310,40 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
                     }
             }
         }
+    
+    
+    
+    public static func location(data:[String:String],completion:@escaping(Any?,ErrorHandler?)->Void){
+        
+        Alamofire.request(BASE_PATH+PATH.CRNTLOCATION, method: .post, parameters: data,encoding: URLEncoding.queryString,headers:HeaderWithToken ).responseJSON { (response) in
+            
+            print("response  - ",response)
+            
+            if let result = response.value{
+                if let dicData = result as? NSDictionary{
+                    if dicData["statuscode"] != nil{
+                        if (dicData["statuscode"] as! String) == "1"{
+                            
+                            
+                        }
+                            else{
+                completion(nil,.noDataAvailable)
+            }
+        }
+        else{
+           
+            completion(nil,.invalidData)
+        }
     }
+    
+}
+else{
+    completion(nil,.connectionError)
+}
+        }
+    }
+    
+    
+}
 
 

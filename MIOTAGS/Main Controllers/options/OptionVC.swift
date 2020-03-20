@@ -64,6 +64,8 @@ class OptionVC: UIViewController {
         self.navigationController?.navigationItem.backBarButtonItem?.isEnabled = false
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         self.navigationController?.isNavigationBarHidden = true
+        
+        web.addTarget(self, action: #selector(webact), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -123,7 +125,13 @@ class OptionVC: UIViewController {
         mytitle.translatesAutoresizingMaskIntoConstraints=false
         back.translatesAutoresizingMaskIntoConstraints=false
     }
-   
+    
+    
+    @objc func webact(){
+        if let url = NSURL(string: Asset.prtyweb!){
+            UIApplication.shared.openURL(url as URL)
+    }
+    }
     
     func layout(){
         

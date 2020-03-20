@@ -7,9 +7,14 @@
 //
 
 import UIKit
+import CoreLocation
 
-class TapScanVC: UIViewController {
+class TapScanVC: UIViewController,CLLocationManagerDelegate {
     
+    var locManager = CLLocationManager()
+    
+    var Mylatitude:String!
+    var Mylongtitude:String!
     
     
     var picker = UIImagePickerController();
@@ -100,9 +105,13 @@ class TapScanVC: UIViewController {
          layout()
         attributetext()
         
+        locManager.requestWhenInUseAuthorization()
         
 
     }
+    
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -316,8 +325,26 @@ class TapScanVC: UIViewController {
             }
            print(Asset.statuscode)
             if Asset.statuscode == "1" {
+                
+                var currentLocation: CLLocation!
+                
+                if CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
+                    CLLocationManager.authorizationStatus() ==  .authorizedAlways
+                {
+                    currentLocation = self.locManager.location
+                }
+                
+                self.Mylatitude = "\(currentLocation.coordinate.longitude)"
+                self.Mylongtitude = "\(currentLocation.coordinate.latitude)"
+                
+                print(self.Mylatitude)
+                print(self.Mylongtitude)
+                
+                self.locationAPI()
+                
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "TagsuccessVC") as! TagsuccessVC
                 self.navigationController?.pushViewController(vc, animated: true)
+                
             }else{
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "Tagfailure") as! Tagfailure
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -328,7 +355,43 @@ class TapScanVC: UIViewController {
    
     }
     
-    
+    func locationAPI(){
+        
+        let Strassetid = assetid.text!
+        let loader = LoaderView()
+        loader.showLoader()
+ 
+        let getdata = ["assetId":Strassetid,"Latitiude":Mylatitude!,"Longitude":Mylongtitude!] as! [String:String]
+        
+          loader.hideLoader()
+        
+        APIs.location(data: getdata) { (record, error) in
+           
+            
+            if error != nil{
+                switch error {
+                case .connectionError?:
+                    print("Connection Error")
+                    self.makeToast(strMessage: "No Internet Connection")
+                    break
+                case .noDataAvailable?:
+                    print("No Data Available")
+                    self.makeToast(strMessage: "No Data Available")
+                    break
+                case .serverError?:
+                    print("Server Error")
+                    self.makeToast(strMessage: "Server Error")
+                    break
+                case .invalidData?:
+                   print("Invalid")
+                    break
+                default:
+                    print("No Data")
+                }
+                return
+            }
+    }
+    }
     func layout(){
         
         Header.anchorWith_TopLeftBottomRight_Padd(top: view.safeAreaLayoutGuide.topAnchor, left: view.leadingAnchor, bottom: nil, right: view.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: 0))
