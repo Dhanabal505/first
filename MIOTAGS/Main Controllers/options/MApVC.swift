@@ -12,6 +12,8 @@ import CoreLocation
 class MApVC: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate {
     
     var locationManager:CLLocationManager!
+   
+    var dest:CLLocationCoordinate2D!
     
     @IBOutlet weak var gmapicon: UIImageView!
     
@@ -47,6 +49,7 @@ class MApVC: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate {
         view.addSubview(Header)
         view.addSubview(mytitle)
         view.addSubview(back)
+        
         translate()
         
         layout()
@@ -74,9 +77,35 @@ class MApVC: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate {
         case .authorizedAlways, .authorizedWhenInUse:
             break
         }
+       
+        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
+            if annotation is MKUserLocation {
+                //return nil so map view draws "blue dot" for standard user location
+                return nil
+            }
+            let reuseId = "pin"
+            var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView?.pinTintColor = UIColor.red
+            pinView?.canShowCallout = true
+            let smallSquare = CGSize(width: 30, height: 30)
+            let button = UIButton(frame: CGRect(origin: CGPoint.zero, size: smallSquare))
+            button.setBackgroundImage(UIImage(named: "Car"), for: .normal)
+            button.addTarget(self, action: #selector(getDirections), for: .touchUpInside)
+            
+            pinView?.leftCalloutAccessoryView = button
+            
+            mapView.addSubview(pinView!)
+            
+            return pinView
+            
+        }
+        
+        
+       
     }
-        
-        
+    
+   
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -88,8 +117,19 @@ class MApVC: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate {
        
     }
     
+   
+    
+    
     @objc func backact(){
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func getDirections(){
+         let selectedPin = MKPlacemark.init(coordinate: dest, addressDictionary: nil)
+            let mapItem = MKMapItem(placemark: selectedPin)
+            let launchOptions = [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving]
+            mapItem.openInMaps(launchOptions: launchOptions)
+        
     }
     
     func translate(){
@@ -111,43 +151,29 @@ class MApVC: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate {
         locationManager.requestAlwaysAuthorization()
         
         
+        
+        
         let latitude = Double (Asset.Latitude!)!
         let longtitude = Double(Asset.Longitude!)!
         
         if CLLocationManager.locationServicesEnabled() {
-            //locationManager.startUpdatingHeading()
             locationManager.startUpdatingLocation()
             
             let center = CLLocationCoordinate2D(latitude: latitude, longitude: longtitude)
             let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
             
+            self.dest = center
+            
             mapView.setRegion(region, animated: true)
             
             // Drop a pin at user's Current Location
             let myAnnotation: MKPointAnnotation = MKPointAnnotation()
-            myAnnotation.coordinate = CLLocationCoordinate2DMake(38.5429444, -0.1233242)
+            myAnnotation.coordinate = CLLocationCoordinate2DMake(latitude, longtitude)
             mapView.addAnnotation(myAnnotation)
         }
     }
     
-//    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        let userLocation:CLLocation = locations[0] as CLLocation
-//
-//        // Call stopUpdatingLocation() to stop listening for location updates,
-//        // other wise this function will be called every time when user location changes.
-//        //manager.stopUpdatingLocation()
-//
-//        let center = CLLocationCoordinate2D(latitude: 38.5429444, longitude: -0.1233242)
-//        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
-//
-//        mapView.setRegion(region, animated: true)
-//
-//        // Drop a pin at user's Current Location
-//        let myAnnotation: MKPointAnnotation = MKPointAnnotation()
-//        myAnnotation.coordinate = CLLocationCoordinate2DMake(userLocation.coordinate.latitude, userLocation.coordinate.longitude);
-//        myAnnotation.title = "Current location"
-//        mapView.addAnnotation(myAnnotation)
-//    }
+
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError)
     {
@@ -197,3 +223,5 @@ class MApVC: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate {
     }
 
 }
+
+

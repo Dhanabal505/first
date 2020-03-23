@@ -13,6 +13,7 @@ class TapScanVC: UIViewController,CLLocationManagerDelegate {
     
     var locManager = CLLocationManager()
     
+    
     var Mylatitude:String!
     var Mylongtitude:String!
     
@@ -107,6 +108,21 @@ class TapScanVC: UIViewController,CLLocationManagerDelegate {
         
         locManager.requestWhenInUseAuthorization()
         
+        
+        let locStatus = CLLocationManager.authorizationStatus()
+        switch locStatus {
+        case .notDetermined:
+            locManager.requestWhenInUseAuthorization()
+            return
+        case .denied,.restricted:
+            let alert = UIAlertController(title: "Location Services are disabled", message: "Please enable Location Services in your Settings", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+            present(alert, animated: true, completion: nil)
+            return
+        case .authorizedAlways, .authorizedWhenInUse:
+            break
+        }
 
     }
     
@@ -326,21 +342,26 @@ class TapScanVC: UIViewController,CLLocationManagerDelegate {
            print(Asset.statuscode)
             if Asset.statuscode == "1" {
                 
+                
+                self.locManager.requestWhenInUseAuthorization()
+                
                 var currentLocation: CLLocation!
                 
                 if CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
                     CLLocationManager.authorizationStatus() ==  .authorizedAlways
                 {
                     currentLocation = self.locManager.location
+
                 }
                 
-                self.Mylatitude = "\(currentLocation.coordinate.longitude)"
-                self.Mylongtitude = "\(currentLocation.coordinate.latitude)"
-                
-                print(self.Mylatitude)
-                print(self.Mylongtitude)
+                self.Mylatitude = String(currentLocation.coordinate.latitude)
+                self.Mylongtitude = String(currentLocation.coordinate.longitude)
+             
+                print(self.Mylatitude!)
+                print(self.Mylongtitude!)
                 
                 self.locationAPI()
+           
                 
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "TagsuccessVC") as! TagsuccessVC
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -356,6 +377,10 @@ class TapScanVC: UIViewController,CLLocationManagerDelegate {
     }
     
     func locationAPI(){
+        
+        
+        
+       
         
         let Strassetid = assetid.text!
         let loader = LoaderView()
