@@ -43,7 +43,7 @@ class ForgotpassVC: UIViewController {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints=false
         btn.setImage(UIImage(named: "send"), for: .normal)
-       // btn.addTarget(self, action: #selector(sendact), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(handleSubmit), for: .touchUpInside)
         return btn
     }()
 
@@ -69,6 +69,67 @@ class ForgotpassVC: UIViewController {
     
     @objc func backact(){
         self.navigationController?.popViewController(animated: true)
+    }
+    
+//    @objc func sendact(){
+//
+//        guard email.text?.count != 0 else{
+//            self.makeToast(strMessage: "Email is Empty")
+//            return
+//        }
+//        ValidEmail()
+//
+//    }
+    
+    @objc func handleSubmit(){
+        print("Submit")
+        let strEmail = email.text!
+        
+        if strEmail.count == 0{
+            self.makeToast(strMessage: "Email is Empty" )
+            return
+        }
+        
+        forgotPasswordAPI(email: strEmail)
+    }
+    
+    func forgotPasswordAPI(email:String){
+        
+        print(email)
+        
+        let loader = LoaderView()
+        loader.showLoader()
+        
+        APIs.forgotPassword(strEmail: email) { (messages, error) in
+            loader.hideLoader()
+            
+            if error != nil{
+                switch error {
+                case .connectionError?:
+                    self.makeToast(strMessage: STRING.INTERNET_CONNECTION)
+                    break
+                case .noDataAvailable?:
+                    self.makeToast(strMessage: STRING.NO_DATA)
+                    break
+                case .serverError?:
+                    self.makeToast(strMessage: STRING.SERVER_ERROR)
+                default:
+                    self.makeToast(strMessage: STRING.NO_DATA)
+                }
+                
+                return
+            }
+            
+            if let message = messages as? String{
+                self.makeToast(strMessage: message)
+                return
+            }
+            let data = messages as! [String:Any]
+            if let mess = data["message"] as? String{
+                self.makeToast(strMessage: mess)
+                self.email.text = ""
+            }
+        }
     }
     
     func layout(){

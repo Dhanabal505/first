@@ -4,7 +4,7 @@
 //
 //  Created by Dhanabal on 09/03/20.
 //  Copyright © 2020 Dhanabal. All rights reserved.
-//
+
 
 import Foundation
 import UIKit
@@ -16,6 +16,8 @@ struct SERVER {
 struct PATH {
     static let LOGIN = "userlogin"
     static let ASSET = "api/qrcode/searchasset"
+     static let FORGOT = "api/user/forgotpassword?email="
+    static let UPLOAD_IMG = "api/qrcode/addphoto?assetId="
     static let CRNTLOCATION = "api/qrcode/addlocation"
     static let SUPPORT = "api/user/mysupport"
 }
@@ -104,7 +106,7 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
                     }
                 }
                 else{
-                    //                        print("Else e")
+                    
                     completion(nil,.invalidData)
                 }
             }
@@ -115,6 +117,44 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
         }
     }
 }
+    
+    public static func forgotPassword(strEmail:String,completion:@escaping(Any?,ErrorHandler?)->Void){
+        
+        Alamofire.request(BASE_PATH+PATH.FORGOT+"\(strEmail)", method: .post, parameters: [:], headers: ["Content-Type":"application/json"]).responseJSON { (response) in
+            
+            print(BASE_PATH+PATH.FORGOT+"\(strEmail)")
+            print("response - \(response)")
+            if let result = response.value{
+                if let data = result as? NSDictionary{
+                    if data["statuscode"] != nil && (data["statuscode"]as! String) == "1"{
+                        if let message = data["message"]as? String{
+                            let data = ["statuscode":"success","message":message] as! [String:Any]
+                            completion(data,nil)
+                        }
+                        else{
+                            completion(nil,.noDataAvailable)
+                        }
+                    }
+                    else if data["statuscode"] != nil{
+                        if let message = data["message"]as? String{
+                            completion(message,nil)
+                        }
+                        else{
+                            completion("Unable To Fetch Data",nil)
+                        }
+                    }
+                    else{
+                        completion(nil,.noDataAvailable)
+                    }
+                }
+            }
+            else{
+                completion(nil,.connectionError)
+            }
+            
+            
+        }
+    }
     
     public static func postAPI(path:String,data:[String:Any],completion:@escaping(Any?,ErrorHandler?)->Void){
          print("Path - \(path) - \(BASE_PATH)\(path)")
@@ -128,7 +168,7 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
                             if let message = data["message"]as? String{
                                 print("Success")
                                 
-                                let myValue = ["status":"success","message":message]
+                                let myValue = ["statuscode":"success","message":message]
                                 completion(myValue,nil)
                             }
                         }
@@ -167,6 +207,12 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
                                 
                                 let mydata = dicData["data"] as? NSDictionary
                                 
+                                
+                                let img = mydata?["customFields"] as? String
+                                print(img)
+                               
+                                let address = mydata!["Address"] as? String
+                                print(address)
                               
                                 
                                     var statuscode = ""
@@ -198,16 +244,16 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
                                     var prprtyweb = ""
                                 
                                 
-                                if let str = dicData["statuscode"] as? String{
+                                    if let str = dicData["statuscode"] as? String{
                                         statuscode = str
                                     }
-                                if let str = mydata!["Address"] as? String{
+                                    if let str = mydata!["Address"] as? String{
                                         Address = str
                                     }
-                                if let str = mydata!["Ano"] as? String{
+                                    if let str = mydata!["Ano"] as? String{
                                         Ano = str
                                     }
-                                if let str = mydata!["Aseos"] as? String{
+                                    if let str = mydata!["Aseos"] as? String{
                                         Aseos = str
                                     }
                                     if let str = mydata!["Banyos"] as? String{
@@ -280,15 +326,17 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
                                    if let str = mydata!["prpertyWebsite"] as? String{
                                     prprtyweb = str
                                     }
+                               
                                 
 
                                 print("StatusCode\(statuscode)")
 
-                                    let Assets = Asset(statuscode: statuscode, Address: Address, Ano: Ano, Aseos: Aseos, Banyos: Banyos, CarpExtr: CarpExtr, CarpInt: CarpInt, City: City, ComInc: ComInc, Country: Country, Estado: Estado, Habitac: Habitac, Latitude: Latitude, Longitude: Longitude, M2Utilis: M2Utilis, M2cons: M2cons, Occupado: Occupado, Owner: Owner, PropertyId: PropertyId, RefCatastral: RefCatastral, Situaction: Situaction, State: State, Tipo: Tipo, Tipologia: Tipologia, ZipCode: ZipCode, companyid: companyid, prprtyweb: prprtyweb)
+                                let Assets = Asset(statuscode: statuscode, Address: Address, Ano: Ano, Aseos: Aseos, Banyos: Banyos, CarpExtr: CarpExtr, CarpInt: CarpInt, City: City, ComInc: ComInc, Country: Country, Estado: Estado, Habitac: Habitac, Latitude: Latitude, Longitude: Longitude, M2Utilis: M2Utilis, M2cons: M2cons, Occupado: Occupado, Owner: Owner, PropertyId: PropertyId, RefCatastral: RefCatastral, Situaction: Situaction, State: State, Tipo: Tipo, Tipologia: Tipologia, ZipCode: ZipCode, companyid: companyid, prprtyweb: prprtyweb)
                                 
                                    
                                 completion(dicData["data"] as Any,nil)
-                                   
+                                
+                                
                             
                             }
                             }
@@ -344,6 +392,61 @@ else{
     }
     
     
+
+
+public static func uploadProfileImage(path:String,image:UIImage,completion:@escaping(Any?,ErrorHandler?)->Void){
+    
+    let strUrl = BASE_PATH + path
+    
+    let url = try! URLRequest(url: URL(string: strUrl)!, method: .post, headers: HeaderWithToken)
+    
+    let dataImage = image.jpegData(compressionQuality: 0.8)
+    
+    print("My Path - \(strUrl)")
+    
+    let filename="ProfileImage.jpg"
+    
+    Alamofire.upload(
+        multipartFormData: { multipartFormData in
+            multipartFormData.append(dataImage!, withName: "profile", fileName: filename, mimeType: "image/jpeg")
+    },
+        with: url,
+        encodingCompletion: { encodingResult in
+            switch encodingResult {
+            case .success(let upload, _, _):
+                upload.responseJSON { response in
+                    if((response.result.value) != nil) {
+                        
+                        print("Response---\(response)")
+                        let data = response.result.value as! NSDictionary
+                        if data["statuscode"] != nil && (data["statuscode"]as! String) == "1" {
+                            
+                            if let message = data["message"] as? String{
+                                let myData = ["statuscode":"success","message":message]
+                                completion(myData,nil)
+                            }
+                            
+                        }
+                        else if data["statuscode"] != nil{
+                            if let message = data["message"] as? String{
+                                completion(message,nil)
+                            }
+                        }
+                    } else {
+                        completion(nil,.connectionError)
+                        print("Error- \(response.value)")
+                    }
+                }
+            case .failure( _):
+                print("Error --")
+                completion(nil,.noDataAvailable)
+                break
+            }
+    }
+    )
+    
+    
 }
 
 
+}

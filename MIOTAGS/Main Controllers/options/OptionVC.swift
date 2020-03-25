@@ -66,6 +66,8 @@ class OptionVC: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         
         web.addTarget(self, action: #selector(webact), for: .touchUpInside)
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

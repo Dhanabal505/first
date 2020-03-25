@@ -73,6 +73,7 @@ class HistoryVC: UIViewController {
     lazy var search:CustomBTN={
         let btn = CustomBTN(title: "SEARCH")
         btn.translatesAutoresizingMaskIntoConstraints=false
+        btn.addTarget(self, action: #selector(Searchact), for: .touchUpInside)
         return btn
     }()
     
@@ -188,7 +189,60 @@ class HistoryVC: UIViewController {
         }
          self.EndDate.resignFirstResponder()
     }
-
+    
+    @objc func Searchact(){
+        validsupport()
+    }
+    
+    func validsupport(){
+        
+        
+       
+        
+        let StrUName = usertf.text!
+        let FDate = FrmDate.text!
+        let EDate = EndDate.text!
+        let ASSETID = Asset.text!
+        
+        let getdata = ["username":StrUName,"assetId":ASSETID,"fromDate":FDate,"todate":EDate] as [String:String]
+        support(data: getdata)
+        print(getdata)
+    }
+    
+    func support(data:[String:String]) {
+        let loader = LoaderView()
+        loader.showLoader()
+        
+        APIs.postAPI(path: STRING.HISTORY, data: data){ (record,error) in
+            loader.hideLoader()
+            
+            
+            
+            if error != nil{
+                switch error {
+                case .connectionError?:
+                    print("Connection Error")
+                    self.makeToast(strMessage: "No Internet Connection")
+                    break
+                case .noDataAvailable?:
+                    print("No Data Available")
+                    self.makeToast(strMessage: "No Data Available")
+                    break
+                case .serverError?:
+                    print("Server Error")
+                    self.makeToast(strMessage: "Server Error")
+                    break
+                case .invalidData?:
+                    print("Invalid Data")
+                    self.makeToast(strMessage: "Server Error")
+                    break
+                default:
+                    print("No Data")
+                }
+                return
+            }
+        }
+    }
     
     func layout(){
         Header.anchorWith_TopLeftBottomRight_Padd(top: view.safeAreaLayoutGuide.topAnchor, left: view.leadingAnchor, bottom: nil, right: view.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: 0))

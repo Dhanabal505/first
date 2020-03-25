@@ -36,7 +36,8 @@ class Asset {
    static var Tipologia : String?
    static var ZipCode : String?
    static var companyid : String?
-    static var prtyweb : String?
+   static var prtyweb : String?
+   
    
     
     init(statuscode: String,Address : String,Ano : String,Aseos : String,Banyos : String,CarpExtr : String,CarpInt : String,City : String,ComInc : String,Country : String,Estado : String,Habitac : String,Latitude : String,Longitude : String,M2Utilis : String,M2cons : String,Occupado : String,Owner : String,PropertyId : String,RefCatastral : String!,Situaction : String,State : String,Tipo : String,Tipologia : String,ZipCode : String,companyid : String,prprtyweb: String) {
@@ -68,7 +69,7 @@ class Asset {
         Asset.ZipCode = ZipCode
         Asset.companyid = companyid
         Asset.prtyweb = prprtyweb
-       
+        
         
     }
 }

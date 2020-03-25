@@ -292,7 +292,7 @@ class TapScanVC: UIViewController,CLLocationManagerDelegate {
        validasset()
     }
     
-    func validasset(){
+  public func validasset(){
         let StrAsset = assetid.text!
         let StrUserid = User.userId!
         let getdata = ["assetId":StrAsset,"userId":StrUserid] as! [String:String]
@@ -353,13 +353,14 @@ class TapScanVC: UIViewController,CLLocationManagerDelegate {
                     currentLocation = self.locManager.location
 
                 }
+                print(currentLocation)
                 
                 self.Mylatitude = String(currentLocation.coordinate.latitude)
                 self.Mylongtitude = String(currentLocation.coordinate.longitude)
-             
+
                 print(self.Mylatitude!)
                 print(self.Mylongtitude!)
-                
+
                 self.locationAPI()
            
                 

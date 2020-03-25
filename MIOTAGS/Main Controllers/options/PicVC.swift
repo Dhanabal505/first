@@ -16,6 +16,8 @@ class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationCont
     
     
     var x:Int?
+    
+    var imagefile:String!
    
     
     lazy var myscroll:UIScrollView={
@@ -117,12 +119,17 @@ class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationCont
          addview()
          translate()
          layout()
+        back.addTarget(self, action: #selector(backact), for: .touchUpInside)
         
+//        guard var url = URL(string: "") else { return  }
+//        let data = try? Data(contentsOf: url)
+//        
+//        viewimg1.image = UIImage(data: data!)
         
         camerabtn.addTarget(self, action: #selector(camera1act), for: .touchUpInside)
         camerabtn2.addTarget(self, action: #selector(camera2act), for: .touchUpInside)
         camerabtn3.addTarget(self, action: #selector(camera3act), for: .touchUpInside)
-        back.addTarget(self, action: #selector(backact), for: .touchUpInside)
+        
         
         
         self.navigationController?.navigationItem.backBarButtonItem?.isEnabled = false
@@ -245,24 +252,32 @@ class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationCont
         
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
+        guard let fileUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL else { return }
+        print(fileUrl.lastPathComponent) // get file Name
+        print(fileUrl.pathExtension)     // get file extension
+        dismiss(animated: true, completion: nil)
+        imagefile = fileUrl.lastPathComponent
+        
         
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             if x == 1 {
                 print("Btn 1 is clicked")
             viewimg1.contentMode = .scaleToFill
             viewimg1.image = pickedImage
-               
+               self.updateProfileAPI(img: pickedImage)
         }
 
           else if x == 2 {
             print("btn 2 click")
             viewimg2.contentMode = .scaleToFill
             viewimg2.image = pickedImage
+             self.updateProfileAPI(img: pickedImage)
         }
             else if x == 3 {
                 print("btn 3 click")
                 viewimg3.contentMode = .scaleToFill
                 viewimg3.image = pickedImage
+                self.updateProfileAPI(img: pickedImage)
             }
         }
         dismiss(animated: true, completion: nil)
@@ -303,8 +318,51 @@ class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationCont
         viewimg3.isUserInteractionEnabled = true
     }
     
+
     
-    
+    func updateProfileAPI(img:UIImage){
+        let loader = LoaderView()
+        loader.showLoader()
+        
+        let Mydata = TapScanVC()
+        
+        let ASSETID = Mydata.assetid.text!
+        
+      
+        let strURL = PATH.UPLOAD_IMG+"\(ASSETID)"
+        
+        APIs.uploadProfileImage(path: strURL, image: img) { (records, error) in
+            
+            loader.hideLoader()
+            
+            if error != nil{
+                switch error {
+                case .noDataAvailable?:
+                    self.makeToast(strMessage: STRING.NO_DATA)
+                    break
+                case .connectionError?:
+                    self.makeToast(strMessage: STRING.INTERNET_CONNECTION)
+                    break
+                case .serverError?:
+                    self.makeToast(strMessage: STRING.SERVER_ERROR)
+                    break
+                default:
+                    self.makeToast(strMessage: STRING.INTERNET_CONNECTION)
+                }
+                return
+            }
+            
+            if let record = records as? String{
+                self.makeToast(strMessage: record)
+                return
+            }
+            
+            let record = records as! [String:String]
+            if let message = record["message"] as? String{
+                self.makeToast(strMessage: message)
+            }
+        }
+    }
     
     func addview(){
        
