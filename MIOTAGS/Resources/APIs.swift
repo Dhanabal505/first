@@ -18,8 +18,10 @@ struct PATH {
     static let ASSET = "api/qrcode/searchasset"
      static let FORGOT = "api/user/forgotpassword?email="
     static let UPLOAD_IMG = "api/qrcode/addphoto?assetId="
+    static let PICNO = "&picno="
     static let CRNTLOCATION = "api/qrcode/addlocation"
     static let SUPPORT = "api/user/mysupport"
+    static let HISTORY = "api/qrcode/searchhistory"
 }
 
 enum ErrorHandler:Error{
@@ -189,8 +191,57 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
         }
     }
     
-    
-
+    public static func History(path:String,data:[String:Any],completion:@escaping(Any?,ErrorHandler?)->Void){
+        
+        let strToken = Model.getUserdefault(strTitle: STRING.ACCESS_TOKEN)
+        
+        let jsonStr = JSONString.getJSONString(json: data)
+        
+        let url = self.BASE_PATH + path
+        
+        print("token - \(strToken)")
+        
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(strToken, forHTTPHeaderField: "Authorization")
+        
+        let data = (jsonStr.data(using: .utf8))! as Data
+        
+        request.httpBody = data
+        
+        print(request)
+        Alamofire.request(request).responseJSON { (response) in
+            print("my response - ",response)
+            
+            if let result = response.value{
+                if let data = result as? NSDictionary{
+                    if data["statuscode"] != nil && (data["statuscode"]as! String) == "1"{
+                        if let message = data["message"]as? String{
+                            let myData = ["statuscode":"Success","message":message]
+                            completion(myData,nil)
+                        }
+                    }
+                    else if data["statuscode"] != nil{
+                        if let message = data["message"] as? String{
+                            completion(message,nil)
+                        }
+                        else{
+                            completion(nil,.noDataAvailable)
+                        }
+                    }
+                }
+                else{
+                    completion(nil,.noDataAvailable)
+                }
+            }
+            else{
+                completion(nil,.connectionError)
+            }
+            
+        }
+        
+    }
     public static func asset(data:[String:String],completion:@escaping(Any?,ErrorHandler?)->Void){
         
         Alamofire.request(BASE_PATH+PATH.ASSET, method: .get, parameters: data, headers:HeaderWithToken).responseJSON { (response) in
@@ -208,11 +259,7 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
                                 let mydata = dicData["data"] as? NSDictionary
                                 
                                 
-                                let img = mydata?["customFields"] as? String
-                                print(img)
                                
-                                let address = mydata!["Address"] as? String
-                                print(address)
                               
                                 
                                     var statuscode = ""
@@ -394,14 +441,18 @@ else{
     
 
 
-public static func uploadProfileImage(path:String,image:UIImage,completion:@escaping(Any?,ErrorHandler?)->Void){
+    public static func uploadProfileImage(path:String,picno:String,image:UIImage,completion:@escaping(Any?,ErrorHandler?)->Void){
     
-    let strUrl = BASE_PATH + path
+        let strUrl = BASE_PATH + path +  PATH.PICNO + "\(picno)"
+        
+        print(strUrl)
     
     let url = try! URLRequest(url: URL(string: strUrl)!, method: .post, headers: HeaderWithToken)
     
     let dataImage = image.jpegData(compressionQuality: 0.8)
-    
+        
+        
+     
     print("My Path - \(strUrl)")
     
     let filename="ProfileImage.jpg"

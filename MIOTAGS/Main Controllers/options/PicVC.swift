@@ -328,10 +328,11 @@ class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationCont
         
         let ASSETID = Mydata.assetid.text!
         
+        let PICNO = String(x!)
       
         let strURL = PATH.UPLOAD_IMG+"\(ASSETID)"
         
-        APIs.uploadProfileImage(path: strURL, image: img) { (records, error) in
+        APIs.uploadProfileImage(path: strURL,picno: PICNO, image: img) { (records, error) in
             
             loader.hideLoader()
             
