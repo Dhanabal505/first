@@ -121,10 +121,14 @@ class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationCont
          layout()
         back.addTarget(self, action: #selector(backact), for: .touchUpInside)
         
-//        guard var url = URL(string: "") else { return  }
-//        let data = try? Data(contentsOf: url)
-//        
-//        viewimg1.image = UIImage(data: data!)
+        print("This is first= \(Images.img1)")
+        print("This is second= \(Imagess.img2)")
+        print("This is third= \(Imagesss.img3)")
+        
+        myimage1()
+        myimage2()
+        myimages3()
+       
         
         camerabtn.addTarget(self, action: #selector(camera1act), for: .touchUpInside)
         camerabtn2.addTarget(self, action: #selector(camera2act), for: .touchUpInside)
@@ -363,6 +367,26 @@ class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationCont
                 self.makeToast(strMessage: message)
             }
         }
+    }
+    
+    func myimage1(){
+        guard var url = URL(string: Images.img1) else { return  }
+        let data = try? Data(contentsOf: url)
+        
+        viewimg1.image = UIImage(data: data!)
+    }
+    
+    func myimage2(){
+        guard var urls = URL(string: Imagess.img2) else { return  }
+        let datas = try? Data(contentsOf: urls)
+        
+        viewimg2.image = UIImage(data: datas!)
+    }
+    func myimages3(){
+        guard var urlst = URL(string: Imagesss.img3) else { return  }
+        let datast = try? Data(contentsOf: urlst)
+
+        viewimg3.image = UIImage(data: datast!)
     }
     
     func addview(){

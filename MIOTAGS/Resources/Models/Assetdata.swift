@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+ 
+
 class Asset {
    static var statuscode : String!
    static var Address : String?

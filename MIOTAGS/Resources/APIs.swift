@@ -191,39 +191,30 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
         }
     }
     
-    public static func History(path:String,data:[String:Any],completion:@escaping(Any?,ErrorHandler?)->Void){
+    public static func History(data:[String:Any],completion:@escaping(Any?,ErrorHandler?)->Void){
         
-        let strToken = Model.getUserdefault(strTitle: STRING.ACCESS_TOKEN)
-        
-        let jsonStr = JSONString.getJSONString(json: data)
-        
-        let url = self.BASE_PATH + path
-        
-        print("token - \(strToken)")
-        
-        var request = URLRequest(url: URL(string: url)!)
-        request.httpMethod = HTTPMethod.post.rawValue
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue(strToken, forHTTPHeaderField: "Authorization")
-        
-        let data = (jsonStr.data(using: .utf8))! as Data
-        
-        request.httpBody = data
-        
-        print(request)
-        Alamofire.request(request).responseJSON { (response) in
-            print("my response - ",response)
-            
+        Alamofire.request(BASE_PATH+PATH.HISTORY, method: .get, parameters: data, headers:HeaderWithToken).responseJSON { (response) in
+            print("response -" ,response)
+    
             if let result = response.value{
-                if let data = result as? NSDictionary{
-                    if data["statuscode"] != nil && (data["statuscode"]as! String) == "1"{
-                        if let message = data["message"]as? String{
-                            let myData = ["statuscode":"Success","message":message]
-                            completion(myData,nil)
+                if let dicData = result as? NSDictionary{
+                    if dicData["statuscode"] != nil{
+                        if (dicData["statuscode"] as! String) == "1"{
+                            if dicData["data"] != nil{
+                                
+                                completion(dicData["data"] as Any,nil)
+                                
+                                let data = dicData["data"] as! NSArray
+                                
+                               
+                                
+                            }
                         }
-                    }
-                    else if data["statuscode"] != nil{
-                        if let message = data["message"] as? String{
+                        else{
+                            completion(nil,.noDataAvailable)
+                        }
+                    }else if dicData["status"] != nil{
+                        if let message = dicData["message"] as? String{
                             completion(message,nil)
                         }
                         else{
@@ -231,17 +222,14 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
                         }
                     }
                 }
-                else{
-                    completion(nil,.noDataAvailable)
-                }
             }
             else{
                 completion(nil,.connectionError)
             }
-            
         }
-        
     }
+    
+   
     public static func asset(data:[String:String],completion:@escaping(Any?,ErrorHandler?)->Void){
         
         Alamofire.request(BASE_PATH+PATH.ASSET, method: .get, parameters: data, headers:HeaderWithToken).responseJSON { (response) in
@@ -259,8 +247,71 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
                                 let mydata = dicData["data"] as? NSDictionary
                                 
                                 
-                               
+                                let images = mydata!["images"] as! NSArray
+                                
+                                 let imgarr = NSMutableArray(array: images)
+                                
+                                
                               
+                                
+                                for picimg in imgarr{
+                                 
+                                    if let dict = (picimg as? NSDictionary){
+                                       
+                                    
+                                        if let picno = dict.object(forKey: "picno") as? Int{
+                                            
+                                            if picno == 1 || picno == 2 || picno == 3 {
+                                                
+                                                var pic1 = ""
+                                                var pic2 = ""
+                                                var pic3 = ""
+                                                
+                                                if picno == 1 {
+                                                    if let imgurl = dict.object(forKey: "pictureurl") as? String{
+                                                        
+                                                        let pic1str = imgurl
+                                                        pic1 = pic1str
+                                                        print(pic1)
+                                                         let img = Images(image1: pic1)
+                                                    }
+                                                }
+                                                if picno == 2 {
+                                                    if let imgurls = dict.object(forKey: "pictureurl") as? String{
+                                                        
+                                                        let pic2str = imgurls
+                                                        pic2 = pic2str
+                                                        print(pic2)
+                                                        let imgs = Imagess(image2: pic2)
+                                                    }
+                                                }
+                                                if picno == 3 {
+                                                    if let imgurlss = dict.object(forKey: "pictureurl") as? String{
+                                                        
+                                                        let pic3str = imgurlss
+                                                        pic3 = pic3str
+                                                        print(pic3)
+                                                        let imgss = Imagesss(image3: pic3)
+                                                    }
+                                                }
+                                            
+                                               
+                                               
+                                                
+                                                
+                                            }
+                                        }
+                                        
+                                    }
+                                        
+                                    }
+                                    
+                              
+                                
+                              
+                         
+                               
+                                
                                 
                                     var statuscode = ""
                                     var Address = ""

@@ -191,7 +191,7 @@ class HistoryVC: UIViewController {
     }
     
     @objc func Searchact(){
-        support()
+        validsupport()
     }
     
     func validsupport(){
@@ -200,21 +200,17 @@ class HistoryVC: UIViewController {
        
         
         let StrUName = usertf.text!
-        let FDate = "25/03/2019"
-        let EDate = "25/03/2020"
+        let FDate = self.FrmDate.text!
+        let EDate = self.EndDate.text!
         let ASSETID = Asset.text!
         
         let getdata = ["username":StrUName,"assetId":ASSETID,"fromDate":FDate,"todate":EDate] as [String:String]
         
         print(getdata)
+        support(data: getdata)
     }
     
-    func support() {
-        
-        let StrUName = usertf.text!
-        let FDate = "25/03/2019"
-        let EDate = "25/03/2020"
-        let ASSETID = Asset.text!
+    func support(data:[String:Any]) {
         
         
         let loader = LoaderView()
@@ -222,7 +218,7 @@ class HistoryVC: UIViewController {
         
        
         
-        APIs.history(username: StrUName, assetid: ASSETID, fromDate: FDate, todate: EDate ){ (record,error) in
+        APIs.History(data: data){ (record,error) in
             loader.hideLoader()
             
             

@@ -9,10 +9,14 @@
 import Foundation
 import UIKit
 
+struct Myimages {
+    var ARRAYImgs = NSMutableArray()
+}
 
 struct SIZE{
     
 
+    
     static let TXT_Height:CGFloat = 45
     static let LOGO_Height:CGFloat = 30
     static let Header_Height:CGFloat = 50
