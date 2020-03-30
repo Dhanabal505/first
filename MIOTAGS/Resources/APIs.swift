@@ -206,7 +206,9 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
                                 
                                 let data = dicData["data"] as! NSArray
                                 
+                                let mydata = Historydata(hdata: data)
                                
+                                print("MYDATA\(data)")
                                 
                             }
                         }

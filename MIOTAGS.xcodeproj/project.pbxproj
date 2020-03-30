@@ -34,6 +34,7 @@
 		3F85F6D624067ACB00B82122 /* CheckboxBTN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85F6D524067ACB00B82122 /* CheckboxBTN.swift */; };
 		3F85F6D824067C4F00B82122 /* CustomSideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85F6D724067C4F00B82122 /* CustomSideMenu.swift */; };
 		3F85F6DA240688F000B82122 /* ESupportDoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85F6D9240688F000B82122 /* ESupportDoneVC.swift */; };
+		3F8A92522431CCD800ADECDE /* Historycell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8A92512431CCD800ADECDE /* Historycell.swift */; };
 		3F8C786D23FEC32D000BDB41 /* Notescell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8C786C23FEC32D000BDB41 /* Notescell.swift */; };
 		3F93750523FD8044008A762C /* AddnoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F93750423FD8044008A762C /* AddnoteVC.swift */; };
 		3F945BD623EA9D64002B996F /* TFextension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F945BD523EA9D64002B996F /* TFextension.swift */; };
@@ -91,6 +92,7 @@
 		3F85F6D524067ACB00B82122 /* CheckboxBTN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxBTN.swift; sourceTree = "<group>"; };
 		3F85F6D724067C4F00B82122 /* CustomSideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSideMenu.swift; sourceTree = "<group>"; };
 		3F85F6D9240688F000B82122 /* ESupportDoneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ESupportDoneVC.swift; sourceTree = "<group>"; };
+		3F8A92512431CCD800ADECDE /* Historycell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Historycell.swift; sourceTree = "<group>"; };
 		3F8C786C23FEC32D000BDB41 /* Notescell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notescell.swift; sourceTree = "<group>"; };
 		3F93750423FD8044008A762C /* AddnoteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddnoteVC.swift; sourceTree = "<group>"; };
 		3F945BD523EA9D64002B996F /* TFextension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TFextension.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				3F965B9023F288100000CB03 /* TagsuccessVC.swift */,
 				3F965B9223F28D9A0000CB03 /* Tagfailure.swift */,
 				3F28BA8423ED713C0067457F /* HistoryVC.swift */,
+				3F8A92512431CCD800ADECDE /* Historycell.swift */,
 				3F85F6D9240688F000B82122 /* ESupportDoneVC.swift */,
 			);
 			path = "Main Controllers";
@@ -404,6 +407,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F8A92522431CCD800ADECDE /* Historycell.swift in Sources */,
 				3F94613923F145C6009D1723 /* Lblextension.swift in Sources */,
 				3F93750523FD8044008A762C /* AddnoteVC.swift in Sources */,
 				3F58B8DB241F603E00357A2A /* ForgotpassVC.swift in Sources */,

@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import CoreLocation
 
 class HistoryVC: UIViewController {
+    
+    var Hdata:NSArray!
 
+    var MYADDRESS:String?
 
     lazy var Header:CustomMenuHeader={
         let view = CustomMenuHeader(title: "")
@@ -107,15 +111,25 @@ class HistoryVC: UIViewController {
         return img
     }()
     
+    lazy var tblProfile:UITableView={
+        let tbl = UITableView()
+        tbl.backgroundColor = UIColor.clear
+        tbl.translatesAutoresizingMaskIntoConstraints=false
+        return tbl
+    }()
+    
+     let Identifiers = "cell"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        print(Historydata.HDATA)
         view.addSubview(Myscroll)
         view.addSubview(Header)
         translate()
         layout()
         setTapGesture()
+       
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -140,6 +154,16 @@ class HistoryVC: UIViewController {
         Asset.translatesAutoresizingMaskIntoConstraints=false
         back.translatesAutoresizingMaskIntoConstraints=false
         
+    }
+    
+    
+    func loadTable(){
+        tblProfile.delegate=self
+        tblProfile.dataSource=self
+        
+        tblProfile.register(Historycell.self, forCellReuseIdentifier: Identifiers)
+        tblProfile.separatorStyle = .none
+       // tblProfile.tableFooterView = UIView()
     }
     
     
@@ -190,15 +214,14 @@ class HistoryVC: UIViewController {
          self.EndDate.resignFirstResponder()
     }
     
+    
+    
+    
     @objc func Searchact(){
         validsupport()
     }
     
     func validsupport(){
-        
-        
-       
-        
         let StrUName = usertf.text!
         let FDate = self.FrmDate.text!
         let EDate = self.EndDate.text!
@@ -218,7 +241,7 @@ class HistoryVC: UIViewController {
         
        
         
-        APIs.History(data: data){ (record,error) in
+        APIs.History(data: data){ (records,error) in
             loader.hideLoader()
             
             
@@ -246,14 +269,171 @@ class HistoryVC: UIViewController {
                 }
                 return
             }
+            
+            
+            
+            if let record = records as? String{
+                self.makeToast(strMessage: record)
+                return
+            }
+            
+            let arrhistory = records as! NSArray
+            
+            self.Hdata = arrhistory
+            
+            if arrhistory.count == 1{
+                let data = arrhistory[0] as! NSDictionary
+                
+               // self.redirect(data: data)
+            }
+            
+            self.tblProfile.reloadData()
+            
+            print("Profiles  - \(arrhistory)")
+            self.loadTable()
+            self.Myscroll.contentSize.height = self.view.frame.height + 500
         }
     }
     
+    func getAddressFromLatLon(pdblLatitude: String, withLongitude pdblLongitude: String) {
+        var center : CLLocationCoordinate2D = CLLocationCoordinate2D()
+        let lat: Double = Double("\(pdblLatitude)")!
+        //21.228124
+        let lon: Double = Double("\(pdblLongitude)")!
+        //72.833770
+        let ceo: CLGeocoder = CLGeocoder()
+        center.latitude = lat
+        center.longitude = lon
+        
+        let loc: CLLocation = CLLocation(latitude:center.latitude, longitude: center.longitude)
+        
+        
+        ceo.reverseGeocodeLocation(loc, completionHandler:
+            {(placemarks, error) in
+                if (error != nil)
+                {
+                    print("reverse geodcode fail: \(error!.localizedDescription)")
+                }
+                let pm = placemarks! as [CLPlacemark]
+                
+                if pm.count > 0 {
+                    let pm = placemarks![0]
+                    print(pm.country)
+                    print(pm.locality)
+                    print(pm.subLocality)
+                    print(pm.thoroughfare)
+                    print(pm.postalCode)
+                    print(pm.subThoroughfare)
+                    var addressString : String = ""
+                    if pm.subLocality != nil {
+                        addressString = addressString + pm.subLocality! + ", "
+                    }
+                    if pm.thoroughfare != nil {
+                        addressString = addressString + pm.thoroughfare! + ", "
+                    }
+                    if pm.locality != nil {
+                        addressString = addressString + pm.locality! + ", "
+                    }
+                    if pm.country != nil {
+                        addressString = addressString + pm.country! + ", "
+                    }
+                    if pm.postalCode != nil {
+                        addressString = addressString + pm.postalCode! + " "
+                    }
+                    
+                    
+                    print(addressString)
+                    
+                    self.MYADDRESS = addressString
+                }
+        })
+        
+    }
+    
+    
+}
+
+
+
+
+extension HistoryVC:UITableViewDelegate,UITableViewDataSource{
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return Hdata.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers, for: indexPath) as! Historycell
+        
+        let data = Hdata[indexPath.row] as! NSDictionary
+        
+        
+        
+        var name = ""
+        if let fname = data["username"]as? String{
+            name = fname
+            name.append(" ")
+        }
+        
+        
+        cell.lblUser.text = name
+        
+    
+        
+       
+       if let contact = data["id"] as? String{
+            cell.lblOrganization.text = contact
+       }
+        
+        var Dateformat = ""
+        if let date = data["date"] as? String{
+            let mydate = String(date.prefix(10))
+            
+            let first = String(mydate.suffix(2))
+            Dateformat.append(first)
+           
+            
+            let mmyy = String(date.prefix(8))
+            let second = String(mmyy.suffix(4))
+            Dateformat.append(second)
+           
+            
+            let third = String(mydate.prefix(4))
+            Dateformat.append(third)
+            
+            
+            cell.Date.text = Dateformat
+        }
+        
+        
+        let lati = data["Latitude"] as? String
+       
+        let long = data["Longitude"] as? String
+        
+        self.getAddressFromLatLon(pdblLatitude: lati!, withLongitude: long!)
+        
+        cell.Address.text = MYADDRESS
+        
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+       return
+        
+
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+}
+extension HistoryVC{
     func layout(){
         Header.anchorWith_TopLeftBottomRight_Padd(top: view.safeAreaLayoutGuide.topAnchor, left: view.leadingAnchor, bottom: nil, right: view.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: 0))
         Header.anchorWith_Height(height: nil, const: SIZE.Header_Height)
         
-       
+        
         
         Myscroll.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: nil, top: Header.bottomAnchor, left: view.leadingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: 0))
         Myscroll.contentSize.height = 740
@@ -267,6 +447,8 @@ class HistoryVC: UIViewController {
         Myscroll.addSubview(Asset)
         Myscroll.addSubview(search)
         Myscroll.addSubview(dataview)
+        Myscroll.addSubview(tblProfile)
+        
         
         mytitle.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: Myscroll.topAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 20, left: 0, bottom: 0, right: 0))
         
@@ -308,7 +490,9 @@ class HistoryVC: UIViewController {
         
         dateimg.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: dataview.centerYAnchor, top: nil, left: userimg.trailingAnchor, bottom: nil, right: dataview.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: -20))
         dateimg.anchorWith_WidthHeight(width: dataview.widthAnchor, height: nil, constWidth: 0.2, constHeight: SIZE.DATAIMG_HEIGHT)
-
+        
+        tblProfile.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: dataview.bottomAnchor, left: Myscroll.leadingAnchor, bottom: nil, right: Myscroll.trailingAnchor, padd: .init(top: 20, left: 0, bottom: 0, right: 0))
+        tblProfile.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 1.5, constHeight: 500)
     }
 
 }

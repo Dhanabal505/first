@@ -80,3 +80,28 @@ class Modelssss{
         return nil
     }
 }
+
+
+class Historydata{
+    
+    
+    static var HDATA:NSArray?
+    
+    init(hdata:NSArray) {
+        
+        Historydata.HDATA = hdata
+        
+    }
+}
+class HModels{
+    
+    public static func setUserdefault(strTitle:String,value:String){
+        UserDefaults.standard.set(value, forKey: strTitle)
+    }
+    public static func getUserdefault(strTitle:String)->String?{
+        if let data = UserDefaults.standard.value(forKey: strTitle){
+            return data as! String // as? String
+        }
+        return nil
+    }
+}
