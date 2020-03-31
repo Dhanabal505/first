@@ -36,7 +36,7 @@ extension UILabel{
         self.textColor = UIColor.black
         self.lineBreakMode = NSLineBreakMode.byWordWrapping
         self.numberOfLines = 6
-        self.layer.borderWidth = 3
+        self.layer.borderWidth = 2
         self.layer.borderColor = UIColor().hexToColor(hex: "#0A1E65").cgColor
         self.textAlignment = .center
     }

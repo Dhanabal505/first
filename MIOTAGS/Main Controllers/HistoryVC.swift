@@ -39,6 +39,11 @@ class HistoryVC: UIViewController {
         return scrl
     }()
     
+    lazy var Mydatascroll:UIScrollView={
+        let scrl = UIScrollView()
+        return scrl
+    }()
+    
     lazy var usertf:HistoryTF={
         let tf = HistoryTF()
         tf.placeholder = "User"
@@ -111,6 +116,14 @@ class HistoryVC: UIViewController {
         return img
     }()
     
+    lazy var Adrs:UIImageView={
+        let img = UIImageView()
+        img.translatesAutoresizingMaskIntoConstraints=false
+        img.image = UIImage(named: "address")
+        img.contentMode = .scaleAspectFit
+        return img
+    }()
+    
     lazy var tblProfile:UITableView={
         let tbl = UITableView()
         tbl.backgroundColor = UIColor.clear
@@ -123,12 +136,14 @@ class HistoryVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         print(Historydata.HDATA)
         view.addSubview(Myscroll)
         view.addSubview(Header)
         translate()
         layout()
         setTapGesture()
+       
        
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -148,6 +163,7 @@ class HistoryVC: UIViewController {
         mytitle.translatesAutoresizingMaskIntoConstraints=false
         Historyimg.translatesAutoresizingMaskIntoConstraints=false
         Myscroll.translatesAutoresizingMaskIntoConstraints=false
+        Mydatascroll.translatesAutoresizingMaskIntoConstraints=false
         usertf.translatesAutoresizingMaskIntoConstraints=false
         FrmDate.translatesAutoresizingMaskIntoConstraints=false
         EndDate.translatesAutoresizingMaskIntoConstraints=false
@@ -163,7 +179,7 @@ class HistoryVC: UIViewController {
         
         tblProfile.register(Historycell.self, forCellReuseIdentifier: Identifiers)
         tblProfile.separatorStyle = .none
-       // tblProfile.tableFooterView = UIView()
+       
     }
     
     
@@ -291,7 +307,8 @@ class HistoryVC: UIViewController {
             
             print("Profiles  - \(arrhistory)")
             self.loadTable()
-            self.Myscroll.contentSize.height = self.view.frame.height + 500
+            self.Mydatascroll.contentSize.height = self.tblProfile.frame.height + 500
+            self.Myscroll.contentSize.height = self.view.frame.height + 300
         }
     }
     
@@ -314,7 +331,7 @@ class HistoryVC: UIViewController {
                 {
                     print("reverse geodcode fail: \(error!.localizedDescription)")
                 }
-                let pm = placemarks! as [CLPlacemark]
+                let pm = placemarks as! [CLPlacemark]
                 
                 if pm.count > 0 {
                     let pm = placemarks![0]
@@ -325,6 +342,10 @@ class HistoryVC: UIViewController {
                     print(pm.postalCode)
                     print(pm.subThoroughfare)
                     var addressString : String = ""
+                    
+                    if pm.subThoroughfare != nil {
+                        addressString = addressString + pm.subThoroughfare! + ","
+                    }
                     if pm.subLocality != nil {
                         addressString = addressString + pm.subLocality! + ", "
                     }
@@ -377,14 +398,14 @@ extension HistoryVC:UITableViewDelegate,UITableViewDataSource{
             name.append(" ")
         }
         
+        cell.lblOrganization.text = name
         
-        cell.lblUser.text = name
         
     
         
        
        if let contact = data["id"] as? String{
-            cell.lblOrganization.text = contact
+            cell.lblUser.text = contact
        }
         
         var Dateformat = ""
@@ -408,11 +429,11 @@ extension HistoryVC:UITableViewDelegate,UITableViewDataSource{
         }
         
         
-        let lati = data["Latitude"] as? String
+        let lati = data["latittude"] as! String
        
-        let long = data["Longitude"] as? String
+        let long = data["longitude"] as! String
         
-        self.getAddressFromLatLon(pdblLatitude: lati!, withLongitude: long!)
+        self.getAddressFromLatLon(pdblLatitude: lati, withLongitude: long)
         
         cell.Address.text = MYADDRESS
         
@@ -425,7 +446,7 @@ extension HistoryVC:UITableViewDelegate,UITableViewDataSource{
 
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 140
     }
 }
 extension HistoryVC{
@@ -437,6 +458,7 @@ extension HistoryVC{
         
         Myscroll.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: nil, top: Header.bottomAnchor, left: view.leadingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: 0))
         Myscroll.contentSize.height = 740
+        Myscroll.contentSize = CGSize(width: 650, height: 740)
         
         Myscroll.addSubview(mytitle)
         Myscroll.addSubview(Historyimg)
@@ -446,8 +468,8 @@ extension HistoryVC{
         Myscroll.addSubview(EndDate)
         Myscroll.addSubview(Asset)
         Myscroll.addSubview(search)
-        Myscroll.addSubview(dataview)
-        Myscroll.addSubview(tblProfile)
+        Myscroll.addSubview(Mydatascroll)
+
         
         
         mytitle.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: Myscroll.topAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 20, left: 0, bottom: 0, right: 0))
@@ -474,25 +496,40 @@ extension HistoryVC{
         search.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: Asset.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 30, left: 0, bottom: 0, right: 0))
         search.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 0.4, constHeight: SIZE.SEARCH_HEIGHT)
         
-        dataview.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: search.bottomAnchor, left: nil
-            , bottom: nil, right: nil, padd: .init(top: 30, left: 0, bottom: 0, right: 0))
-        dataview.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 0.9, constHeight: SIZE.DATAVIEW_HEIGHT)
+        Mydatascroll.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: nil, top: search.bottomAnchor, left: Myscroll.leadingAnchor, bottom: nil, right: nil,padd: .init(top: 10, left: 10, bottom: 0, right: 0))
+        Mydatascroll.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 1.4, constHeight: 400)
+        Mydatascroll.contentSize = CGSize(width: 650, height: 400)
+        Mydatascroll.addSubview(dataview)
+        Mydatascroll.addSubview(tblProfile)
+        
+        dataview.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: nil, top: Mydatascroll.topAnchor, left: Mydatascroll.leadingAnchor
+            , bottom: nil, right: nil, padd: .init(top: 0, left: 10, bottom: 0, right: 0))
+        dataview.anchorWith_WidthHeight(width: nil, height: nil, constWidth: 450 , constHeight: SIZE.DATAVIEW_HEIGHT)
         dataview.addSubview(idimg)
         dataview.addSubview(userimg)
         dataview.addSubview(dateimg)
+        dataview.addSubview(Adrs)
+        
         
         idimg.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: dataview.centerYAnchor, top: nil, left: dataview.leadingAnchor, bottom: nil, right: nil, padd: .init(top: 0, left: 20, bottom: 0, right: 0))
-        idimg.anchorWith_WidthHeight(width: dataview.widthAnchor, height: nil, constWidth: 0.2, constHeight: SIZE.DATAIMG_HEIGHT)
+        idimg.anchorWith_WidthHeight(width: nil, height: nil, constWidth: 40, constHeight: SIZE.DATAIMG_HEIGHT)
         
         
-        userimg.anchorWith_XY_TopLeftBottomRight_Padd(x: dataview.centerXAnchor, y: dataview.centerYAnchor, top: nil, left: nil, bottom: nil, right: nil, padd: .init(top: 0, left: 0, bottom: 0, right: 0))
-        userimg.anchorWith_WidthHeight(width: dataview.widthAnchor, height: nil, constWidth: 0.2, constHeight: SIZE.DATAIMG_HEIGHT)
         
-        dateimg.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: dataview.centerYAnchor, top: nil, left: userimg.trailingAnchor, bottom: nil, right: dataview.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: -20))
-        dateimg.anchorWith_WidthHeight(width: dataview.widthAnchor, height: nil, constWidth: 0.2, constHeight: SIZE.DATAIMG_HEIGHT)
+        userimg.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: dataview.centerYAnchor, top: nil, left: idimg.trailingAnchor, bottom: nil, right: nil, padd: .init(top: 0, left: 80, bottom: 0, right: 0))
+        userimg.anchorWith_WidthHeight(width: nil, height: nil, constWidth: 40, constHeight: SIZE.DATAIMG_HEIGHT)
+       
         
-        tblProfile.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: dataview.bottomAnchor, left: Myscroll.leadingAnchor, bottom: nil, right: Myscroll.trailingAnchor, padd: .init(top: 20, left: 0, bottom: 0, right: 0))
-        tblProfile.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 1.5, constHeight: 500)
+        dateimg.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: dataview.centerYAnchor, top: nil, left: userimg.trailingAnchor, bottom: nil, right: nil, padd: .init(top: 0, left: 80, bottom: 0, right: 0))
+        dateimg.anchorWith_WidthHeight(width: nil, height: nil, constWidth: 40, constHeight: SIZE.DATAIMG_HEIGHT)
+        
+        
+        Adrs.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: dataview.centerYAnchor, top: nil, left: dateimg.trailingAnchor, bottom: nil, right: nil, padd: .init(top: 0, left: 80, bottom: 0, right: 0))
+        Adrs.anchorWith_WidthHeight(width: nil, height: nil, constWidth: 40, constHeight: SIZE.DATAIMG_HEIGHT)
+        
+        
+        tblProfile.anchorWith_XY_TopLeftBottomRight_Padd(x: Mydatascroll.centerXAnchor, y: nil, top: dataview.bottomAnchor, left: Mydatascroll.leadingAnchor, bottom: nil, right: nil, padd: .init(top: 20, left: 0, bottom: 0, right: 0))
+        tblProfile.anchorWith_WidthHeight(width: nil, height: nil, constWidth:0, constHeight: 500)
     }
 
 }

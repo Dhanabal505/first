@@ -61,22 +61,24 @@ class Historycell: UITableViewCell {
 
         
         lblUser.anchorWith_TopLeftBottomRight_Padd(top: self.topAnchor, left: self.leadingAnchor, bottom: nil, right: nil, padd: .init(top: 15, left: 15, bottom: 0, right: 0))
-        lblUser.anchorWith_Width(width: self.widthAnchor, const: 0.23)
-        lblUser.anchorWith_Height(height: nil, const: 100)
+        lblUser.anchorWith_Width(width: nil, const: 100)
+        lblUser.anchorWith_Height(height: nil, const: 120)
        
         
         lblOrganization.anchorWith_TopLeftBottomRight_Padd(top: self.topAnchor, left:lblUser.trailingAnchor, bottom: nil, right: nil,padd: .init(top: 15, left: 0, bottom: 0, right: 0))
-        lblOrganization.anchorWith_Width(width: self.widthAnchor, const: 0.23)
-        lblOrganization.anchorWith_Height(height: nil, const: 100)
+        lblOrganization.anchorWith_Width(width: nil, const: 120)
+        lblOrganization.anchorWith_Height(height: nil, const: 120)
         
         
         Date.anchorWith_TopLeftBottomRight_Padd(top: self.topAnchor, left: lblOrganization.trailingAnchor, bottom: nil, right: nil, padd: .init(top: 15, left: 0, bottom: 0, right: 0))
-        Date.anchorWith_Width(width: self.widthAnchor, const: 0.28)
-        Date.anchorWith_Height(height: nil, const: 100)
+        Date.anchorWith_Width(width: nil, const: 100)
+        Date.anchorWith_Height(height: nil, const: 120)
         
-        Address.anchorWith_TopLeftBottomRight_Padd(top: self.topAnchor, left: Date.trailingAnchor, bottom: nil, right: self.trailingAnchor, padd: .init(top: 15, left: 0, bottom: 0, right: 0))
-        Address.anchorWith_Width(width: self.widthAnchor, const: 0.3)
-        Address.anchorWith_Height(height: nil, const: 100)
+        
+        Address.anchorWith_TopLeftBottomRight_Padd(top: self.topAnchor, left: Date.trailingAnchor, bottom: nil, right: nil, padd: .init(top: 15, left: 0, bottom: 0, right: 0))
+        Address.anchorWith_Width(width: nil, const: 140)
+        Address.anchorWith_Height(height: nil, const: 120)
+       
     }
     
     required init?(coder: NSCoder) {
