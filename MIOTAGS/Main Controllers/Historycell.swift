@@ -61,23 +61,19 @@ class Historycell: UITableViewCell {
 
         
         lblUser.anchorWith_TopLeftBottomRight_Padd(top: self.topAnchor, left: self.leadingAnchor, bottom: nil, right: nil, padd: .init(top: 15, left: 15, bottom: 0, right: 0))
-        lblUser.anchorWith_Width(width: nil, const: 100)
-        lblUser.anchorWith_Height(height: nil, const: 120)
+        lblUser.anchorWith_WidthHeight(width: nil, height: nil, constWidth: 100, constHeight: SIZE.CELL_HEIGHT)
        
         
         lblOrganization.anchorWith_TopLeftBottomRight_Padd(top: self.topAnchor, left:lblUser.trailingAnchor, bottom: nil, right: nil,padd: .init(top: 15, left: 0, bottom: 0, right: 0))
-        lblOrganization.anchorWith_Width(width: nil, const: 120)
-        lblOrganization.anchorWith_Height(height: nil, const: 120)
+        lblOrganization.anchorWith_WidthHeight(width: nil, height: nil, constWidth: SIZE.CELL_WIDTH, constHeight: SIZE.CELL_HEIGHT)
         
         
         Date.anchorWith_TopLeftBottomRight_Padd(top: self.topAnchor, left: lblOrganization.trailingAnchor, bottom: nil, right: nil, padd: .init(top: 15, left: 0, bottom: 0, right: 0))
-        Date.anchorWith_Width(width: nil, const: 100)
-        Date.anchorWith_Height(height: nil, const: 120)
+        Date.anchorWith_WidthHeight(width: nil, height: nil, constWidth: SIZE.CELL_WIDTH, constHeight: SIZE.CELL_HEIGHT)
         
         
         Address.anchorWith_TopLeftBottomRight_Padd(top: self.topAnchor, left: Date.trailingAnchor, bottom: nil, right: nil, padd: .init(top: 15, left: 0, bottom: 0, right: 0))
-        Address.anchorWith_Width(width: nil, const: 140)
-        Address.anchorWith_Height(height: nil, const: 120)
+        Address.anchorWith_WidthHeight(width: nil, height: nil, constWidth: SIZE.CELL_WIDTH, constHeight: SIZE.CELL_HEIGHT)
        
     }
     

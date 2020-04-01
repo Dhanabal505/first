@@ -78,28 +78,30 @@ class MApVC: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate {
             break
         }
        
-        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
-            if annotation is MKUserLocation {
-                //return nil so map view draws "blue dot" for standard user location
-                return nil
-            }
-            let reuseId = "pin"
-            var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
-            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-            pinView?.pinTintColor = UIColor.red
-            pinView?.canShowCallout = true
-            let smallSquare = CGSize(width: 30, height: 30)
-            let button = UIButton(frame: CGRect(origin: CGPoint.zero, size: smallSquare))
-            button.setBackgroundImage(UIImage(named: "Car"), for: .normal)
-            button.addTarget(self, action: #selector(getDirections), for: .touchUpInside)
-            
-            pinView?.leftCalloutAccessoryView = button
-            
-            mapView.addSubview(pinView!)
-            
-            return pinView
-            
-        }
+//        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
+//            if annotation is MKUserLocation {
+//                //return nil so map view draws "blue dot" for standard user location
+//                return nil
+//            }
+//            let reuseId = "pin"
+//            var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+//            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+//            pinView?.pinTintColor = UIColor.red
+//            pinView?.canShowCallout = true
+//            let smallSquare = CGSize(width: 30, height: 30)
+//            let button = UIButton(frame: CGRect(origin: CGPoint.zero, size: smallSquare))
+//            button.setBackgroundImage(UIImage(named: "maps"), for: .normal)
+//            button.addTarget(self, action: #selector(getDirections), for: .touchUpInside)
+//
+//
+//            pinView?.rightCalloutAccessoryView = button
+//
+//            mapView.addSubview(pinView!)
+//
+//
+//            return pinView
+//
+//        }
         
         
        
@@ -169,6 +171,12 @@ class MApVC: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate {
             // Drop a pin at user's Current Location
             let myAnnotation: MKPointAnnotation = MKPointAnnotation()
             myAnnotation.coordinate = CLLocationCoordinate2DMake(latitude, longtitude)
+            
+            let smallSquare = CGSize(width: 30, height: 30)
+            let button = UIButton(frame: CGRect(origin: CGPoint.zero, size: smallSquare))
+            button.setBackgroundImage(UIImage(named: "maps"), for: .normal)
+            button.addTarget(self, action: #selector(getDirections), for: .touchUpInside)
+        
             mapView.addAnnotation(myAnnotation)
         }
     }

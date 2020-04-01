@@ -303,16 +303,40 @@ class HistoryVC: UIViewController {
                // self.redirect(data: data)
             }
             
-            self.tblProfile.reloadData()
+            
             
             print("Profiles  - \(arrhistory)")
             self.loadTable()
-            self.Mydatascroll.contentSize.height = self.tblProfile.frame.height + 500
-            self.Myscroll.contentSize.height = self.view.frame.height + 300
+            self.tblProfile.reloadData()
+            
+            print("TBLHGT \(self.tblProfile.frame.size.height)")
+            print("TBLDATAHGT \(self.tblProfile.contentSize.height)")
+            
+           // self.tblProfile.frame.size.height = self.tblProfile.contentSize.height
+            
+            print("DATATBLHGT \(self.tblProfile.frame.size.height)")
+            print("DAVIHGT \(self.dataview.frame.height)")
+            
+           // self.Mydatascroll.contentSize.height = self.dataview.frame.height + self.tblProfile.contentSize.height
+            
+            print("SNDSCRNHGT \(self.Mydatascroll.contentSize.height)")
+            
+            print("SNDSCRNYHGT \(self.Mydatascroll.frame.origin.y)")
+            
+           // self.Myscroll.contentSize.height = self.Mydatascroll.frame.origin.y + self.tblProfile.contentSize.height + self.Mydatascroll.contentSize.height
+            
+            self.Myscroll.contentSize.height = self.Mydatascroll.frame.height + self.tblProfile.contentSize.height + 500
+            
+            print("SCRNHGT \(self.Myscroll.contentSize.height)")
         }
     }
     
-    func getAddressFromLatLon(pdblLatitude: String, withLongitude pdblLongitude: String) {
+    func getAddressFromLatLon(pdblLatitude: String, withLongitude pdblLongitude: String,lable:UILabel) {
+        
+        
+        
+        var addressString = ""
+        
         var center : CLLocationCoordinate2D = CLLocationCoordinate2D()
         let lat: Double = Double("\(pdblLatitude)")!
         //21.228124
@@ -331,7 +355,9 @@ class HistoryVC: UIViewController {
                 {
                     print("reverse geodcode fail: \(error!.localizedDescription)")
                 }
-                let pm = placemarks as! [CLPlacemark]
+                if let pm = placemarks as? [CLPlacemark] {
+                    
+                
                 
                 if pm.count > 0 {
                     let pm = placemarks![0]
@@ -341,42 +367,41 @@ class HistoryVC: UIViewController {
                     print(pm.thoroughfare)
                     print(pm.postalCode)
                     print(pm.subThoroughfare)
-                    var addressString : String = ""
+                    
                     
                     if pm.subThoroughfare != nil {
                         addressString = addressString + pm.subThoroughfare! + ","
                     }
-                    if pm.subLocality != nil {
-                        addressString = addressString + pm.subLocality! + ", "
-                    }
                     if pm.thoroughfare != nil {
                         addressString = addressString + pm.thoroughfare! + ", "
+                    }
+                    if pm.subLocality != nil {
+                        addressString = addressString + pm.subLocality! + ", "
                     }
                     if pm.locality != nil {
                         addressString = addressString + pm.locality! + ", "
                     }
-                    if pm.country != nil {
-                        addressString = addressString + pm.country! + ", "
-                    }
                     if pm.postalCode != nil {
                         addressString = addressString + pm.postalCode! + " "
+                    }
+                    if pm.country != nil {
+                        addressString = addressString + pm.country! + ", "
                     }
                     
                     
                     print(addressString)
+                    lable.text = addressString
                     
-                    self.MYADDRESS = addressString
+                    
                 }
-        })
+                    
+                }
+                
+                })
         
+       // return addressString
     }
-    
-    
 }
-
-
-
-
 extension HistoryVC:UITableViewDelegate,UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -391,7 +416,7 @@ extension HistoryVC:UITableViewDelegate,UITableViewDataSource{
         let data = Hdata[indexPath.row] as! NSDictionary
         
         
-        
+    
         var name = ""
         if let fname = data["username"]as? String{
             name = fname
@@ -429,13 +454,17 @@ extension HistoryVC:UITableViewDelegate,UITableViewDataSource{
         }
         
         
-        let lati = data["latittude"] as! String
-       
-        let long = data["longitude"] as! String
         
-        self.getAddressFromLatLon(pdblLatitude: lati, withLongitude: long)
-        
-        cell.Address.text = MYADDRESS
+        if let lati = data["latittude"] as? String,let long = data["longitude"] as? String{
+            
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            
+          
+            self.getAddressFromLatLon(pdblLatitude: lati, withLongitude: long, lable: cell.Address)
+            print(cell.Address.text)
+            }
+        }
         
         return cell
     }
@@ -446,7 +475,7 @@ extension HistoryVC:UITableViewDelegate,UITableViewDataSource{
 
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 140
+        return 170
     }
 }
 extension HistoryVC{
@@ -458,7 +487,7 @@ extension HistoryVC{
         
         Myscroll.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: nil, top: Header.bottomAnchor, left: view.leadingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: 0))
         Myscroll.contentSize.height = 740
-        Myscroll.contentSize = CGSize(width: 650, height: 740)
+       
         
         Myscroll.addSubview(mytitle)
         Myscroll.addSubview(Historyimg)
@@ -497,14 +526,14 @@ extension HistoryVC{
         search.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 0.4, constHeight: SIZE.SEARCH_HEIGHT)
         
         Mydatascroll.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: nil, top: search.bottomAnchor, left: Myscroll.leadingAnchor, bottom: nil, right: nil,padd: .init(top: 10, left: 10, bottom: 0, right: 0))
-        Mydatascroll.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 1.4, constHeight: 400)
-        Mydatascroll.contentSize = CGSize(width: 650, height: 400)
+        Mydatascroll.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 1.42, constHeight: 500)
+        Mydatascroll.contentSize = CGSize(width: 670, height: 500)
         Mydatascroll.addSubview(dataview)
         Mydatascroll.addSubview(tblProfile)
         
         dataview.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: nil, top: Mydatascroll.topAnchor, left: Mydatascroll.leadingAnchor
             , bottom: nil, right: nil, padd: .init(top: 0, left: 10, bottom: 0, right: 0))
-        dataview.anchorWith_WidthHeight(width: nil, height: nil, constWidth: 450 , constHeight: SIZE.DATAVIEW_HEIGHT)
+        dataview.anchorWith_WidthHeight(width: nil, height: nil, constWidth: 470 , constHeight: SIZE.DATAVIEW_HEIGHT)
         dataview.addSubview(idimg)
         dataview.addSubview(userimg)
         dataview.addSubview(dateimg)
@@ -528,8 +557,9 @@ extension HistoryVC{
         Adrs.anchorWith_WidthHeight(width: nil, height: nil, constWidth: 40, constHeight: SIZE.DATAIMG_HEIGHT)
         
         
-        tblProfile.anchorWith_XY_TopLeftBottomRight_Padd(x: Mydatascroll.centerXAnchor, y: nil, top: dataview.bottomAnchor, left: Mydatascroll.leadingAnchor, bottom: nil, right: nil, padd: .init(top: 20, left: 0, bottom: 0, right: 0))
+        tblProfile.anchorWith_XY_TopLeftBottomRight_Padd(x: Mydatascroll.centerXAnchor, y: nil, top: dataview.bottomAnchor, left: Mydatascroll.leadingAnchor, bottom: Myscroll.bottomAnchor, right: nil, padd: .init(top: 20, left: 0, bottom: 0, right: 0))
         tblProfile.anchorWith_WidthHeight(width: nil, height: nil, constWidth:0, constHeight: 500)
+        self.tblProfile.isScrollEnabled = false
     }
 
 }
