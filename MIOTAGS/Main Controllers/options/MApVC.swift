@@ -152,7 +152,7 @@ class MApVC: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
         
-        
+    
         
         
         let latitude = Double (Asset.Latitude!)!
