@@ -19,7 +19,7 @@ class MApVC: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate {
     
     let myview = UIView()
     
-      let mapView = MKMapView()
+    var mapView : MKMapView!
     
     @IBOutlet weak var maplogo: UIImageView!
     
@@ -45,7 +45,8 @@ class MApVC: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate {
         super.viewDidLoad()
         
         view.addSubview(myview)
-        view.addSubview(mapView)
+        createmapview()
+       
         view.addSubview(Header)
         view.addSubview(mytitle)
         view.addSubview(back)
@@ -58,9 +59,6 @@ class MApVC: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate {
         self.navigationController?.navigationItem.backBarButtonItem?.isEnabled = false
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         self.navigationController?.isNavigationBarHidden = true
-        
-        
-        determineCurrentLocation()
         
         
        let locStatus = CLLocationManager.authorizationStatus()
@@ -77,61 +75,34 @@ class MApVC: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate {
         case .authorizedAlways, .authorizedWhenInUse:
             break
         }
-       
-//        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
-//            if annotation is MKUserLocation {
-//                //return nil so map view draws "blue dot" for standard user location
-//                return nil
-//            }
-//            let reuseId = "pin"
-//            var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
-//            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-//            pinView?.pinTintColor = UIColor.red
-//            pinView?.canShowCallout = true
-//            let smallSquare = CGSize(width: 30, height: 30)
-//            let button = UIButton(frame: CGRect(origin: CGPoint.zero, size: smallSquare))
-//            button.setBackgroundImage(UIImage(named: "maps"), for: .normal)
-//            button.addTarget(self, action: #selector(getDirections), for: .touchUpInside)
-//
-//
-//            pinView?.rightCalloutAccessoryView = button
-//
-//            mapView.addSubview(pinView!)
-//
-//
-//            return pinView
-//
-//        }
         
         
        
     }
     
-   
-    
-    
     override func viewWillAppear(_ animated: Bool) {
         setNavigation()
-        
+        determineCurrentLocation()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
        
     }
     
-   
-    
-    
     @objc func backact(){
         self.navigationController?.popViewController(animated: true)
     }
     
-    @objc func getDirections(){
-         let selectedPin = MKPlacemark.init(coordinate: dest, addressDictionary: nil)
-            let mapItem = MKMapItem(placemark: selectedPin)
-            let launchOptions = [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving]
-            mapItem.openInMaps(launchOptions: launchOptions)
+    func createmapview(){
         
+        mapView = MKMapView()
+        mapView.delegate = self
+        
+        mapView.mapType = MKMapType.standard
+        mapView.isZoomEnabled = true
+        mapView.isScrollEnabled = true
+        
+        view.addSubview(mapView)
     }
     
     func translate(){
@@ -144,6 +115,62 @@ class MApVC: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate {
         Header.translatesAutoresizingMaskIntoConstraints=false
         maplogo.translatesAutoresizingMaskIntoConstraints=false
     }
+    
+    func showRouteOnMap(pickupCoordinate: CLLocationCoordinate2D, destinationCoordinate: CLLocationCoordinate2D) {
+
+        let sourcePlacemark = MKPlacemark(coordinate: pickupCoordinate, addressDictionary: nil)
+        let destinationPlacemark = MKPlacemark(coordinate: destinationCoordinate, addressDictionary: nil)
+
+        let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
+        let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
+
+        let sourceAnnotation:MKPointAnnotation = MKPointAnnotation()
+
+
+        if let location = sourcePlacemark.location {
+            sourceAnnotation.coordinate = location.coordinate
+        }
+
+        let destinationAnnotation = MKPointAnnotation()
+
+        if let location = destinationPlacemark.location {
+            destinationAnnotation.coordinate = location.coordinate
+        }
+
+        self.mapView.showAnnotations([sourceAnnotation,destinationAnnotation], animated: true )
+
+        let directionRequest = MKDirections.Request()
+        directionRequest.source = sourceMapItem
+        directionRequest.destination = destinationMapItem
+        directionRequest.transportType = .walking
+        let selectedPin = MKPlacemark.init(coordinate: dest, addressDictionary: nil)
+        let mapItem = MKMapItem(placemark: selectedPin)
+        let launchOptions = [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeWalking]
+        mapItem.openInMaps(launchOptions: launchOptions)
+        // Calculate the direction
+        let directions = MKDirections(request: directionRequest)
+
+        directions.calculate {
+            (response, error) -> Void in
+
+            guard let response = response else {
+                if let error = error {
+                    print("Error: \(error)")
+                }
+
+                return
+            }
+
+            let route = response.routes[0]
+
+            self.mapView.addOverlay((route.polyline), level: MKOverlayLevel.aboveRoads)
+
+            let rect = route.polyline.boundingMapRect
+            self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
+        }
+    }
+
+    
 
     func determineCurrentLocation()
     {
@@ -151,18 +178,24 @@ class MApVC: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
-        
     
-        
-        
-        let latitude = Double (Asset.Latitude!)!
-        let longtitude = Double(Asset.Longitude!)!
+       
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.startUpdatingLocation()
-            
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        locationManager.stopUpdatingLocation()
+        
+        let latitude = Double (Asset.Latitude!)!
+        let longtitude = Double(Asset.Longitude!)!
+    
             let center = CLLocationCoordinate2D(latitude: latitude, longitude: longtitude)
-            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
+        
+            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
             
             self.dest = center
             
@@ -170,23 +203,46 @@ class MApVC: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate {
             
             // Drop a pin at user's Current Location
             let myAnnotation: MKPointAnnotation = MKPointAnnotation()
-            myAnnotation.coordinate = CLLocationCoordinate2DMake(latitude, longtitude)
+            myAnnotation.coordinate = CLLocationCoordinate2DMake(latitude,longtitude)
             
-            let smallSquare = CGSize(width: 30, height: 30)
-            let button = UIButton(frame: CGRect(origin: CGPoint.zero, size: smallSquare))
-            button.setBackgroundImage(UIImage(named: "maps"), for: .normal)
-            button.addTarget(self, action: #selector(getDirections), for: .touchUpInside)
         
+            myAnnotation.title = "\(Asset.State!)"
             mapView.addAnnotation(myAnnotation)
+            
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("ERROR\(error)")
+    }
+    
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        
+        let latitude = Double (Asset.Latitude!)!
+        let longtitude = Double(Asset.Longitude!)!
+        
+        
+        
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        var currentLocation: CLLocation!
+        
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
+            CLLocationManager.authorizationStatus() ==  .authorizedAlways
+        {
+            currentLocation = self.locationManager.location
+            
         }
+       
+        
+        let center = CLLocationCoordinate2D(latitude: latitude, longitude: longtitude)
+        let find = CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
+        
+       
+        self.showRouteOnMap(pickupCoordinate: center, destinationCoordinate: find)
     }
     
-
-    
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError)
-    {
-        print("Error \(error)")
-    }
     
     func layout(){
         
@@ -220,9 +276,7 @@ class MApVC: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate {
         mapView.anchorWith_XY_Padd(x: myview.centerXAnchor, y: myview.centerYAnchor)
         mapView.center = view.center
         mapView.anchorWith_WidthHeight(width: myview.widthAnchor, height: myview.heightAnchor, constWidth: 0.95, constHeight: 0.95)
-        mapView.mapType = MKMapType.standard
-        mapView.isZoomEnabled = true
-        mapView.isScrollEnabled = true
+       
         mapView.showsUserLocation = true
         mapView.layer.cornerRadius = 10
         

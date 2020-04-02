@@ -289,6 +289,21 @@ class TapScanVC: UIViewController,CLLocationManagerDelegate {
             self.makeToast(strMessage: "Give asset id")
             return
         }
+        
+        let locStatus = CLLocationManager.authorizationStatus()
+        switch locStatus {
+        case .notDetermined:
+            locManager.requestWhenInUseAuthorization()
+            return
+        case .denied,.restricted:
+            let alert = UIAlertController(title: "Location Services are disabled", message: "Please enable Location Services in your Settings", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+            present(alert, animated: true, completion: nil)
+            return
+        case .authorizedAlways, .authorizedWhenInUse:
+            break
+        }
        validasset()
     }
     

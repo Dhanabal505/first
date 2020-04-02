@@ -9,11 +9,15 @@
 import UIKit
 import CoreLocation
 
-class HistoryVC: UIViewController {
+class HistoryVC: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource {
     
     var Hdata:NSArray!
 
     var MYADDRESS:String?
+    
+    var list = ["1", "2", "3"]
+    
+    var dropdown = UIPickerView()
 
     lazy var Header:CustomMenuHeader={
         let view = CustomMenuHeader(title: "")
@@ -133,17 +137,20 @@ class HistoryVC: UIViewController {
     
      let Identifiers = "cell"
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-        print(Historydata.HDATA)
+        
         view.addSubview(Myscroll)
         view.addSubview(Header)
+        view.addSubview(dropdown)
         translate()
         layout()
         setTapGesture()
-       
+       tblProfile.isHidden = true
        
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -221,6 +228,44 @@ class HistoryVC: UIViewController {
         self.view.endEditing(true)
     }
     
+   
+    
+    public func numberOfComponents(in pickerView: UIPickerView) -> Int{
+        return 1
+        
+    }
+    
+    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
+        
+        return list.count
+        
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        
+        self.view.endEditing(true)
+        return list[row]
+        
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        self.usertf.text = self.list[row]
+        self.dropdown.isHidden = true
+        
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        if textField == self.usertf {
+            self.dropdown.isHidden = false
+            //if you dont want the users to se the keyboard type:
+            
+            textField.endEditing(true)
+        }
+        
+    }
+    
     @objc func doneButtonpress(){
         if let  datePicker = self.EndDate.inputView as? UIDatePicker {
             let dateFormatter = DateFormatter()
@@ -235,6 +280,7 @@ class HistoryVC: UIViewController {
     
     @objc func Searchact(){
         validsupport()
+        tblProfile.isHidden = false
     }
     
     func validsupport(){
@@ -309,31 +355,13 @@ class HistoryVC: UIViewController {
             self.loadTable()
             self.tblProfile.reloadData()
             
-            print("TBLHGT \(self.tblProfile.frame.size.height)")
-            print("TBLDATAHGT \(self.tblProfile.contentSize.height)")
+            self.Myscroll.contentSize.height = self.Mydatascroll.frame.height + self.tblProfile.frame.size.height
             
-           // self.tblProfile.frame.size.height = self.tblProfile.contentSize.height
             
-            print("DATATBLHGT \(self.tblProfile.frame.size.height)")
-            print("DAVIHGT \(self.dataview.frame.height)")
-            
-           // self.Mydatascroll.contentSize.height = self.dataview.frame.height + self.tblProfile.contentSize.height
-            
-            print("SNDSCRNHGT \(self.Mydatascroll.contentSize.height)")
-            
-            print("SNDSCRNYHGT \(self.Mydatascroll.frame.origin.y)")
-            
-           // self.Myscroll.contentSize.height = self.Mydatascroll.frame.origin.y + self.tblProfile.contentSize.height + self.Mydatascroll.contentSize.height
-            
-            self.Myscroll.contentSize.height = self.Mydatascroll.frame.height + self.tblProfile.contentSize.height + 500
-            
-            print("SCRNHGT \(self.Myscroll.contentSize.height)")
         }
     }
     
     func getAddressFromLatLon(pdblLatitude: String, withLongitude pdblLongitude: String,lable:UILabel) {
-        
-        
         
         var addressString = ""
         
@@ -385,7 +413,7 @@ class HistoryVC: UIViewController {
                         addressString = addressString + pm.postalCode! + " "
                     }
                     if pm.country != nil {
-                        addressString = addressString + pm.country! + ", "
+                        addressString = addressString + pm.country!
                     }
                     
                     
@@ -525,14 +553,14 @@ extension HistoryVC{
         search.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: Asset.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 30, left: 0, bottom: 0, right: 0))
         search.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 0.4, constHeight: SIZE.SEARCH_HEIGHT)
         
-        Mydatascroll.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: nil, top: search.bottomAnchor, left: Myscroll.leadingAnchor, bottom: nil, right: nil,padd: .init(top: 10, left: 10, bottom: 0, right: 0))
-        Mydatascroll.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 1.42, constHeight: 500)
-        Mydatascroll.contentSize = CGSize(width: 670, height: 500)
+        Mydatascroll.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: nil, top: search.bottomAnchor, left: Myscroll.leadingAnchor, bottom: Myscroll.bottomAnchor, right: nil,padd: .init(top: 10, left: 10, bottom: 0, right: 0))
+        Mydatascroll.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 1.5, constHeight: 600)
+        Mydatascroll.contentSize = CGSize(width: 650, height: 600)
         Mydatascroll.addSubview(dataview)
         Mydatascroll.addSubview(tblProfile)
         
         dataview.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: nil, top: Mydatascroll.topAnchor, left: Mydatascroll.leadingAnchor
-            , bottom: nil, right: nil, padd: .init(top: 0, left: 10, bottom: 0, right: 0))
+            , bottom: nil, right: nil, padd: .init(top: 0, left: 0, bottom: 0, right: 0))
         dataview.anchorWith_WidthHeight(width: nil, height: nil, constWidth: 470 , constHeight: SIZE.DATAVIEW_HEIGHT)
         dataview.addSubview(idimg)
         dataview.addSubview(userimg)
@@ -558,8 +586,8 @@ extension HistoryVC{
         
         
         tblProfile.anchorWith_XY_TopLeftBottomRight_Padd(x: Mydatascroll.centerXAnchor, y: nil, top: dataview.bottomAnchor, left: Mydatascroll.leadingAnchor, bottom: Myscroll.bottomAnchor, right: nil, padd: .init(top: 20, left: 0, bottom: 0, right: 0))
-        tblProfile.anchorWith_WidthHeight(width: nil, height: nil, constWidth:0, constHeight: 500)
-        self.tblProfile.isScrollEnabled = false
+        tblProfile.anchorWith_WidthHeight(width: nil, height: nil, constWidth:0, constHeight: 600)
+        //self.tblProfile.isScrollEnabled = false
     }
 
 }
