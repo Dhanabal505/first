@@ -106,6 +106,50 @@ class UnderlineTfINFO:JVFloatLabeledTextField{
     
 }
 
+class Weblink:UITextView {
+    
+    override init(frame: CGRect, textContainer: NSTextContainer?) {
+        super.init(frame: frame, textContainer: textContainer)
+        mytxtvw()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func mytxtvw(){
+        
+        self.font = UIFont.systemFont(ofSize: 20 , weight: .bold)
+        
+        let deadSpace = self.bounds.size.height - self.contentSize.height
+        let inset = max(0, deadSpace/3.0)
+        
+        self.contentInset = UIEdgeInsets(top: inset, left: self.contentInset.left, bottom: inset, right: self.contentInset.right)
+
+       // self.frame.origin = CGPoint(x: 0, y: 15)
+        var view = UIView()
+        var placeholderLabel : UILabel!
+        
+                placeholderLabel = UILabel()
+                placeholderLabel.text = "Property Website"
+                placeholderLabel.font = UIFont.boldSystemFont(ofSize: 15)
+                placeholderLabel.sizeToFit()
+                self.addSubview(placeholderLabel)
+                placeholderLabel.frame.origin = CGPoint(x: 0, y: 0 )
+                placeholderLabel.textColor = UIColor.black
+                self.textColor = UIColor().hexToColor(hex: "#4fc3f7")
+
+        view.backgroundColor = UIColor.black
+        view.translatesAutoresizingMaskIntoConstraints=false
+        
+        self.addSubview(view)
+        view.anchorWith_TopLeftBottomRight_Padd(top: nil, left: leadingAnchor, bottom: self.bottomAnchor, right: trailingAnchor,padd: .init(top: 0, left: 0, bottom: -1, right: 0))
+        view.anchorWith_Height(height: nil, const: 1)
+        
+    }
+    
+}
+
 class InfoTF:UnderlineTfINFO {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

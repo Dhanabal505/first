@@ -125,10 +125,11 @@ class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationCont
         print("This is second= \(Imagess.img2)")
         print("This is third= \(Imagesss.img3)")
         
-        myimage1()
-        myimage2()
-        myimages3()
-       
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        self.myimage1()
+        self.myimage2()
+        self.myimages3()
+        }
         
         camerabtn.addTarget(self, action: #selector(camera1act), for: .touchUpInside)
         camerabtn2.addTarget(self, action: #selector(camera2act), for: .touchUpInside)

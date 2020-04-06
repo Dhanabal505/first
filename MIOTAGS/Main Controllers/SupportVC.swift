@@ -83,6 +83,8 @@ class SupportVC: UIViewController {
         setTapGesture()
         translate()
         layout()
+        
+        
       
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)

@@ -9,9 +9,7 @@
 import Foundation
 import UIKit
 
-struct Myimages {
-    var ARRAYImgs = NSMutableArray()
-}
+
 
 struct SIZE{
     

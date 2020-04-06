@@ -39,6 +39,7 @@ class Asset {
    static var ZipCode : String?
    static var companyid : String?
    static var prtyweb : String?
+    
    
    
     
@@ -71,7 +72,6 @@ class Asset {
         Asset.ZipCode = ZipCode
         Asset.companyid = companyid
         Asset.prtyweb = prprtyweb
-        
         
     }
 }

@@ -13,7 +13,7 @@ import JVFloatLabeledTextField
 
 class LoginVC: UIViewController  {
     
-   
+    
     
     lazy var HeaderLogo:CustomHeader={
         let logo = CustomHeader(title: "")
@@ -212,6 +212,7 @@ class LoginVC: UIViewController  {
         let strUserName = usne.text
         let strEmail = mail.text
         let strPassword = pass.text
+       
         
         let getdata = ["UserName":strUserName,"Email":strEmail,"password":strPassword,"grant_type":"password"] as! [String:String]
         loginAPI(data: getdata)

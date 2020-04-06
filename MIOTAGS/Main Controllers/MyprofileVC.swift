@@ -108,6 +108,8 @@ class MyprofileVC: UIViewController {
         phone.text = User.MobileNo
         company.text = User.CompanyName
         
+       
+        
    }
 
     override func viewWillAppear(_ animated: Bool) {

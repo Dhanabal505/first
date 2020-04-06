@@ -42,9 +42,7 @@ class TermsVC: UIViewController {
     @objc func switchStateDidChange(sender:UISwitch){
         if (sender.isOn == true){
             sender.setOn(true, animated: true)
-            let vc = storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
-            navigationController?.pushViewController(vc, animated: true)
-            vc.terms.isChecked = true
+            self.navigationController?.popViewController(animated: true)
         }
         else{
             

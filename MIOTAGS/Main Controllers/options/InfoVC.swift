@@ -14,6 +14,16 @@ class InfoVC: UIViewController {
    
     @IBOutlet weak var infologo: UIImageView!
     
+   
+    
+    
+   
+    
+    lazy var Myview:UIView={
+        var view = UIView()
+        return view
+    }()
+    
     
     lazy var myscroll: UIScrollView = {
         var scroll = UIScrollView()
@@ -191,7 +201,6 @@ class InfoVC: UIViewController {
         let txtfld = InfoTF()
         txtfld.placeholder = "State"
         txtfld.text = Asset.State
-        txtfld.addTarget(self, action: #selector(prbtyact), for: .touchDown)
         txtfld.isEnabled = false
         return txtfld
     }()
@@ -214,13 +223,40 @@ class InfoVC: UIViewController {
         return txtfld
     }()
     
+    lazy var txtview:UIView={
+        var view = UIView()
+        return view
+    }()
     
-    lazy var prtyweb:InfoTF={
+    lazy var mylbl:UILabel={
+        var lbl = UILabel()
+        lbl.textColor = .black
+        lbl.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        lbl.text = "Probert website"
+        return lbl
+    }()
+    
+    lazy var lineview:UIView={
+        var view = UIView()
+        return view
+    }()
+    
+    
+    
+    lazy var Webtxt:UITextView={
+        var Tvw = UITextView()
+        Tvw.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        Tvw.textColor = UIColor().hexToColor(hex: "#4fc3f7")
+        Tvw.isEditable = false
+        Tvw.text = Asset.prtyweb
+        return Tvw
+    }()
+
+    lazy var Custmtxt:InfoTF={
         let txtfld = InfoTF()
-        txtfld.placeholder = "PropertyWebsite"
-        txtfld.text = Asset.prtyweb
-        txtfld.addTarget(self, action: #selector(prbtyact), for: .touchDown)
-         txtfld.isEnabled = false
+        txtfld.placeholder = ""
+        txtfld.text = ""
+        txtfld.isEnabled = false
         return txtfld
     }()
     
@@ -233,11 +269,12 @@ class InfoVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        
-       
+       let tap = UITapGestureRecognizer(target: self, action: #selector(webact))
         
         
        view.addSubview(Header)
-       view.addSubview(myscroll)
+        view.addSubview(Myview)
+     //  view.addSubview(myscroll)
        view.addSubview(mytitle)
         view.addSubview(back)
         
@@ -245,9 +282,11 @@ class InfoVC: UIViewController {
        translate()
         layout()
         
-        
+        Webtxt.isUserInteractionEnabled = true
+        Webtxt.addGestureRecognizer(tap)
         
         back.addTarget(self, action: #selector(backact), for: .touchUpInside)
+        
         self.navigationController?.navigationItem.backBarButtonItem?.isEnabled = false
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         self.navigationController?.isNavigationBarHidden = true
@@ -263,12 +302,18 @@ class InfoVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @objc func webact(){
+        if let url = NSURL(string: Asset.prtyweb!){
+            UIApplication.shared.openURL(url as URL)
+        }
+    }
     
     func translate(){
         
         Header.translatesAutoresizingMaskIntoConstraints=false
         mytitle.translatesAutoresizingMaskIntoConstraints=false
         back.translatesAutoresizingMaskIntoConstraints=false
+        Myview.translatesAutoresizingMaskIntoConstraints=false
          myscroll.translatesAutoresizingMaskIntoConstraints=false
         prpid.translatesAutoresizingMaskIntoConstraints=false
         owner.translatesAutoresizingMaskIntoConstraints=false
@@ -293,15 +338,18 @@ class InfoVC: UIViewController {
         state.translatesAutoresizingMaskIntoConstraints=false
         zipcode.translatesAutoresizingMaskIntoConstraints=false
         Country.translatesAutoresizingMaskIntoConstraints=false
-        prtyweb.translatesAutoresizingMaskIntoConstraints=false
+        txtview.translatesAutoresizingMaskIntoConstraints=false
+        mylbl.translatesAutoresizingMaskIntoConstraints=false
+        lineview.translatesAutoresizingMaskIntoConstraints=false
+        Webtxt.translatesAutoresizingMaskIntoConstraints=false
     }
     
-    @objc func prbtyact(){
-        if let url = NSURL(string: Asset.prtyweb!){
-            UIApplication.shared.openURL(url as URL)
-        }
-    
-    }
+//    @objc func prbtyact(){
+//        if let url = NSURL(string: Asset.prtyweb!){
+//            UIApplication.shared.openURL(url as URL)
+//        }
+//
+//    }
     
     func layout(){
         
@@ -321,9 +369,13 @@ class InfoVC: UIViewController {
         infologo.anchorWith_TopLeftBottomRight_Padd(top: view.safeAreaLayoutGuide.topAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 120, left: 0, bottom: 0, right: 0))
         infologo.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 0.2, constHeight: 0.1)
         infologo.image = UIImage(named: "infologo")
+        
+        Myview.anchorWith_XY_TopLeftBottomRight_Padd(x: view.centerXAnchor, y: nil, top: infologo.bottomAnchor, left: view.leadingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, padd: .init(top: 60, left: 10, bottom: 0, right: -10))
+        Myview.backgroundColor = .white
+        Myview.addSubview(myscroll)
     
-        myscroll.anchorWith_XY_TopLeftBottomRight_Padd(x: view.centerXAnchor, y: nil, top: infologo.bottomAnchor, left: view.leadingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, padd: .init(top: 80, left: 0, bottom: 0, right: 0))
-        myscroll.contentSize.height = 1200
+        myscroll.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: nil, top: Myview.topAnchor, left: Myview.leadingAnchor, bottom: Myview.bottomAnchor, right: Myview.trailingAnchor, padd: .init(top: 20, left: 0, bottom: 0, right: 0))
+        myscroll.contentSize.height = 1300
         
         myscroll.backgroundColor = UIColor.clear
         myscroll.addSubview(prpid)
@@ -348,7 +400,7 @@ class InfoVC: UIViewController {
         myscroll.addSubview(state)
         myscroll.addSubview(zipcode)
         myscroll.addSubview(Country)
-        myscroll.addSubview(prtyweb)
+        myscroll.addSubview(txtview)
         
         
         
@@ -477,9 +529,35 @@ class InfoVC: UIViewController {
             Country.anchorWith_Height(height: nil, const: 0)
         }
         
-        prtyweb.anchorWith_TopLeftBottomRight_Padd(top: Country.bottomAnchor, left: prpid.leadingAnchor, bottom: nil, right: prpid.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: 0))
-        if prtyweb.text?.count == 0 {
-            prtyweb.anchorWith_Height(height: nil, const: 0)
+        txtview.anchorWith_TopLeftBottomRight_Padd(top: Country.bottomAnchor, left: prpid.leadingAnchor, bottom: nil, right: prpid.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: 0))
+        txtview.addSubview(mylbl)
+        txtview.addSubview(Webtxt)
+        txtview.addSubview(lineview)
+        if Webtxt.text?.count == 0 {
+            txtview.anchorWith_Height(height: nil, const: 0)
+        }else{
+            txtview.anchorWith_Height(height: nil, const: 120)
+        }
+        
+        mylbl.anchorWith_TopLeftBottomRight_Padd(top: txtview.topAnchor, left: txtview.leadingAnchor, bottom: nil, right: txtview.trailingAnchor, padd: .init(top: 5, left: 0, bottom: 0, right: 0))
+        mylbl.anchorWith_WidthHeight(width: nil, height: nil, constWidth: 30, constHeight: 20)
+        if Webtxt.text?.count == 0 {
+            mylbl.anchorWith_Height(height: nil, const: 0)
+        }
+        
+        Webtxt.anchorWith_TopLeftBottomRight_Padd(top: mylbl.bottomAnchor, left: mylbl.leadingAnchor, bottom: nil, right: mylbl.trailingAnchor, padd: .init(top: 8, left: 0, bottom: 0, right: 0))
+        if Webtxt.text?.count == 0 {
+            Webtxt.anchorWith_Height(height: nil, const: 0)
+        }else{
+            Webtxt.anchorWith_Height(height: nil, const: 90)
+        }
+       
+        
+        lineview.anchorWith_TopLeftBottomRight_Padd(top: Webtxt.bottomAnchor, left: mylbl.leadingAnchor, bottom: nil, right: mylbl.trailingAnchor,padd: .init(top: 1, left: 0, bottom: 0, right: 0))
+        lineview.anchorWith_Height(height: nil, const: 1)
+        lineview.backgroundColor = .black
+        if Webtxt.text?.count == 0 {
+            lineview.anchorWith_Height(height: nil, const: 0)
         }
     }
     

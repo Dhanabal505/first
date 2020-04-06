@@ -553,9 +553,9 @@ extension HistoryVC{
         search.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: Asset.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 30, left: 0, bottom: 0, right: 0))
         search.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 0.4, constHeight: SIZE.SEARCH_HEIGHT)
         
-        Mydatascroll.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: nil, top: search.bottomAnchor, left: Myscroll.leadingAnchor, bottom: Myscroll.bottomAnchor, right: nil,padd: .init(top: 10, left: 10, bottom: 0, right: 0))
+        Mydatascroll.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: nil, top: search.bottomAnchor, left: Myscroll.leadingAnchor, bottom: Myscroll.bottomAnchor, right: nil,padd: .init(top: 10, left: 0, bottom: 0, right: 0))
         Mydatascroll.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 1.5, constHeight: 600)
-        Mydatascroll.contentSize = CGSize(width: 650, height: 600)
+        Mydatascroll.contentSize = CGSize(width: 700, height: 600)
         Mydatascroll.addSubview(dataview)
         Mydatascroll.addSubview(tblProfile)
         
