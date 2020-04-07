@@ -10,19 +10,14 @@ import UIKit
 import JVFloatLabeledTextField
 
 
-
 class LoginVC: UIViewController  {
-    
-    
     
     lazy var HeaderLogo:CustomHeader={
         let logo = CustomHeader(title: "")
         logo?.translatesAutoresizingMaskIntoConstraints = false
         return logo!
     }()
-    
-    
-    
+
     lazy var loginview:CustomView = {
         let view = CustomView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -182,8 +177,7 @@ class LoginVC: UIViewController  {
     
     @objc func rmact(){
         remember.isChecked = !remember.isChecked
-      
-    }
+      }
     
     @objc func termsact(){
         terms.isChecked = !terms.isChecked
@@ -222,6 +216,10 @@ class LoginVC: UIViewController  {
     
 
     func loginAPI(data:[String:String]){
+        
+        ValidEmailid.Mailid.append(mail.text!)
+        
+        
 
 
         let loader = LoaderView()

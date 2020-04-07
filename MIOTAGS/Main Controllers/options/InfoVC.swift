@@ -16,7 +16,7 @@ class InfoVC: UIViewController {
     
    
     
-    
+    var FieldValue:NSArray = CustomValue.Value
    
     
     lazy var Myview:UIView={
@@ -252,13 +252,7 @@ class InfoVC: UIViewController {
         return Tvw
     }()
 
-    lazy var Custmtxt:InfoTF={
-        let txtfld = InfoTF()
-        txtfld.placeholder = ""
-        txtfld.text = ""
-        txtfld.isEnabled = false
-        return txtfld
-    }()
+    
     
     
     lazy var Header:CustomMenuHeader={
@@ -273,19 +267,20 @@ class InfoVC: UIViewController {
         
         
        view.addSubview(Header)
-        view.addSubview(Myview)
-     //  view.addSubview(myscroll)
+       view.addSubview(Myview)
        view.addSubview(mytitle)
-        view.addSubview(back)
+       view.addSubview(back)
         
         
-       translate()
+        translate()
         layout()
         
         Webtxt.isUserInteractionEnabled = true
         Webtxt.addGestureRecognizer(tap)
-        
+        Getvalues()
         back.addTarget(self, action: #selector(backact), for: .touchUpInside)
+        
+       
         
         self.navigationController?.navigationItem.backBarButtonItem?.isEnabled = false
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
@@ -296,7 +291,47 @@ class InfoVC: UIViewController {
         setNavigation()
         
     }
+    
 
+    func Getvalues(){
+        
+        var Y:CGFloat = 5
+        
+        
+        for datas in FieldValue{
+            
+            
+            let dict = datas as? NSDictionary
+            if let custmname = dict!["customField"] as? String,let custmvle = dict!["customValue"] as? String{
+
+                var Custmtxt:InfoTF={
+                    let txtfld = InfoTF()
+                    txtfld.placeholder = ""
+                    txtfld.text = ""
+                    txtfld.isEnabled = false
+                    return txtfld
+                }()
+                
+                Custmtxt.translatesAutoresizingMaskIntoConstraints = false
+                
+                myscroll.addSubview(Custmtxt)
+                
+                Custmtxt.placeholder = custmname
+                Custmtxt.text = custmvle
+                print(custmname)
+                print(custmvle)
+                Custmtxt.anchorWith_TopLeftBottomRight_Padd(top: txtview.bottomAnchor, left: prpid.leadingAnchor, bottom: nil, right: prpid.trailingAnchor, padd: .init(top: Y, left: 0, bottom: 0, right: 0))
+                
+                
+                
+                Y += 60
+            }
+            
+           
+        }
+    }
+   
+   
     
     @objc func backact(){
         self.navigationController?.popViewController(animated: true)
@@ -314,7 +349,7 @@ class InfoVC: UIViewController {
         mytitle.translatesAutoresizingMaskIntoConstraints=false
         back.translatesAutoresizingMaskIntoConstraints=false
         Myview.translatesAutoresizingMaskIntoConstraints=false
-         myscroll.translatesAutoresizingMaskIntoConstraints=false
+        myscroll.translatesAutoresizingMaskIntoConstraints=false
         prpid.translatesAutoresizingMaskIntoConstraints=false
         owner.translatesAutoresizingMaskIntoConstraints=false
         occup.translatesAutoresizingMaskIntoConstraints=false
@@ -375,7 +410,7 @@ class InfoVC: UIViewController {
         Myview.addSubview(myscroll)
     
         myscroll.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: nil, top: Myview.topAnchor, left: Myview.leadingAnchor, bottom: Myview.bottomAnchor, right: Myview.trailingAnchor, padd: .init(top: 20, left: 0, bottom: 0, right: 0))
-        myscroll.contentSize.height = 1300
+        myscroll.contentSize.height = 1500
         
         myscroll.backgroundColor = UIColor.clear
         myscroll.addSubview(prpid)
@@ -401,6 +436,7 @@ class InfoVC: UIViewController {
         myscroll.addSubview(zipcode)
         myscroll.addSubview(Country)
         myscroll.addSubview(txtview)
+        
         
         
         

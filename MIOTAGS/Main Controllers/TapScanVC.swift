@@ -368,15 +368,15 @@ class TapScanVC: UIViewController,CLLocationManagerDelegate {
                     currentLocation = self.locManager.location
 
                 }
-                print(currentLocation)
-                
-                self.Mylatitude = String(currentLocation.coordinate.latitude)
-                self.Mylongtitude = String(currentLocation.coordinate.longitude)
-
-                print(self.Mylatitude!)
-                print(self.Mylongtitude!)
-
-                self.locationAPI()
+//                print(currentLocation)
+//                
+//                self.Mylatitude = String(currentLocation.coordinate.latitude)
+//                self.Mylongtitude = String(currentLocation.coordinate.longitude)
+//
+//                print(self.Mylatitude!)
+//                print(self.Mylongtitude!)
+//
+//                self.locationAPI()
            
                 
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "TagsuccessVC") as! TagsuccessVC

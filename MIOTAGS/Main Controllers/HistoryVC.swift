@@ -151,7 +151,7 @@ class HistoryVC: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource {
         layout()
         setTapGesture()
        tblProfile.isHidden = true
-       
+       dropdown.delegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -176,7 +176,7 @@ class HistoryVC: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource {
         EndDate.translatesAutoresizingMaskIntoConstraints=false
         Asset.translatesAutoresizingMaskIntoConstraints=false
         back.translatesAutoresizingMaskIntoConstraints=false
-        
+        dropdown.translatesAutoresizingMaskIntoConstraints=false
     }
     
     
@@ -251,7 +251,7 @@ class HistoryVC: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         self.usertf.text = self.list[row]
-        self.dropdown.isHidden = true
+        self.dropdown.isHidden = false
         
     }
     
@@ -536,6 +536,10 @@ extension HistoryVC{
         
         usertf.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: Historyimg.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 80, left: 0, bottom: 0, right: 0))
         usertf.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 0.8, constHeight: SIZE.HISTXT_HEIGHT)
+        usertf.addSubview(dropdown)
+        
+        dropdown.anchorWith_TopLeftBottomRight_Padd(top: usertf.topAnchor, left: nil, bottom: nil, right: usertf.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: -10))
+        dropdown.anchorWith_WidthHeight(width: nil, height: nil, constWidth: 60, constHeight: 80)
         
         FrmDate.anchorWith_TopLeftBottomRight_Padd(top: usertf.bottomAnchor, left: usertf.leadingAnchor, bottom: nil, right: usertf.trailingAnchor, padd: .init(top: 20, left: 0, bottom: 0, right: 0))
         FrmDate.anchorWith_Height(height: usertf.heightAnchor, const: 1)

@@ -255,6 +255,8 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
                                 
                                 print(customfield)
                                 
+                                CustomValue.Value = customfield
+                                
                                  let imgarr = NSMutableArray(array: images)
                                 
                                 

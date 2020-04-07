@@ -107,7 +107,7 @@ class MyprofileVC: UIViewController {
         name.text = User.CustomerName
         phone.text = User.MobileNo
         company.text = User.CompanyName
-        
+        Email.text = ValidEmailid.Mailid
        
         
    }

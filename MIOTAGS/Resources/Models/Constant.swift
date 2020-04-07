@@ -9,7 +9,12 @@
 import Foundation
 import UIKit
 
-
+struct ValidEmailid{
+    static var Mailid:String = ""
+}
+struct CustomValue{
+    static var Value = NSArray()
+}
 
 struct SIZE{
     

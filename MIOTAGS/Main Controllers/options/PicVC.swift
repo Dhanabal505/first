@@ -111,7 +111,7 @@ class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationCont
         return btn
     }()
     
-    
+    var newImageView = UIImageView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -294,22 +294,24 @@ class PicVC: UIViewController,UIImagePickerControllerDelegate , UINavigationCont
     
     @IBAction func imageTapped(_ sender: UITapGestureRecognizer) {
         let imageView = sender.view as! UIImageView
-        let newImageView = UIImageView(image: imageView.image)
+        newImageView = UIImageView(image: imageView.image)
         newImageView.frame = UIScreen.main.bounds
         newImageView.backgroundColor = .black
         newImageView.contentMode = .scaleAspectFit
         newImageView.isUserInteractionEnabled = true
         self.view.addSubview(newImageView)
-        //let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
-        //        newImageView.addGestureRecognizer(tap)
+        let newBackButton = UIBarButtonItem(title: "< Back", style: UIBarButtonItem.Style.bordered, target: self, action:#selector(dismissFullscreenImage))
+        self.navigationItem.leftBarButtonItem = newBackButton
         self.navigationController?.isNavigationBarHidden = false
         self.tabBarController?.tabBar.isHidden = false
     }
     
-    @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
+    @objc func dismissFullscreenImage() {
+        
+        
         self.navigationController?.isNavigationBarHidden = true
         self.tabBarController?.tabBar.isHidden = true
-        sender.view?.removeFromSuperview()
+        self.newImageView.removeFromSuperview()
     }
     
     func Fullimageview(){

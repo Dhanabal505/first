@@ -205,7 +205,7 @@ class ErrorSupportVC: UIViewController  {
         
         
         message.anchorWith_TopLeftBottomRight_Padd(top: email.bottomAnchor, left: supportview.leadingAnchor, bottom: nil, right: supportview.trailingAnchor, padd: .init(top: 15, left: 10, bottom: 0, right: -10))
-        message.anchorWith_Height(height: supportview.heightAnchor, const: 0.5)
+        message.anchorWith_Height(height: supportview.heightAnchor, const: 0.4)
         message.layer.cornerRadius = 10
         message.backgroundColor = UIColor().hexToColor(hex: "#8B8269")
         
