@@ -341,6 +341,8 @@ class SideMenuLauncher: NSObject{
         let alert = UIAlertController(title: "", message: "Are you sure you want to logout?", preferredStyle: .alert)
         let yes = UIAlertAction(title: "YES", style: .default) { (action) in
             self.vc.navigationController?.popToRootViewController(animated: true)
+            
+            Userlist.GETNAME = ["All"]
         }
         let no = UIAlertAction(title: "NO", style: .cancel, handler: nil)
         alert.addAction(yes)

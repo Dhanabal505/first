@@ -9,15 +9,21 @@
 import UIKit
 import CoreLocation
 
-class HistoryVC: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource {
+class HistoryVC: UIViewController,Settextfielvalue{
+    
+    
     
     var Hdata:NSArray!
 
     var MYADDRESS:String?
     
-    var list = ["1", "2", "3"]
+   // var list = ["1", "2", "3"]
     
-    var dropdown = UIPickerView()
+    var list = Userlist.GETNAME
+    
+    //var dropdown = UIPickerView()
+    
+    var button = dropDownBtn()
 
     lazy var Header:CustomMenuHeader={
         let view = CustomMenuHeader(title: "")
@@ -146,12 +152,16 @@ class HistoryVC: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource {
         
         view.addSubview(Myscroll)
         view.addSubview(Header)
-        view.addSubview(dropdown)
+       // view.addSubview(dropdown)
         translate()
         layout()
         setTapGesture()
+        DropDownbtn()
+        print(Userlist.GETNAME)
+        
        tblProfile.isHidden = true
-       dropdown.delegate = self
+     //  dropdown.delegate = self
+       // dropdown.isHidden = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -176,7 +186,7 @@ class HistoryVC: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource {
         EndDate.translatesAutoresizingMaskIntoConstraints=false
         Asset.translatesAutoresizingMaskIntoConstraints=false
         back.translatesAutoresizingMaskIntoConstraints=false
-        dropdown.translatesAutoresizingMaskIntoConstraints=false
+        //dropdown.translatesAutoresizingMaskIntoConstraints=false
     }
     
     
@@ -205,6 +215,10 @@ class HistoryVC: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource {
         self.FrmDate.resignFirstResponder()
        
     }
+    func Settextfielvaluemine(string: String) {
+        usertf.text = string
+        usertf.isEnabled = false
+    }
     
     @objc func keyboardWillAppear(){
        
@@ -228,43 +242,69 @@ class HistoryVC: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource {
         self.view.endEditing(true)
     }
     
+    func DropDownbtn(){
+        button = dropDownBtn.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        button.setTitle("All", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .clear
+        //Add Button to the View Controller
+        self.view.addSubview(button)
+        
+        //button Constraints
+        button.anchorWith_TopLeftBottomRight_Padd(top: usertf.bottomAnchor, left: nil, bottom: nil, right: usertf.trailingAnchor, padd: .init(top: -30, left: 0, bottom: 0, right: -10))
+        button.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        
+        //Set the drop down menu's options
+        button.dropView.dropDownOptions = Userlist.GETNAME
+        button.dropdowndelegete = self
+      
+    }
+    
    
     
-    public func numberOfComponents(in pickerView: UIPickerView) -> Int{
-        return 1
-        
-    }
-    
-    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
-        
-        return list.count
-        
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        
-        self.view.endEditing(true)
-        return list[row]
-        
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-        self.usertf.text = self.list[row]
-        self.dropdown.isHidden = false
-        
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        
-        if textField == self.usertf {
-            self.dropdown.isHidden = false
-            //if you dont want the users to se the keyboard type:
-            
-            textField.endEditing(true)
-        }
-        
-    }
+//    public func numberOfComponents(in pickerView: UIPickerView) -> Int{
+//        return 1
+//
+//    }
+//
+//    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
+//
+//        return list.count
+//
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//
+//        self.view.endEditing(true)
+//        return list[row]
+//
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//
+//         self.dropdown.isHidden = true
+//        self.usertf.text = self.list[row]
+//
+//
+//    }
+//
+//    func textFieldDidBeginEditing(_ textField: UITextField) {
+//
+//        self.dropdown.isHidden = false
+//        if textField == self.usertf {
+//            self.dropdown.isHidden = false
+//            //if you dont want the users to se the keyboard type:
+//
+//            textField.endEditing(true)
+//            usertf.endEditing(true)
+//
+//
+//
+//        }
+//
+//    }
     
     @objc func doneButtonpress(){
         if let  datePicker = self.EndDate.inputView as? UIDatePicker {
@@ -277,14 +317,19 @@ class HistoryVC: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource {
     
     
     
-    
     @objc func Searchact(){
         validsupport()
         tblProfile.isHidden = false
     }
     
     func validsupport(){
-        let StrUName = usertf.text!
+        var Myusername = ""
+        if usertf.text == "All" {
+            Myusername = ""
+        }else{
+            Myusername = usertf.text!
+        }
+        let StrUName = Myusername
         let FDate = self.FrmDate.text!
         let EDate = self.EndDate.text!
         let ASSETID = Asset.text!
@@ -536,10 +581,12 @@ extension HistoryVC{
         
         usertf.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: Historyimg.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 80, left: 0, bottom: 0, right: 0))
         usertf.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 0.8, constHeight: SIZE.HISTXT_HEIGHT)
-        usertf.addSubview(dropdown)
+        //usertf.addSubview(dropdown)
         
-        dropdown.anchorWith_TopLeftBottomRight_Padd(top: usertf.topAnchor, left: nil, bottom: nil, right: usertf.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: -10))
-        dropdown.anchorWith_WidthHeight(width: nil, height: nil, constWidth: 60, constHeight: 80)
+//        dropdown.anchorWith_TopLeftBottomRight_Padd(top: usertf.topAnchor, left: usertf.leadingAnchor, bottom: nil, right: nil, padd: .init(top: 5, left: 10, bottom: 0, right: 0))
+//        dropdown.anchorWith_WidthHeight(width: nil, height: nil, constWidth: 100, constHeight: 80)
+//        dropdown.backgroundColor = .white
+      
         
         FrmDate.anchorWith_TopLeftBottomRight_Padd(top: usertf.bottomAnchor, left: usertf.leadingAnchor, bottom: nil, right: usertf.trailingAnchor, padd: .init(top: 20, left: 0, bottom: 0, right: 0))
         FrmDate.anchorWith_Height(height: usertf.heightAnchor, const: 1)
@@ -594,4 +641,154 @@ extension HistoryVC{
         //self.tblProfile.isScrollEnabled = false
     }
 
+}
+protocol dropDownProtocol {
+    func dropDownPressed(string : String)
+}
+
+protocol Settextfielvalue {
+    func Settextfielvaluemine (string : String)
+}
+
+class dropDownBtn: UIButton, dropDownProtocol {
+    
+    func dropDownPressed(string: String) {
+        self.setTitle(string, for: .normal)
+        self.dismissDropDown()
+        dropdowndelegete!.Settextfielvaluemine(string: string)
+        
+    }
+    
+    var dropView = dropDownView()
+    
+    var dropdowndelegete:Settextfielvalue?
+    
+    var height = NSLayoutConstraint()
+    
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        self.backgroundColor = UIColor.white
+        
+        dropView = dropDownView.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: 0))
+        dropView.delegate = self
+        dropView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    override func didMoveToSuperview() {
+        self.superview?.addSubview(dropView)
+        self.superview?.bringSubviewToFront(dropView)
+        dropView.topAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        dropView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        dropView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        height = dropView.heightAnchor.constraint(equalToConstant: 0)
+    }
+    
+    var isOpen = false
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if isOpen == false {
+            
+            isOpen = true
+            
+            NSLayoutConstraint.deactivate([self.height])
+            
+            if self.dropView.tableView.contentSize.height > 150 {
+                self.height.constant = 150
+            } else {
+                self.height.constant = self.dropView.tableView.contentSize.height
+            }
+            
+            
+            NSLayoutConstraint.activate([self.height])
+            
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
+                self.dropView.layoutIfNeeded()
+                self.dropView.center.y += self.dropView.frame.height / 2
+            }, completion: nil)
+            
+        } else {
+            isOpen = false
+            
+            NSLayoutConstraint.deactivate([self.height])
+            self.height.constant = 0
+            NSLayoutConstraint.activate([self.height])
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
+                self.dropView.center.y -= self.dropView.frame.height / 2
+                self.dropView.layoutIfNeeded()
+            }, completion: nil)
+            
+        }
+    }
+    
+    func dismissDropDown() {
+        isOpen = false
+        NSLayoutConstraint.deactivate([self.height])
+        self.height.constant = 0
+        NSLayoutConstraint.activate([self.height])
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
+            self.dropView.center.y -= self.dropView.frame.height / 2
+            self.dropView.layoutIfNeeded()
+        }, completion: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class dropDownView: UIView, UITableViewDelegate, UITableViewDataSource  {
+    
+    var dropDownOptions = [String]()
+    
+    var tableView = UITableView()
+    
+    var delegate : dropDownProtocol!
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        tableView.backgroundColor = UIColor.white
+        self.backgroundColor = UIColor.white
+        
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.addSubview(tableView)
+        
+        tableView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        tableView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dropDownOptions.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        
+        cell.textLabel?.text = dropDownOptions[indexPath.row]
+        cell.backgroundColor = UIColor.white
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.delegate.dropDownPressed(string: dropDownOptions[indexPath.row])
+        self.tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
 }

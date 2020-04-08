@@ -15,6 +15,9 @@ struct ValidEmailid{
 struct CustomValue{
     static var Value = NSArray()
 }
+struct Userlist{
+    static var GETNAME = ["All"]
+}
 
 struct SIZE{
     
@@ -48,6 +51,7 @@ struct STRING {
     static let SUPPORT = "api/user/mysupport"
     static let IMAGE = "api/qrcode/addphoto"
     static let HISTORY = "api/qrcode/searchhistory"
+    static let USERS = "api/user/getusers"
     static let SERVER_ERROR = "Unable to Fetch Data."
     static let INTERNET_CONNECTION = "Internet Connection Error"
     static let INVALID_USER = "Invalid User"
@@ -55,7 +59,7 @@ struct STRING {
 }
 
 
-struct USERDEFAULT {
-    static let USERNAME = "username"
-    static let PASSWORD = "password"
-}
+//struct USERDEFAULT {
+//    static let USERNAME = "username"
+//    static let PASSWORD = "password"
+//}

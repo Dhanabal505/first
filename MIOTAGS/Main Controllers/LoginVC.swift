@@ -104,6 +104,7 @@ class LoginVC: UIViewController  {
          SetSubViews()
          layout()
          Remember()
+         Terms()
          setTapGesture()
         
     }
@@ -159,6 +160,20 @@ class LoginVC: UIViewController  {
             remember.isChecked = true
         } else {
             remember.isChecked = false
+        }
+    }
+    
+    func Terms(){
+        
+        
+        let defaultstr: UserDefaults? = UserDefaults.standard
+        
+        
+        if (defaultstr?.bool(forKey: "Terms"))! {
+           
+            terms.isChecked = true
+        } else {
+            terms.isChecked = false
         }
     }
     
@@ -282,7 +297,12 @@ class LoginVC: UIViewController  {
             defaults?.set(false, forKey: "Remember")
 
         }
-        
+        let defaultstr: UserDefaults? = UserDefaults.standard
+        if terms.isChecked == true {
+            defaultstr?.set(true, forKey: "Terms")
+        }else{
+            defaultstr?.set(true, forKey: "Terms")
+        }
         guard usne.text?.count != 0 else {
             self.makeToast(strMessage: "Username is empty")
             return

@@ -215,7 +215,7 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
                         else{
                             completion(nil,.noDataAvailable)
                         }
-                    }else if dicData["status"] != nil{
+                    }else if dicData["statuscode"] != nil{
                         if let message = dicData["message"] as? String{
                             completion(message,nil)
                         }
@@ -559,4 +559,57 @@ else{
 }
 
 
+
+
+public static func getAPI(path:String,completion:@escaping(Any?,ErrorHandler?)->Void){
+    
+    Alamofire.request(BASE_PATH+path, method: .get, parameters: [:], headers: HeaderWithToken).responseJSON { (response) in
+        print("Response Data - \(response)")
+        if let result = response.value{
+            if let dicData = result as? NSDictionary{
+                if dicData["statuscode"] != nil && (dicData["statuscode"]as! String) == "1"{
+                    if dicData["data"] != nil{
+                        
+                        let MyUser = dicData["data"] as! NSArray
+                        print(MyUser)
+                        
+                        let Usrdata = NSMutableArray(array: MyUser)
+                        
+                        for UName in Usrdata{
+                            
+                            if let dict = (UName as? NSDictionary){
+                                
+                                
+                                if let unamed = dict.object(forKey: "UserName") as? String{
+                                    
+                                    let Name = unamed
+                                    Userlist.GETNAME.append(Name)
+                                    print(Userlist.GETNAME)
+                                }
+                            }
+                        }
+                        completion(dicData["data"] as! Any,nil)
+                    }
+                                    
+                    else{
+                        completion(nil,.noDataAvailable)
+                    }
+                }
+                else if dicData["statuscode"] != nil{
+                    if let message = dicData["message"] as? String{
+                        completion(message,nil)
+                    }
+                    else{
+                        completion(nil,.noDataAvailable)
+                    }
+                }
+                
+            }
+        }
+        else{
+            completion(nil,.connectionError)
+        }
+    }
+    
+}
 }

@@ -105,7 +105,7 @@ class TapScanVC: UIViewController,CLLocationManagerDelegate {
         setTapGesture()
          layout()
         attributetext()
-        
+        initialData()
         locManager.requestWhenInUseAuthorization()
         
         
@@ -305,6 +305,37 @@ class TapScanVC: UIViewController,CLLocationManagerDelegate {
             break
         }
        validasset()
+    }
+    
+    
+    func initialData(){
+        
+        let loader = LoaderView()
+        loader.showLoader()
+        
+        //User.userId
+        
+        
+        
+        
+        APIs.getAPI(path: STRING.USERS) { (record, error) in
+            loader.hideLoader()
+            
+            if error != nil{
+                switch error {
+                case .noDataAvailable?:
+                    self.makeToast(strMessage: STRING.NO_DATA)
+                    break
+                case .connectionError?:
+                    self.makeToast(strMessage: STRING.INTERNET_CONNECTION)
+                    break
+                default:
+                    print("no data")
+                    self.makeToast(strMessage: STRING.SERVER_ERROR)
+                }
+                return
+            }
+        }
     }
     
   public func validasset(){
