@@ -10,19 +10,12 @@ import UIKit
 
 class NotesVC: UIViewController {
 
-    
+    var Mynotes:NSArray = Noteslist.NOTES
     
     lazy var Header:CustomMenuHeader={
         let side = CustomMenuHeader(title: "")
         return side!
     }()
-    
-    lazy var tableview:UITableView={
-        let tv = UITableView()
-        tv.separatorStyle = .none
-        return tv
-    }()
-    
     
     lazy var noteslogo:UIImageView={
         let img = UIImageView()
@@ -58,29 +51,62 @@ class NotesVC: UIViewController {
         return lbl
     }()
     
-    lazy var mytxtvw : CustomTXTVW={
-        let txtvw = CustomTXTVW()
-        return txtvw
+    lazy var Myscroll:UIScrollView={
+        let scrl = UIScrollView()
+        return scrl
     }()
     
-     var ArrLinks = NSMutableArray()
+    let myview = UIView()
+    
+    lazy var addnotelbl:UILabel={
+        let lbl = UILabel()
+        lbl.text = "Add note"
+        lbl.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        lbl.translatesAutoresizingMaskIntoConstraints=false
+        return lbl
+    }()
+    
+    lazy var cancel:UIButton={
+        let btn = UIButton()
+        btn.setImage(UIImage(named: "cancel"), for: .normal)
+        btn.addTarget(self, action: #selector(cancelact), for: .touchUpInside)
+        btn.translatesAutoresizingMaskIntoConstraints=false
+        return btn
+    }()
+    
+    
+    lazy var notetext:UITextView={
+        let txt = UITextView()
+        txt.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        txt.translatesAutoresizingMaskIntoConstraints=false
+        return txt
+    }()
+    
+    lazy var addbtn:CustomBTN={
+        let btn = CustomBTN(title: "Add Note")
+        btn.addTarget(self, action: #selector(APICallingfunc), for: .touchUpInside)
+        btn.translatesAutoresizingMaskIntoConstraints=false
+        return btn
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-      
+        myview.isHidden = true
         
         view.addSubview(Header)
         view.addSubview(noteslogo)
         view.addSubview(mytitle)
         view.addSubview(back)
-        view.addSubview(tableview)
         view.addSubview(addnote)
         view.addSubview(noteplus)
-        view.addSubview(mytxtvw)
+        view.addSubview(Myscroll)
+        view.addSubview(myview)
+        
         translate()
         layout()
-        
+        notes()
+       setTapGesture()
         
         back.addTarget(self, action: #selector(backact), for: .touchUpInside)
         self.navigationController?.navigationItem.backBarButtonItem?.isEnabled = false
@@ -99,29 +125,166 @@ class NotesVC: UIViewController {
     }
     
     @objc func addnotesact(){
-        let vc = storyboard?.instantiateViewController(withIdentifier: "AddnoteVC") as! AddnoteVC
-        navigationController?.pushViewController(vc, animated: true)
-        self.addChild(vc)
-        vc.view.frame = self.view.frame
-        self.view.addSubview(vc.view)
-        vc.didMove(toParent: self)
+
+        myview.isHidden = false
     }
     
-    @objc func handleAddLink(){
-        let temp = [String:Any]()
-        popAddLink(data: temp,index: "")
+    @objc func cancelact(){
+        
+        myview.isHidden = true
     }
     
-    func popAddLink(data:[String:Any],index:String){
-        let add = AddnoteVC()
-        add.myprotocol = self
-        add.EditData = data
-        add.Index = index
-        present(add, animated: true, completion: nil)
+    func setTapGesture(){
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleDismissed))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+    }
+    @objc func handleDismissed(){
+        self.view.endEditing(true)
     }
     
     func notes(){
         
+        var Y:CGFloat = 20
+        
+//        for subview in Myscroll.subviews{
+//
+//            subview.removeFromSuperview()
+//        }
+        
+        for datas in Mynotes{
+            
+            let dict = datas as? NSDictionary
+            if let getnotes = dict!["note"] as? String {
+            
+          var mytxtvw : CustomTXTVW={
+            let txtvw = CustomTXTVW()
+            return txtvw
+        }()
+        
+        mytxtvw.translatesAutoresizingMaskIntoConstraints=false
+        
+        Myscroll.addSubview(mytxtvw)
+                
+                mytxtvw.text = getnotes
+                
+                mytxtvw.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: Myscroll.topAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: Y, left: 0, bottom: 0, right: 0))
+                mytxtvw.anchorWith_WidthHeight(width: view.widthAnchor, height: nil, constWidth: 0.9, constHeight: SIZE.TEXTVW_HEIGHT)
+                
+                Y += 150
+                
+                Myscroll.contentSize.height = Y
+            }
+        }
+    }
+    
+    @objc func APICallingfunc(){
+        
+        validsupport()
+        
+        validasset()
+    }
+    
+    func validasset(){
+        let StrAsset = "1234"
+        let StrUserid = User.userId!
+        let getdata = ["assetId":StrAsset,"userId":StrUserid] as! [String:String]
+        AssetAPI(data: getdata)
+    }
+    
+    func AssetAPI(data:[String:String]){
+        
+        
+        let loader = LoaderView()
+        loader.showLoader()
+        
+        
+        
+        APIs.asset(data: data) { (record,error) in
+            loader.hideLoader()
+            
+            
+            if error != nil{
+                switch error {
+                case .connectionError?:
+                    print("Connection Error")
+                    self.makeToast(strMessage: "No Internet Connection")
+                    break
+                case .noDataAvailable?:
+                    print("No Data Available")
+                    self.makeToast(strMessage: "Invalid Asset ID")
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "Tagfailure") as! Tagfailure
+                    self.navigationController?.pushViewController(vc, animated: true)
+                    break
+                case .serverError?:
+                    print("Server Error")
+                    self.makeToast(strMessage: "Server Error")
+                    break
+                case .invalidData?:
+                    print("Invalid Data")
+                    self.makeToast(strMessage: "Inavlid Asset ID")
+                    break
+                default:
+                    print("No Data")
+                }
+                return
+            }
+            
+        }
+    }
+    
+    
+    func validsupport(){
+        
+        let AssetID = 1234
+        let Notes = notetext.text!
+        
+        let getdata = ["assetId":AssetID,"note":Notes] as! [String:Any]
+        InitialAPI(data: getdata)
+    }
+    
+    
+    func InitialAPI(data:[String:Any]){
+        
+        let loader = LoaderView()
+        loader.showLoader()
+        
+        APIs.postAPI(path: STRING.ADDNOTE, data: data){ (record,error) in
+            loader.hideLoader()
+            
+            
+            
+            if error != nil{
+                switch error {
+                case .connectionError?:
+                    print("Connection Error")
+                    self.makeToast(strMessage: "No Internet Connection")
+                    break
+                case .noDataAvailable?:
+                    print("No Data Available")
+                    self.makeToast(strMessage: "No Data Available")
+                    break
+                case .serverError?:
+                    print("Server Error")
+                    self.makeToast(strMessage: "Server Error")
+                    break
+                case .invalidData?:
+                    print("Invalid Data")
+                    self.makeToast(strMessage: "Server Error")
+                    break
+                default:
+                    print("No Data")
+                }
+                return
+            }
+            
+            self.makeToast(strMessage: "Note Added Successfully")
+            
+            self.myview.isHidden = true
+            
+           
+            
+        }
         
     }
 
@@ -131,8 +294,8 @@ class NotesVC: UIViewController {
         noteslogo.translatesAutoresizingMaskIntoConstraints=false
         mytitle.translatesAutoresizingMaskIntoConstraints=false
         back.translatesAutoresizingMaskIntoConstraints=false
-        mytxtvw.translatesAutoresizingMaskIntoConstraints=false
-        
+        Myscroll.translatesAutoresizingMaskIntoConstraints=false
+        myview.translatesAutoresizingMaskIntoConstraints=false
     }
     
     func layout(){
@@ -159,82 +322,40 @@ class NotesVC: UIViewController {
         noteplus.anchorWith_XY_Padd(x: addnote.centerXAnchor, y: nil)
         noteplus.anchorWith_TopLeftBottomRight_Padd(top: addnote.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 10, left: 0, bottom: 0, right: 0))
         
+        Myscroll.anchorWith_TopLeftBottomRight_Padd(top: noteplus.bottomAnchor, left: view.leadingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, padd: .init(top: 30, left: 0, bottom: 0, right: 0))
+        Myscroll.contentSize.height = 1200
         
-       
+        myview.anchorWith_XY_Padd(x: view.centerXAnchor, y: view.centerYAnchor)
+        myview.anchorWith_WidthHeight(width: view.widthAnchor, height: nil, constWidth: 1, constHeight: 300)
+        myview.backgroundColor = UIColor.lightGray
+        myview.layer.borderColor = UIColor.black.cgColor
+        myview.layer.borderWidth = 2
+        myview.addSubview(addnotelbl)
+        myview.addSubview(cancel)
+        myview.addSubview(notetext)
+        myview.addSubview(addbtn)
+        
+        
+        addnotelbl.anchorWith_TopLeftBottomRight_Padd(top: myview.topAnchor, left: myview.leadingAnchor, bottom: nil, right: nil, padd: .init(top: 15, left: 20, bottom: 0, right: 0))
+        
+        cancel.anchorWith_XY_Padd(x: nil, y: addnotelbl.centerYAnchor)
+        cancel.anchorWith_TopLeftBottomRight_Padd(top: nil, left: nil, bottom: nil, right: myview.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: -5))
+        cancel.anchorWith_Height(height: nil, const: 30)
+        cancel.imageView?.contentMode = .scaleAspectFit
+        
+        
+        notetext.anchorWith_TopLeftBottomRight_Padd(top: addnotelbl.bottomAnchor, left: addnotelbl.leadingAnchor, bottom: nil, right: nil, padd: .init(top: 20, left: 0, bottom: 0, right: 0))
+        notetext.anchorWith_WidthHeight(width: myview.widthAnchor, height: nil, constWidth: 0.9, constHeight: SIZE.TEXTVW_HEIGHT)
+        notetext.layer.borderColor = UIColor().hexToColor(hex: "#4fc3f7").cgColor
+        notetext.layer.borderWidth = 2
+        notetext.layer.cornerRadius = 10
+        
+        addbtn.anchorWith_TopLeftBottomRight_Padd(top: notetext.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 15, left: 0, bottom: 0, right: 0))
+        addbtn.anchorWith_XY_Padd(x: notetext.centerXAnchor, y: nil)
+        addbtn.anchorWith_WidthHeight(width: myview.widthAnchor, height: nil, constWidth: 0.4, constHeight: SIZE.SEARCH_HEIGHT)
+        
+        
     }
    
 }
 
-
-
-
-extension NotesVC: UITableViewDelegate,UITableViewDataSource {
-    
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       
-      print("Section - \(section)")
-
-//        if section == 0{
-//
-//            return 0
-//        }
-//        else {
-//
-//            return 1
-//        }
-       return ArrLinks.count
-    }
-    
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-       // if indexPath.section == 0{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! Notescell
-            
-            let Notes = ArrLinks[indexPath.row] as! [String : Any]
-        
-            if let note = Notes["note"] as? String{
-                cell.mytxtvw.text = note
-           }
-            return cell
-        }
-            
-//        else{
-//
-//             let cell = tableView.dequeueReusableCell(withIdentifier: "cell2", for: indexPath) as! buttoncell
-//            cell.addnote.addTarget(self, action: #selector(addnotesact), for: .touchUpInside)
-//            print("Section2")
-//            return cell
-//        }
-        
-        
-   // }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
-    }
-    
-
-
-}
-extension NotesVC:Addnoteprotocol{
-    func setnote(strnote: String, index: String) {
-        print("received data - \(strnote)")
-        
-        let data = ["Add Note" : strnote] as [String : Any]
-        if index != ""{
-            let temp = Int(index)
-            ArrLinks.removeObject(at: temp!)
-            ArrLinks.insert(data, at: temp!)
-        }else{
-            ArrLinks.add(data)
-        }
-        tableview.reloadData()
-    }
-    
-    
-}

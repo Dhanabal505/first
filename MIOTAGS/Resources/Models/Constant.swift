@@ -18,6 +18,9 @@ struct CustomValue{
 struct Userlist{
     static var GETNAME = ["All"]
 }
+struct Noteslist{
+    static var NOTES = NSArray()
+}
 
 struct SIZE{
     
@@ -36,7 +39,7 @@ struct SIZE{
     static let SEARCH_HEIGHT:CGFloat = 50
     static let MENUBTN_HEIGHT:CGFloat = 80
     static let MENUICON_HEIGHT:CGFloat = 30
-    static let TEXTVW_HEIGHT:CGFloat = 170
+    static let TEXTVW_HEIGHT:CGFloat = 130
     static let DATAVIEW_HEIGHT:CGFloat = 80
     static let DATAIMG_HEIGHT:CGFloat = 40
     static let INFOTXT_HEIGHT:CGFloat = 60
@@ -51,6 +54,7 @@ struct STRING {
     static let SUPPORT = "api/user/mysupport"
     static let IMAGE = "api/qrcode/addphoto"
     static let HISTORY = "api/qrcode/searchhistory"
+    static let ADDNOTE = "api/qrcode/addnote"
     static let USERS = "api/user/getusers"
     static let SERVER_ERROR = "Unable to Fetch Data."
     static let INTERNET_CONNECTION = "Internet Connection Error"

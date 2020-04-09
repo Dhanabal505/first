@@ -289,7 +289,7 @@ class CustomTXTVW : UITextView {
     
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
-        
+        txtvwdsn()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -298,8 +298,9 @@ class CustomTXTVW : UITextView {
     
     func txtvwdsn(){
         self.layer.borderColor = UIColor().hexToColor(hex: "#4fc3f7").cgColor
-        self.layer.borderWidth = 2
-        self.layer.cornerRadius = 10
+        self.layer.borderWidth = 5
+        self.layer.cornerRadius = 15
+        self.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
     }
     
 }
