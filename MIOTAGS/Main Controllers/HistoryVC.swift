@@ -19,11 +19,7 @@ class HistoryVC: UIViewController,Settextfielvalue{
     
     var MYADDRESS:String?
     
-   // var list = ["1", "2", "3"]
-    
     var list = Userlist.GETNAME
-    
-    //var dropdown = UIPickerView()
     
     var button = dropDownBtn()
 
@@ -148,25 +144,18 @@ class HistoryVC: UIViewController,Settextfielvalue{
     
      let Identifiers = "cell"
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         view.addSubview(Myscroll)
         view.addSubview(Header)
-       // view.addSubview(dropdown)
         translate()
         layout()
-        setTapGesture()
         DropDownbtn()
-        print(Userlist.GETNAME)
+        setTapGesture()
         
        tblProfile.isHidden = true
-     //  dropdown.delegate = self
-       // dropdown.isHidden = true
+    
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -191,7 +180,7 @@ class HistoryVC: UIViewController,Settextfielvalue{
         EndDate.translatesAutoresizingMaskIntoConstraints=false
         Asset.translatesAutoresizingMaskIntoConstraints=false
         back.translatesAutoresizingMaskIntoConstraints=false
-        //dropdown.translatesAutoresizingMaskIntoConstraints=false
+    
     }
     
     
@@ -203,8 +192,6 @@ class HistoryVC: UIViewController,Settextfielvalue{
         tblProfile.separatorStyle = .none
        
     }
-    
-    
     
     @objc func backact(){
         self.navigationController?.popViewController(animated: true)
@@ -220,6 +207,8 @@ class HistoryVC: UIViewController,Settextfielvalue{
         self.FrmDate.resignFirstResponder()
        
     }
+    
+    
     func Settextfielvaluemine(string: String) {
         usertf.text = string
         Myusername = string
@@ -268,49 +257,7 @@ class HistoryVC: UIViewController,Settextfielvalue{
       
     }
     
-   
-    
-//    public func numberOfComponents(in pickerView: UIPickerView) -> Int{
-//        return 1
-//
-//    }
-//
-//    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
-//
-//        return list.count
-//
-//    }
-//
-//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//
-//        self.view.endEditing(true)
-//        return list[row]
-//
-//    }
-//
-//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//
-//         self.dropdown.isHidden = true
-//        self.usertf.text = self.list[row]
-//
-//
-//    }
-//
-//    func textFieldDidBeginEditing(_ textField: UITextField) {
-//
-//        self.dropdown.isHidden = false
-//        if textField == self.usertf {
-//            self.dropdown.isHidden = false
-//            //if you dont want the users to se the keyboard type:
-//
-//            textField.endEditing(true)
-//            usertf.endEditing(true)
-//
-//
-//
-//        }
-//
-//    }
+
     
     @objc func doneButtonpress(){
         if let  datePicker = self.EndDate.inputView as? UIDatePicker {
@@ -397,7 +344,7 @@ class HistoryVC: UIViewController,Settextfielvalue{
             if arrhistory.count == 1{
                 let data = arrhistory[0] as! NSDictionary
                 
-               // self.redirect(data: data)
+               
             }
             
             
@@ -418,9 +365,7 @@ class HistoryVC: UIViewController,Settextfielvalue{
         
         var center : CLLocationCoordinate2D = CLLocationCoordinate2D()
         let lat: Double = Double("\(pdblLatitude)")!
-        //21.228124
         let lon: Double = Double("\(pdblLongitude)")!
-        //72.833770
         let ceo: CLGeocoder = CLGeocoder()
         center.latitude = lat
         center.longitude = lon
@@ -478,7 +423,6 @@ class HistoryVC: UIViewController,Settextfielvalue{
                 
                 })
         
-       // return addressString
     }
 }
 extension HistoryVC:UITableViewDelegate,UITableViewDataSource{
@@ -587,12 +531,7 @@ extension HistoryVC{
         
         usertf.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: Historyimg.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 80, left: 0, bottom: 0, right: 0))
         usertf.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 0.9, constHeight: SIZE.HISTXT_HEIGHT)
-        //usertf.addSubview(dropdown)
         
-//        dropdown.anchorWith_TopLeftBottomRight_Padd(top: usertf.topAnchor, left: usertf.leadingAnchor, bottom: nil, right: nil, padd: .init(top: 5, left: 10, bottom: 0, right: 0))
-//        dropdown.anchorWith_WidthHeight(width: nil, height: nil, constWidth: 100, constHeight: 80)
-//        dropdown.backgroundColor = .white
-      
         
         FrmDate.anchorWith_TopLeftBottomRight_Padd(top: usertf.bottomAnchor, left: usertf.leadingAnchor, bottom: nil, right: usertf.trailingAnchor, padd: .init(top: 20, left: 0, bottom: 0, right: 0))
         FrmDate.anchorWith_Height(height: usertf.heightAnchor, const: 1)
@@ -628,8 +567,6 @@ extension HistoryVC{
         idimg.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: dataview.centerYAnchor, top: nil, left: dataview.leadingAnchor, bottom: nil, right: nil, padd: .init(top: 0, left: 20, bottom: 0, right: 0))
         idimg.anchorWith_WidthHeight(width: nil, height: nil, constWidth: 40, constHeight: SIZE.DATAIMG_HEIGHT)
         
-        
-        
         userimg.anchorWith_XY_TopLeftBottomRight_Padd(x: nil, y: dataview.centerYAnchor, top: nil, left: idimg.trailingAnchor, bottom: nil, right: nil, padd: .init(top: 0, left: 80, bottom: 0, right: 0))
         userimg.anchorWith_WidthHeight(width: nil, height: nil, constWidth: 40, constHeight: SIZE.DATAIMG_HEIGHT)
        
@@ -644,7 +581,7 @@ extension HistoryVC{
         
         tblProfile.anchorWith_XY_TopLeftBottomRight_Padd(x: Mydatascroll.centerXAnchor, y: nil, top: dataview.bottomAnchor, left: Mydatascroll.leadingAnchor, bottom: Myscroll.bottomAnchor, right: nil, padd: .init(top: 20, left: 0, bottom: 0, right: 0))
         tblProfile.anchorWith_WidthHeight(width: nil, height: nil, constWidth:0, constHeight: 600)
-        //self.tblProfile.isScrollEnabled = false
+       
     }
 
 }
@@ -659,7 +596,7 @@ protocol Settextfielvalue {
 class dropDownBtn: UIButton, dropDownProtocol {
     
     func dropDownPressed(string: String) {
-      //  self.setTitle(string, for: .normal)
+      
         self.dismissDropDown()
         dropdowndelegete!.Settextfielvaluemine(string: string)
         

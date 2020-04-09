@@ -260,7 +260,20 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
                                  let imgarr = NSMutableArray(array: images)
                                 
                                 
-                              
+                               let note = mydata!["notes"] as! NSArray
+                                
+                                let notearr = NSMutableArray(array: note)
+                                
+                                for mynotes in notearr {
+                                    
+                                    if let dict = (mynotes as? NSDictionary){
+                                        
+                                        if let mynote = dict.object(forKey: "note") as? String {
+                                            
+                                        }
+                                    }
+                                    
+                                }
                                 
                                 for picimg in imgarr{
                                  
@@ -303,10 +316,6 @@ public static func login(data:[String:String],completion:@escaping(User?,ErrorHa
                                                     }
                                                 }
                                             
-                                               
-                                               
-                                                
-                                                
                                             }
                                         }
                                         

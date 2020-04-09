@@ -285,7 +285,24 @@ class HistoryTF : JVFloatLabeledTextField {
     
 }
 
-
+class CustomTXTVW : UITextView {
+    
+    override init(frame: CGRect, textContainer: NSTextContainer?) {
+        super.init(frame: frame, textContainer: textContainer)
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func txtvwdsn(){
+        self.layer.borderColor = UIColor().hexToColor(hex: "#4fc3f7").cgColor
+        self.layer.borderWidth = 2
+        self.layer.cornerRadius = 10
+    }
+    
+}
 
 
 

@@ -58,6 +58,11 @@ class NotesVC: UIViewController {
         return lbl
     }()
     
+    lazy var mytxtvw : CustomTXTVW={
+        let txtvw = CustomTXTVW()
+        return txtvw
+    }()
+    
      var ArrLinks = NSMutableArray()
     
     override func viewDidLoad() {
@@ -72,6 +77,7 @@ class NotesVC: UIViewController {
         view.addSubview(tableview)
         view.addSubview(addnote)
         view.addSubview(noteplus)
+        view.addSubview(mytxtvw)
         translate()
         layout()
         
@@ -113,6 +119,11 @@ class NotesVC: UIViewController {
         add.Index = index
         present(add, animated: true, completion: nil)
     }
+    
+    func notes(){
+        
+        
+    }
 
 
     func translate(){
@@ -120,7 +131,7 @@ class NotesVC: UIViewController {
         noteslogo.translatesAutoresizingMaskIntoConstraints=false
         mytitle.translatesAutoresizingMaskIntoConstraints=false
         back.translatesAutoresizingMaskIntoConstraints=false
-        tableview.translatesAutoresizingMaskIntoConstraints=false
+        mytxtvw.translatesAutoresizingMaskIntoConstraints=false
         
     }
     
@@ -148,13 +159,7 @@ class NotesVC: UIViewController {
         noteplus.anchorWith_XY_Padd(x: addnote.centerXAnchor, y: nil)
         noteplus.anchorWith_TopLeftBottomRight_Padd(top: addnote.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 10, left: 0, bottom: 0, right: 0))
         
-        tableview.anchorWith_TopLeftBottomRight_Padd(top: addnote.bottomAnchor, left: view.leadingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, padd: .init(top: 100, left: 0, bottom: 0, right: 0))
-        tableview.backgroundColor = UIColor.white.withAlphaComponent(0.4)
-        tableview.delegate = self
-        tableview.dataSource = self
-        tableview.separatorColor = UIColor.clear
-        tableview.register(Notescell.self, forCellReuseIdentifier: "cell")
-        tableview.register(buttoncell.self, forCellReuseIdentifier: "cell2")
+        
        
     }
    

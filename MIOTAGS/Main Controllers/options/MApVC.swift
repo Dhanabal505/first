@@ -9,6 +9,8 @@
 import UIKit
 import MapKit
 import CoreLocation
+
+
 class MApVC: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate {
     
     var locationManager:CLLocationManager!
@@ -264,24 +266,19 @@ class MApVC: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate {
         maplogo.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 0.2, constHeight: 0.1)
         maplogo.image = UIImage(named: "maplogo")
         
+        
         myview.anchorWith_XY_Padd(x: view.centerXAnchor, y: view.centerYAnchor,padd: .init(top: 50, left: 0, bottom: 0, right: 0))
         myview.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 0.8, constHeight: 0.35)
-        
-        
         myview.viewlayout()
         myview.addSubview(mapView)
-        
         
         
         mapView.anchorWith_XY_Padd(x: myview.centerXAnchor, y: myview.centerYAnchor)
         mapView.center = view.center
         mapView.anchorWith_WidthHeight(width: myview.widthAnchor, height: myview.heightAnchor, constWidth: 0.95, constHeight: 0.95)
-       
         mapView.showsUserLocation = true
         mapView.layer.cornerRadius = 10
-        
-        
-        
+    
     }
 
 }

@@ -66,7 +66,7 @@ class SupportdoneVC: UIViewController {
         SetSubviews()
         translate()
         layout()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "SupportVC") as! SupportVC
             self.navigationController?.pushViewController(vc, animated: true)
         }

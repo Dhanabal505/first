@@ -139,8 +139,6 @@ class AddnoteVC: UIViewController {
         myview.addSubview(notetext)
         
        
-        
-        
         addnote.anchorWith_TopLeftBottomRight_Padd(top: myview.topAnchor, left: myview.leadingAnchor, bottom: nil, right: nil, padd: .init(top: 15, left: 20, bottom: 0, right: 0))
         
         cancel.anchorWith_XY_Padd(x: nil, y: addnote.centerYAnchor)

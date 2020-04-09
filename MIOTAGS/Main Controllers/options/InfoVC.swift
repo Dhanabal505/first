@@ -379,12 +379,7 @@ class InfoVC: UIViewController {
         Webtxt.translatesAutoresizingMaskIntoConstraints=false
     }
     
-//    @objc func prbtyact(){
-//        if let url = NSURL(string: Asset.prtyweb!){
-//            UIApplication.shared.openURL(url as URL)
-//        }
-//
-//    }
+
     
     func layout(){
         

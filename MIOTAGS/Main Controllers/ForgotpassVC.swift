@@ -71,15 +71,7 @@ class ForgotpassVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-//    @objc func sendact(){
-//
-//        guard email.text?.count != 0 else{
-//            self.makeToast(strMessage: "Email is Empty")
-//            return
-//        }
-//        ValidEmail()
-//
-//    }
+
     
     @objc func handleSubmit(){
         print("Submit")

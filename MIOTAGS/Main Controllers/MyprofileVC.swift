@@ -99,6 +99,8 @@ class MyprofileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         Setsubviews()
         setTapGesture()
         layout()

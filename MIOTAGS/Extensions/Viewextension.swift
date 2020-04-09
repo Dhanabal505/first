@@ -26,7 +26,7 @@ extension UIView {
 extension UIImageView {
     
     func Imglayout(){
-        self.backgroundColor = UIColor.init(patternImage: UIImage(named: "")!)
+        //self.backgroundColor = UIColor.init(patternImage: UIImage(named: "")!)
         self.backgroundColor = UIColor.lightGray
         self.layer.cornerRadius = 25
 

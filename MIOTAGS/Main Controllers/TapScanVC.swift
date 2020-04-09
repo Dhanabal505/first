@@ -101,6 +101,7 @@ class TapScanVC: UIViewController,CLLocationManagerDelegate {
         super.viewDidLoad()
         
         
+        Userlist.GETNAME = ["All"]
         Setsubview()
         setTapGesture()
          layout()
@@ -399,15 +400,15 @@ class TapScanVC: UIViewController,CLLocationManagerDelegate {
                     currentLocation = self.locManager.location
 
                 }
-//                print(currentLocation)
-//                
-//                self.Mylatitude = String(currentLocation.coordinate.latitude)
-//                self.Mylongtitude = String(currentLocation.coordinate.longitude)
-//
-//                print(self.Mylatitude!)
-//                print(self.Mylongtitude!)
-//
-//                self.locationAPI()
+                print(currentLocation)
+                
+                self.Mylatitude = String(currentLocation.coordinate.latitude)
+                self.Mylongtitude = String(currentLocation.coordinate.longitude)
+
+                print(self.Mylatitude!)
+                print(self.Mylongtitude!)
+
+                self.locationAPI()
            
                 
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "TagsuccessVC") as! TagsuccessVC
@@ -417,18 +418,12 @@ class TapScanVC: UIViewController,CLLocationManagerDelegate {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "Tagfailure") as! Tagfailure
                 self.navigationController?.pushViewController(vc, animated: true)
             }
-    
-
         }
    
     }
     
     func locationAPI(){
-        
-        
-        
-       
-        
+    
         let Strassetid = assetid.text!
         let loader = LoaderView()
         loader.showLoader()
@@ -464,6 +459,8 @@ class TapScanVC: UIViewController,CLLocationManagerDelegate {
             }
     }
     }
+    
+    
     func layout(){
         
         Header.anchorWith_TopLeftBottomRight_Padd(top: view.safeAreaLayoutGuide.topAnchor, left: view.leadingAnchor, bottom: nil, right: view.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: 0))

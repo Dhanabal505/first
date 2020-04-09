@@ -324,19 +324,7 @@ class LoginVC: UIViewController  {
         }
         validateLogin()
 
-//
-//        if usne.text!.count == 4  {
-//            let support = storyboard?.instantiateViewController(withIdentifier: "TapScanVC")as! TapScanVC
-//            navigationController?.pushViewController(support, animated: true)
-//
-//
-//        }
-//        else {
-//
-//            errorlable.isHidden = false
-//            labeltext()
-//            vLoginVwHeight?.constant = 290
-//        }
+
     }
     
    

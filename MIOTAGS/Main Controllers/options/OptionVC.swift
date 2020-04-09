@@ -137,11 +137,9 @@ class OptionVC: UIViewController {
     
     func layout(){
         
-        
         Header.anchorWith_TopLeftBottomRight_Padd(top: view.safeAreaLayoutGuide.topAnchor, left: view.leadingAnchor, bottom: nil, right: view.trailingAnchor, padd: .init(top: 0, left: 0, bottom: 0, right: 0))
         Header.anchorWith_Height(height: nil, const: SIZE.Header_Height)
-        
-        
+    
         
         info.anchorWith_XY_Padd(x: nil, y: view.centerYAnchor, padd: .init(top: -80, left: 0, bottom: 0, right: 0))
         info.anchorWith_TopLeftBottomRight_Padd(top: nil, left: view.leadingAnchor, bottom: nil, right: nil ,padd: .init(top: 0, left: 30, bottom: 0, right: 0))
@@ -166,10 +164,12 @@ class OptionVC: UIViewController {
         pics.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 0.25, constHeight: 0.1)
         pics.setImage(UIImage(named: "pics"), for: .normal)
         
+        
         web.anchorWith_XY_Padd(x: view.centerXAnchor, y: nil, padd: .init(top: 0, left: 0, bottom: 0, right: 0))
         web.anchorWith_TopLeftBottomRight_Padd(top: picslbkl.bottomAnchor, left: nil, bottom: nil, right: nil,padd: .init(top: 40, left: 0, bottom: 0, right: 0))
         web.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 0.25, constHeight: 0.1)
         web.setImage(UIImage(named: "web"), for: .normal)
+        
         
         ficha.lbl(name: "FICHA")
         ficha.anchorWith_XY_Padd(x: info.centerXAnchor, y: nil)
@@ -190,6 +190,7 @@ class OptionVC: UIViewController {
         picslbkl.anchorWith_XY_Padd(x: pics.centerXAnchor, y: nil)
         picslbkl.anchorWith_TopLeftBottomRight_Padd(top: pics.bottomAnchor, left: nil, bottom: nil, right: nil,padd: .init(top: 10, left: 0, bottom: 0, right: 0))
         
+        
         weblbl.lbl(name: "WEB")
         weblbl.anchorWith_XY_Padd(x: web.centerXAnchor, y: nil)
         weblbl.anchorWith_TopLeftBottomRight_Padd(top: web.bottomAnchor, left: nil, bottom: nil, right: nil,padd: .init(top: 10, left: 0, bottom: 0, right: 0))
@@ -204,12 +205,14 @@ class OptionVC: UIViewController {
         back.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 0.08, constHeight: 0.03)
         back.imageView?.contentMode = .scaleAspectFit
         
+       
         myview.anchorWith_TopLeftBottomRight_Padd(top: view.safeAreaLayoutGuide.topAnchor, left: nil, bottom: nil, right: nil,padd: .init(top: 100, left: 0, bottom: 0, right: 0))
         myview.anchorWith_XY_Padd(x: view.centerXAnchor, y: nil)
         myview.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 0.6, constHeight: 0.01)
         myview.backgroundColor = UIColor.white
         myview.layer.cornerRadius = 10
         
+       
         mylbl.anchorWith_TopLeftBottomRight_Padd(top: myview.bottomAnchor, left: nil, bottom: nil
             , right: nil,padd: .init(top: 10, left: 0, bottom: 0, right: 0))
         mylbl.anchorWith_XY_Padd(x: myview.centerXAnchor, y: nil)

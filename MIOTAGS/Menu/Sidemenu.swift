@@ -342,7 +342,7 @@ class SideMenuLauncher: NSObject{
         let yes = UIAlertAction(title: "YES", style: .default) { (action) in
             self.vc.navigationController?.popToRootViewController(animated: true)
             
-            Userlist.GETNAME = ["All"]
+            ValidEmailid.Mailid = ""
         }
         let no = UIAlertAction(title: "NO", style: .cancel, handler: nil)
         alert.addAction(yes)
