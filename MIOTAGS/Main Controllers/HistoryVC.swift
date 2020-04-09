@@ -15,6 +15,8 @@ class HistoryVC: UIViewController,Settextfielvalue{
     
     var Hdata:NSArray!
 
+    var Myusername = ""
+    
     var MYADDRESS:String?
     
    // var list = ["1", "2", "3"]
@@ -56,7 +58,10 @@ class HistoryVC: UIViewController,Settextfielvalue{
     
     lazy var usertf:HistoryTF={
         let tf = HistoryTF()
-        tf.placeholder = "User"
+        tf.placeholder = "Username"
+        tf.text = "All"
+        tf.isEnabled = false
+        tf.textColor = UIColor().hexToColor(hex: "#4fc3f7")
         return tf
     }()
 
@@ -217,6 +222,7 @@ class HistoryVC: UIViewController,Settextfielvalue{
     }
     func Settextfielvaluemine(string: String) {
         usertf.text = string
+        Myusername = string
         usertf.isEnabled = false
     }
     
@@ -244,15 +250,15 @@ class HistoryVC: UIViewController,Settextfielvalue{
     
     func DropDownbtn(){
         button = dropDownBtn.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        button.setTitle("All", for: .normal)
+        button.setTitle("", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .clear
         //Add Button to the View Controller
-        self.view.addSubview(button)
+        self.Myscroll.addSubview(button)
         
         //button Constraints
-        button.anchorWith_TopLeftBottomRight_Padd(top: usertf.bottomAnchor, left: nil, bottom: nil, right: usertf.trailingAnchor, padd: .init(top: -30, left: 0, bottom: 0, right: -10))
+        button.anchorWith_TopLeftBottomRight_Padd(top: usertf.bottomAnchor, left: usertf.leadingAnchor, bottom: nil, right: nil, padd: .init(top: -30, left: 10, bottom: 0, right: 0))
         button.widthAnchor.constraint(equalToConstant: 100).isActive = true
         button.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
@@ -323,7 +329,7 @@ class HistoryVC: UIViewController,Settextfielvalue{
     }
     
     func validsupport(){
-        var Myusername = ""
+        
         if usertf.text == "All" {
             Myusername = ""
         }else{
@@ -580,7 +586,7 @@ extension HistoryVC{
         Historyimg.anchorWith_WidthHeight(width: view.widthAnchor, height: view.heightAnchor, constWidth: 0.2, constHeight: 0.1)
         
         usertf.anchorWith_XY_TopLeftBottomRight_Padd(x: Myscroll.centerXAnchor, y: nil, top: Historyimg.bottomAnchor, left: nil, bottom: nil, right: nil, padd: .init(top: 80, left: 0, bottom: 0, right: 0))
-        usertf.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 0.8, constHeight: SIZE.HISTXT_HEIGHT)
+        usertf.anchorWith_WidthHeight(width: Myscroll.widthAnchor, height: nil, constWidth: 0.9, constHeight: SIZE.HISTXT_HEIGHT)
         //usertf.addSubview(dropdown)
         
 //        dropdown.anchorWith_TopLeftBottomRight_Padd(top: usertf.topAnchor, left: usertf.leadingAnchor, bottom: nil, right: nil, padd: .init(top: 5, left: 10, bottom: 0, right: 0))
@@ -653,7 +659,7 @@ protocol Settextfielvalue {
 class dropDownBtn: UIButton, dropDownProtocol {
     
     func dropDownPressed(string: String) {
-        self.setTitle(string, for: .normal)
+      //  self.setTitle(string, for: .normal)
         self.dismissDropDown()
         dropdowndelegete!.Settextfielvaluemine(string: string)
         

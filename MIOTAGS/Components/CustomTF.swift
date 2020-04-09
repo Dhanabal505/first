@@ -272,7 +272,7 @@ class HistoryTF : JVFloatLabeledTextField {
         self.layer.borderColor = UIColor().hexToColor(hex: "#4fc3f7").cgColor
         self.layer.cornerRadius = 15
         self.clipsToBounds = true
-        self.backgroundColor = .clear
+        self.backgroundColor = .white
         self.floatingLabelYPadding = 10
        
         
